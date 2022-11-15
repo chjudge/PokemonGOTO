@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var tabIndex = 1
+    
     var body: some View {
-        TabView() {
+        TabView(selection: $tabIndex) {
             
             PCView().tabItem {
                 Image(systemName: "car")
@@ -23,7 +26,7 @@ struct ContentView: View {
                     .imageScale(.large)
                     .foregroundColor(.accentColor)
                 Text("Map")
-            }
+            }.tag(1)
             
             PokedexView().tabItem {
                 Image(systemName: "info")
