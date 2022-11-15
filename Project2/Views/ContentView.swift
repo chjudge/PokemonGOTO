@@ -12,9 +12,9 @@ struct ContentView: View {
         TabView() {
             
             PCView().tabItem {
-                Image("pokedex")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                Image(systemName: "car")
+                    .imageScale(.large)
+                    .foregroundColor(.accentColor)
                 Text("PC")
             }
             
