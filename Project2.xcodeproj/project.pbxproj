@@ -168,6 +168,7 @@
 			files = (
 				010D75D72921C824004BF362 /* Preview Assets.xcassets in Resources */,
 				010D75D42921C824004BF362 /* Assets.xcassets in Resources */,
+				678DA41A292446A30053257A /* tasks.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Extravaganza",
+        "date": "February 7, 2022",
+        "time": "1 - 5pm",
+        "duration": 60
+        "reward":
+            {
+                "pokemon": "Machop"
+                "xp": 300
+            },
+        "party": "Rhos",
+        "location":
+            {
+                "longitude": 39.04894045,
+                "latitude": -94.48300340000002
+            }
+            
+    }
+]
+
+
