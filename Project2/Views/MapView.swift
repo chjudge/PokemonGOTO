@@ -10,7 +10,7 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
     
-    var VM: UserLocationModel = UserLocationModel.shared
+    @ObservedObject var VM: UserLocationModel = UserLocationModel.shared
     
 //    var region: MKCoordinateRegion {
 //        if let lat = VM.userLat, let lon = VM.userLon {

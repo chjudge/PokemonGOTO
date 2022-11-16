@@ -10,10 +10,26 @@ import PokemonAPI
 
 struct PokedexView: View {
     
-    
+    @ObservedObject var vm = PokedexViewModel()
     
     var body: some View {
-        Text("Hello, Pokedex!")
+        NavigationView {
+                    ScrollView {
+                        LazyVStack(spacing: 10) {
+                            ForEach(vm.filteredPokemon) { pokemon in
+                                NavigationLink(destination: PokemonDetailView(pokemon: pokemon)
+                                ) {
+                                    PokemonView(pokemon: pokemon)
+                                }
+                            }
+                        }
+                        .animation(.easeInOut(duration: 0.3), value: vm.filteredPokemon.count)
+                        .navigationTitle("PokemonUI")
+                        .navigationBarTitleDisplayMode(.inline)
+                    }
+                    .searchable(text: $vm.searchText)
+                }
+                .environmentObject(vm)
     }
 }
 
