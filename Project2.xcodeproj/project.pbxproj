@@ -23,6 +23,7 @@
 		BC38B05E29248192000174BF /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05D29248192000174BF /* PokemonDetailView.swift */; };
 		BC38B060292481D6000174BF /* PokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05F292481D6000174BF /* PokemonView.swift */; };
 		BC38B0622924822E000174BF /* PokemonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B0612924822E000174BF /* PokemonManager.swift */; };
+		BC38B06829249337000174BF /* PCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B06729249337000174BF /* PCViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		BC38B05D29248192000174BF /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		BC38B05F292481D6000174BF /* PokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonView.swift; sourceTree = "<group>"; };
 		BC38B0612924822E000174BF /* PokemonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonManager.swift; sourceTree = "<group>"; };
+		BC38B06729249337000174BF /* PCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			children = (
 				BC38B05029246704000174BF /* UserLocationModel.swift */,
 				BC38B05929247FC2000174BF /* PokedexViewModel.swift */,
+				BC38B06729249337000174BF /* PCViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				BC38B05A29247FC2000174BF /* PokedexViewModel.swift in Sources */,
 				010D75D22921C821004BF362 /* ContentView.swift in Sources */,
 				BC38B05E29248192000174BF /* PokemonDetailView.swift in Sources */,
+				BC38B06829249337000174BF /* PCViewModel.swift in Sources */,
 				BC38B04F292446D4000174BF /* PCView.swift in Sources */,
 				BC38B0622924822E000174BF /* PokemonManager.swift in Sources */,
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
