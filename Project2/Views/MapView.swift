@@ -33,20 +33,7 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ view: MKMapView, context: Context) {
         
-//        view.setRegion(region, animated: true)
-
-        view.showsUserLocation = true
-        VM.locationManager.requestAlwaysAuthorization()
-        VM.locationManager.requestWhenInUseAuthorization()
-        
-        if VM.locationManager.authorizationStatus == .authorizedAlways || VM.locationManager.authorizationStatus == .authorizedWhenInUse {
-            VM.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            VM.locationManager.startUpdatingLocation()
-            let location: CLLocationCoordinate2D = VM.locationManager.location!.coordinate
-            let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-            let region = MKCoordinateRegion(center: location, span: span)
-            view.setRegion(region, animated: true)
-        }
+        view.setRegion(region, animated: true)
         
     }
     
