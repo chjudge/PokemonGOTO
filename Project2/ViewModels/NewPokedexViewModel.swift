@@ -29,7 +29,7 @@ class NewPokedexViewModel: ObservableObject{
     
     init(){
         allPokemon = [PKMPokemon]()
-        await loadPokemon()
+        loadPokemon()
     }
 //
 //    func fetchPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
@@ -49,7 +49,7 @@ class NewPokedexViewModel: ObservableObject{
 //        }
 //    }
     
-    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
+    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) {
         pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState){ result in
             switch result{
             case .success(let pagedObject):
