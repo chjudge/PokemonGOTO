@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PokemonAPI
 
 struct PokemonPage: Decodable {
     let count: Int
@@ -20,6 +21,13 @@ struct Pokemon: Decodable, Identifiable, Equatable {
     
     static var samplePokemon = Pokemon(name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/")
 }
+
+//extension PKMPokemon : Equatable{
+//    public static func == (lhs: PokemonAPI.PKMPokemon, rhs: PokemonAPI.PKMPokemon) -> Bool {
+//        return lhs.id == rhs.id
+//    }
+//}
+
 
 struct DetailPokemon: Decodable {
     let id: Int

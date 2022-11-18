@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PokemonAPI
 
 struct ContentView: View {
     
@@ -30,6 +31,13 @@ struct ContentView: View {
             
             PokedexView().tabItem {
                 Image(systemName: "info")
+                    .imageScale(.large)
+                    .foregroundColor(.accentColor)
+                Text("Pokedex")
+            }
+            
+            NewPokedexView().tabItem{
+                Image(systemName: "person")
                     .imageScale(.large)
                     .foregroundColor(.accentColor)
                 Text("Pokedex")
