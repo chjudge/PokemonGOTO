@@ -11,6 +11,7 @@ import PokemonAPI
 struct NewPokedexView: View {
     @ObservedObject var VM = NewPokedexViewModel()
     
+    private let adaptiveColumns = [GridItem(.adaptive(minimum: 120))]
     
     var body: some View {
         mainContent
@@ -23,14 +24,14 @@ struct NewPokedexView: View {
                     Text("An error occurred: \(error.localizedDescription)")
                 }
                 ScrollView {
-                    VStack(spacing: 10) {
+                    LazyVGrid(columns: adaptiveColumns, spacing: 10) {
                         ForEach(VM.filteredPokemon, id: \.id) { pokemon in
                             NavigationLink(destination: NewPokemonDetailView(pokemon: pokemon)) {
                                 NewPokemonView(pokemon: pokemon)
                             }
                         }
                     }
-                    //j.animation(.easeInOut(duration: 0.3), value: VM.filteredPokemon)
+                    .animation(.easeInOut(duration: 0.3), value: VM.filteredPokemon)
                     .navigationTitle("PokemonUI")
                     .navigationBarTitleDisplayMode(.inline)
                 }

@@ -19,7 +19,6 @@ struct NewPokemonDetailView: View {
                 Text("**ID**: \(pokemon.id ?? 0)")
                 Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
                 Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
-                
             }
             .padding()
         }
