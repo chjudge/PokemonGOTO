@@ -18,12 +18,12 @@ struct PCView: View {
         NavigationView {
                     ScrollView {
                         LazyVStack(spacing: 10) {
-                            ForEach(vm.pokemon, id: \.self) { pokemon in
-                                NavigationLink(destination: PokemonDetailView(pokemon: pokemon)
-                                ) {
-                                    PokemonView(pokemon: pokemon)
-                                }
-                            }
+//                            ForEach(vm.pokemon, id: \.self) { pokemon in
+//                                NavigationLink(destination: PokemonDetailView(pokemon: pokemon)
+//                                ) {
+//                                    PokemonView(pokemon: pokemon)
+//                                }
+//                            }
                         }
                         .animation(.easeInOut(duration: 0.3), value: vm.count)
                         .navigationTitle("PC")
