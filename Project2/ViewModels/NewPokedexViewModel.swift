@@ -14,22 +14,23 @@ class NewPokedexViewModel: ObservableObject{
     
     
     @Published var searchText = ""
-    @Published var allPokemon: [PKMPokemon]
+    @Published var allPokemon: [PKMPokemon] = [PKMPokemon]()
     
     var filteredPokemon: [PKMPokemon] {
-        let list = searchText.isEmpty ? allPokemon : allPokemon.filter { $0.name!.contains(searchText.lowercased()) }
-        return list.sorted {$0.id! < $1.id!}
+        let list = searchText.isEmpty ? allPokemon : allPokemon.filter({ $0.name!.contains(searchText.lowercased()) })
+            return list.sorted {$0.id! < $1.id!}
+        
     }
     
 //    @Published var pagedObject: PKMPagedObject<PKMPokemon>?
 //    @Published var pageIndex = 0
     
-    init(){
-        allPokemon = [PKMPokemon]()
-        Task{
-            await loadPokemon()
-        }
-    }
+//    init(){
+//        allPokemon = [PKMPokemon]()
+//        Task{
+//            await loadPokemon()
+//        }
+//    }
 //
 //    func fetchPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
 //        do {

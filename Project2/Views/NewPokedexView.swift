@@ -19,11 +19,8 @@ struct NewPokedexView: View {
     var mainContent: some View {
         NavigationView{
             VStack {
-                if let error = VM.error {
-                    Text("An error occurred: \(error.localizedDescription)")
-                }
                 ScrollView {
-                    VStack(spacing: 10) {
+                    LazyVStack(spacing: 10) {
                         ForEach(VM.filteredPokemon, id: \.id) { pokemon in
                             NavigationLink(destination: NewPokemonDetailView(pokemon: pokemon)) {
                                 NewPokemonView(pokemon: pokemon)
@@ -33,6 +30,10 @@ struct NewPokedexView: View {
                     //j.animation(.easeInOut(duration: 0.3), value: VM.filteredPokemon)
                     .navigationTitle("PokemonUI")
                     .navigationBarTitleDisplayMode(.inline)
+                }.task {
+                    if VM.allPokemon.isEmpty{
+                        await VM.loadPokemon()
+                    }
                 }
                 .searchable(text: $VM.searchText)
             }

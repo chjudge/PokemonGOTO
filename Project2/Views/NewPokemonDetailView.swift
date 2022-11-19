@@ -16,7 +16,8 @@ struct NewPokemonDetailView: View {
     @State var moves: [PKMMove] = []
     
     func getMoves(moveResources: [PKMPokemonMove]) async {
-        for m in moveResources{
+        //get first 4 moves
+        for m in moveResources[..<4]{
             print("trying to get move \(m.move!.name!)")
             if let newMove =  await VM.fetchMove(moveResource: m.move!){
                 moves.append(newMove)
