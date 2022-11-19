@@ -21,15 +21,14 @@ class NewPokedexViewModel: ObservableObject{
         return list.sorted {$0.id! < $1.id!}
     }
     
-    
-    var error: Error?
-    
 //    @Published var pagedObject: PKMPagedObject<PKMPokemon>?
 //    @Published var pageIndex = 0
     
     init(){
         allPokemon = [PKMPokemon]()
-        loadPokemon()
+        Task{
+            await loadPokemon()
+        }
     }
 //
 //    func fetchPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
@@ -49,31 +48,45 @@ class NewPokedexViewModel: ObservableObject{
 //        }
 //    }
     
-    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) {
-        pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState){ result in
-            switch result{
-            case .success(let pagedObject):
-                if let results = pagedObject.results as? [PKMNamedAPIResource]{
-                    for r in results{
-                        print(r.name!)
-                        self.pokemonAPI.pokemonService.fetchPokemon(r.name!) { result in
-                            switch result{
-                            case .success(let pokemon):
-                                self.allPokemon.append(pokemon)
-                            case .failure(let error):
-                                print(error)
-                            }
-                        }
-                        
-                    }
+    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
+        do {
+            let pagedObject = try await pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState)
+            if let results = pagedObject.results as? [PKMNamedAPIResource]{
+                for r in results{
+                    print(r.name!)
+                    let pokemon = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
+                    self.allPokemon.append(pokemon)
                 }
-                
-            case .failure(let error):
-                print(error)
             }
-        
-            
+        } catch {
+            print(error.localizedDescription)
         }
+        
+        
+        
+//        pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState){ result in
+//            switch result{
+//            case .success(let pagedObject):
+//                if let results = pagedObject.results as? [PKMNamedAPIResource]{
+//                    for r in results{
+//                        self.pokemonAPI.pokemonService.fetchPokemon(r.name!) { result in
+//                            switch result{
+//                            case .success(let pokemon):
+//                                self.allPokemon.append(pokemon)
+//                            case .failure(let error):
+//                                print(error)
+//                            }
+//                        }
+//
+//                    }
+//                }
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+//
+            
+//        }
     }
     
 //    func loadPokemon() async{
