@@ -8,7 +8,7 @@
 import SwiftUI
 import PokemonAPI
 
-struct NewPokemonView: View {
+struct PokemonView: View {
     let pokemon: PKMPokemon
     let dimensions: Double = 120
     

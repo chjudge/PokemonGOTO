@@ -8,7 +8,7 @@
 import SwiftUI
 import PokemonAPI
 
-struct NewPokemonDetailView: View {
+struct PokemonDetailView: View {
     let pokemon: PKMPokemon
     
     let VM = PokemonViewModel()
@@ -27,7 +27,7 @@ struct NewPokemonDetailView: View {
     
     var body: some View {
         VStack{
-            NewPokemonView(pokemon: pokemon)
+            PokemonView(pokemon: pokemon)
             
             VStack(spacing: 10) {
                 Text("**ID**: \(pokemon.id ?? 0)")

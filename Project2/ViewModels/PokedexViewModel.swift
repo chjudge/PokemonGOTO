@@ -8,7 +8,7 @@
 import Foundation
 import PokemonAPI
 
-class NewPokedexViewModel: ObservableObject{
+class PokedexViewModel: ObservableObject{
     let pokemonAPI = PokemonAPI()
     
     

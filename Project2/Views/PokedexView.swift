@@ -8,8 +8,8 @@
 import SwiftUI
 import PokemonAPI
 
-struct NewPokedexView: View {
-    @ObservedObject var VM = NewPokedexViewModel()
+struct PokedexView: View {
+    @ObservedObject var VM = PokedexViewModel()
     
     private let adaptiveColumns = [GridItem(.adaptive(minimum: 120))]
     
@@ -23,8 +23,8 @@ struct NewPokedexView: View {
                 ScrollView {
                     LazyVGrid(columns: adaptiveColumns, spacing: 10) {
                         ForEach(VM.filteredPokemon, id: \.id) { pokemon in
-                            NavigationLink(destination: NewPokemonDetailView(pokemon: pokemon)) {
-                                NewPokemonView(pokemon: pokemon)
+                            NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
+                                PokemonView(pokemon: pokemon)
                             }
                         }
                     }
@@ -44,6 +44,6 @@ struct NewPokedexView: View {
 
 struct NewPokedexView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPokedexView()
+        PokedexView()
     }
 }

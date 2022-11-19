@@ -35,14 +35,6 @@ struct ContentView: View {
                     .foregroundColor(.accentColor)
                 Text("Pokedex")
             }
-            
-            NewPokedexView().tabItem{
-                Image(systemName: "person")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Pokedex")
-            }
-            
         }
     }
 }
