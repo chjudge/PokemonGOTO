@@ -13,6 +13,8 @@ struct PokemonDetailView: View {
     
     let VM = PokemonViewModel.shared
     
+    var fromPokedex: Bool = false
+    
     @State var moves: [PKMMove] = []
     
     func getMoves(moveResources: [PKMPokemonMove]) async {
@@ -28,6 +30,12 @@ struct PokemonDetailView: View {
         VStack{
             PokemonView(pokemon: pokemon)
             
+            if fromPokedex {
+                Button("Add to PC") {
+                    print("adding \(pokemon.name!) to my PC")
+                }
+            }
+            
             VStack(spacing: 10) {
                 Text("**ID**: \(pokemon.id ?? 0)")
                 Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
@@ -42,11 +50,11 @@ struct PokemonDetailView: View {
                 
             }
             .padding()
-            .task {
-                if let pokemonMoves = pokemon.moves{
-                    await getMoves(moveResources: pokemonMoves)
-                }
-            }
+//            .task {
+//                if let pokemonMoves = pokemon.moves{
+//                    await getMoves(moveResources: pokemonMoves)
+//                }
+//            }
         }
     }
 }

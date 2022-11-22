@@ -23,7 +23,7 @@ struct PokedexView: View {
                 ScrollView {
                     LazyVGrid(columns: adaptiveColumns, spacing: 10) {
                         ForEach(VM.filteredPokemon, id: \.id) { pokemon in
-                            NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
+                            NavigationLink(destination: PokemonDetailView(pokemon: pokemon, fromPokedex: true)) {
                                 PokemonView(pokemon: pokemon)
                             }
                         }
@@ -32,9 +32,9 @@ struct PokedexView: View {
                     .navigationTitle("PokemonUI")
                     .navigationBarTitleDisplayMode(.inline)
                 }.task {
-                    if VM.allPokemon.isEmpty{
-                        await VM.loadPokemon()
-                    }
+//                    if VM.allPokemon.count < 151{
+//                        await VM.loadPokemon()
+//                    }
                 }
                 .searchable(text: $VM.searchText)
             }

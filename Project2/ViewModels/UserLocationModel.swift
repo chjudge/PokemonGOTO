@@ -56,7 +56,7 @@ class UserLocationModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     // capture the published geolocation by the locationManager
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations.first ?? "No location")
+        //print(locations.first ?? "No location")
         
         if let userLocation = locations.first {
             self.userLat = userLocation.coordinate.latitude

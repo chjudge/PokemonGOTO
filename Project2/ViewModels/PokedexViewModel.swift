@@ -22,14 +22,15 @@ class PokedexViewModel: ObservableObject{
     var filteredPokemon: [PKMPokemon] {
         let list = searchText.isEmpty ? allPokemon : allPokemon.filter({ $0.name!.contains(searchText.lowercased()) })
         return list.sorted {$0.id! < $1.id!}
-        
     }
     
     func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
+        let start = allPokemon.count
+        
         do {
             let pagedObject = try await pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState)
             if let results = pagedObject.results as? [PKMNamedAPIResource]{
-                for r in results{
+                for r in results.suffix(from: start){
                     let pokemon = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
                     DispatchQueue.main.async {
                         self.allPokemon.append(pokemon)
@@ -37,7 +38,7 @@ class PokedexViewModel: ObservableObject{
                 }
             }
         } catch {
-            print(error.localizedDescription)
+            print("Error loading pokedex: \(error.localizedDescription)")
         }
     }
 }

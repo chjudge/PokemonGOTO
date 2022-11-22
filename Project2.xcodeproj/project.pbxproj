@@ -17,6 +17,12 @@
 		010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D760F2924C3B7004BF362 /* PokemonDetailView.swift */; };
 		0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131155329270B4200F32C59 /* PokedexViewModel.swift */; };
 		01311556292718EC00F32C59 /* PokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01311555292718EC00F32C59 /* PokemonViewModel.swift */; };
+		0131159B292C804000F32C59 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0131159A292C804000F32C59 /* FirebaseFirestore */; };
+		0131159D292C804000F32C59 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0131159C292C804000F32C59 /* FirebaseFirestoreSwift */; };
+		0131159F292C80DB00F32C59 /* FirestoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131159E292C80DB00F32C59 /* FirestoreModels.swift */; };
+		013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115A0292C812D00F32C59 /* PCViewModel.swift */; };
+		013115AA292C947600F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115A9292C947600F32C59 /* GoogleService-Info.plist */; };
+		013115AE292CBB4400F32C59 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AD292CBB4400F32C59 /* UserViewModel.swift */; };
 		BC38B04D2924468A000174BF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04C2924468A000174BF /* MapView.swift */; };
 		BC38B04F292446D4000174BF /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04E292446D4000174BF /* PCView.swift */; };
 		BC38B05129246704000174BF /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* UserLocationModel.swift */; };
@@ -35,6 +41,10 @@
 		010D760F2924C3B7004BF362 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		0131155329270B4200F32C59 /* PokedexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewModel.swift; sourceTree = "<group>"; };
 		01311555292718EC00F32C59 /* PokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModel.swift; sourceTree = "<group>"; };
+		0131159E292C80DB00F32C59 /* FirestoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirestoreModels.swift; path = ../../../FirestoreModels.swift; sourceTree = "<group>"; };
+		013115A0292C812D00F32C59 /* PCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCViewModel.swift; sourceTree = "<group>"; };
+		013115A9292C947600F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		013115AD292CBB4400F32C59 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		BC38B05029246704000174BF /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
@@ -48,6 +58,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				010D75FB2922F4A9004BF362 /* PokemonAPI in Frameworks */,
+				0131159B292C804000F32C59 /* FirebaseFirestore in Frameworks */,
+				0131159D292C804000F32C59 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +93,7 @@
 				010D75D32921C824004BF362 /* Assets.xcassets */,
 				010D75D52921C824004BF362 /* Preview Content */,
 				BC38B05229247D32000174BF /* pokemon.json */,
+				013115A9292C947600F32C59 /* GoogleService-Info.plist */,
 				010D75CF2921C821004BF362 /* Project2App.swift */,
 			);
 			path = Project2;
@@ -117,6 +130,7 @@
 		013115652928CDEA00F32C59 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0131159E292C80DB00F32C59 /* FirestoreModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -127,6 +141,8 @@
 				BC38B05029246704000174BF /* UserLocationModel.swift */,
 				0131155329270B4200F32C59 /* PokedexViewModel.swift */,
 				01311555292718EC00F32C59 /* PokemonViewModel.swift */,
+				013115AD292CBB4400F32C59 /* UserViewModel.swift */,
+				013115A0292C812D00F32C59 /* PCViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -157,6 +173,8 @@
 			name = Project2;
 			packageProductDependencies = (
 				010D75FA2922F4A9004BF362 /* PokemonAPI */,
+				0131159A292C804000F32C59 /* FirebaseFirestore */,
+				0131159C292C804000F32C59 /* FirebaseFirestoreSwift */,
 			);
 			productName = Project2;
 			productReference = 010D75CC2921C821004BF362 /* Project2.app */;
@@ -188,6 +206,7 @@
 			mainGroup = 010D75C32921C821004BF362;
 			packageReferences = (
 				010D75F92922F4A9004BF362 /* XCRemoteSwiftPackageReference "PokemonAPI" */,
+				01311599292C804000F32C59 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 010D75CD2921C821004BF362 /* Products */;
 			projectDirPath = "";
@@ -204,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				010D75D72921C824004BF362 /* Preview Assets.xcassets in Resources */,
+				013115AA292C947600F32C59 /* GoogleService-Info.plist in Resources */,
 				BC38B05329247D32000174BF /* pokemon.json in Resources */,
 				010D75D42921C824004BF362 /* Assets.xcassets in Resources */,
 			);
@@ -219,8 +239,11 @@
 				BC38B04D2924468A000174BF /* MapView.swift in Sources */,
 				BC38B06B2927121A000174BF /* Extenders.swift in Sources */,
 				01311556292718EC00F32C59 /* PokemonViewModel.swift in Sources */,
+				0131159F292C80DB00F32C59 /* FirestoreModels.swift in Sources */,
 				010D760A29248DB2004BF362 /* PokedexView.swift in Sources */,
+				013115AE292CBB4400F32C59 /* UserViewModel.swift in Sources */,
 				0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */,
+				013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */,
 				010D75D22921C821004BF362 /* ContentView.swift in Sources */,
 				BC38B04F292446D4000174BF /* PCView.swift in Sources */,
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
@@ -441,6 +464,14 @@
 				version = 6.1.1;
 			};
 		};
+		01311599292C804000F32C59 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 9.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -448,6 +479,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 010D75F92922F4A9004BF362 /* XCRemoteSwiftPackageReference "PokemonAPI" */;
 			productName = PokemonAPI;
+		};
+		0131159A292C804000F32C59 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01311599292C804000F32C59 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		0131159C292C804000F32C59 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 01311599292C804000F32C59 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

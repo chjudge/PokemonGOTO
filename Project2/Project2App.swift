@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct Project2App: App {
+    init(){
+        FirebaseApp.configure()
+        Task{ await PokedexViewModel.shared.loadPokemon() }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
