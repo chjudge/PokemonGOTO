@@ -13,6 +13,7 @@ import PokemonAPI
 class PCViewModel: ObservableObject {
     //var user: FirestoreUser
     @Published var PCPokemon = [FirestorePokemon]()
+    @Published var pokemon = [PKMPokemon]()
     
     private var db = Firestore.firestore()
     private var listener: ListenerRegistration?
@@ -25,27 +26,38 @@ class PCViewModel: ObservableObject {
         return instance
     }()
     
-    func fetchPokemon(id: Int) -> PKMPokemon?{
-        let pokemon = PokedexViewModel.shared.allPokemon
-        
-        print(id)
-       
-        if let pkm = pokemon.first (where: { $0.id == id }){
-            return pkm
-        } else {
-            Task{
-                do{
-                    try await Task.sleep(nanoseconds: 100000000)
-                } catch {
-                    print(error.localizedDescription)
-                }
-                return fetchPokemon(id: id)
+    func fetchPokemon(id: Int) async {
+        do {
+            let pkm = try await pokemonAPI.pokemonService.fetchPokemon(id)
+            DispatchQueue.main.async {
+                self.pokemon.append(pkm)
             }
-            
+        } catch {
+            print(error.localizedDescription)
         }
-        return nil
-            
     }
+    
+//    func fetchPokemon(id: Int) -> PKMPokemon?{
+//        let pokemon = PokedexViewModel.shared.allPokemon
+//
+//        print(id)
+//
+//        if let pkm = pokemon.first (where: { $0.id == id }){
+//            return pkm
+//        } else {
+//            Task{
+//                do{
+//                    try await Task.sleep(nanoseconds: 100000000)
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
+//                return fetchPokemon(id: id)
+//            }
+//
+//        }
+//        return nil
+//
+//    }
     
     deinit {
         unsubscribe()
@@ -71,6 +83,11 @@ class PCViewModel: ObservableObject {
                 self.PCPokemon = documents.compactMap { document in
                     do {
                         let pokemon = try document.data(as: FirestorePokemon.self)
+                        if !self.pokemon.contains(where: { pkm in pkm.id ?? -1 == pokemon.pokemonID }){
+                            Task{
+                                await self.fetchPokemon(id: pokemon.pokemonID)
+                            }
+                        }
                         return pokemon
                     } catch {
                         print(error.localizedDescription)
