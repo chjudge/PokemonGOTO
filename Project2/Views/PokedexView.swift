@@ -9,7 +9,7 @@ import SwiftUI
 import PokemonAPI
 
 struct PokedexView: View {
-    @ObservedObject var VM = PokedexViewModel()
+    @ObservedObject var VM = PokedexViewModel.shared
     
     private let adaptiveColumns = [GridItem(.adaptive(minimum: 120))]
     

@@ -11,14 +11,13 @@ import PokemonAPI
 struct PokemonDetailView: View {
     let pokemon: PKMPokemon
     
-    let VM = PokemonViewModel()
+    let VM = PokemonViewModel.shared
     
     @State var moves: [PKMMove] = []
     
     func getMoves(moveResources: [PKMPokemonMove]) async {
         //get first 4 moves
         for m in moveResources[..<4]{
-            print("trying to get move \(m.move!.name!)")
             if let newMove =  await VM.fetchMove(moveResource: m.move!){
                 moves.append(newMove)
             }
@@ -40,17 +39,14 @@ struct PokemonDetailView: View {
                     }
                 }
                 
-//                Text("Move: \(pokemon.moves![0].move!.name!)")
-                //Text("Move: \(VM.fetchMove(moveResource: pokemon.moves![0].move!)?.name ?? "error fetching ")")
                 
             }
             .padding()
             .task {
-                                if let pokemonMoves = pokemon.moves{
-                                    print("trying to get moves")
-                                    await getMoves(moveResources: pokemonMoves)
-                                }
-                            }
+                if let pokemonMoves = pokemon.moves{
+                    await getMoves(moveResources: pokemonMoves)
+                }
+            }
         }
     }
 }
