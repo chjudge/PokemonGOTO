@@ -77,11 +77,11 @@
 				BC38B05429247DE1000174BF /* Helpers */,
 				013115652928CDEA00F32C59 /* Models */,
 				BC38B04A292444FD000174BF /* ViewModels */,
-				010D75CF2921C821004BF362 /* Project2App.swift */,
 				010D75FC2922F4ED004BF362 /* Views */,
 				010D75D32921C824004BF362 /* Assets.xcassets */,
 				010D75D52921C824004BF362 /* Preview Content */,
 				BC38B05229247D32000174BF /* pokemon.json */,
+				010D75CF2921C821004BF362 /* Project2App.swift */,
 			);
 			path = Project2;
 			sourceTree = "<group>";

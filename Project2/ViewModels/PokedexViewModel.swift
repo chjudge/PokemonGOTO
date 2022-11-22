@@ -31,7 +31,9 @@ class PokedexViewModel: ObservableObject{
             if let results = pagedObject.results as? [PKMNamedAPIResource]{
                 for r in results{
                     let pokemon = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
-                    self.allPokemon.append(pokemon)
+                    DispatchQueue.main.async {
+                        self.allPokemon.append(pokemon)
+                    }
                 }
             }
         } catch {
