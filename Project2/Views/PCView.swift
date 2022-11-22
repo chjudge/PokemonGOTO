@@ -17,8 +17,11 @@ struct PCView: View {
         NavigationView {
             VStack {
                 List(PCVM.PCPokemon, id: \.id) { pkm in
-                    NavigationLink(destination: PokemonDetailView(pokemon: PCVM.fetchPokemon(id: pkm.pokemonID))) {
-                        PokemonView(pokemon: PCVM.fetchPokemon(id: pkm.pokemonID))
+                    if let poke = PCVM.fetchPokemon(id: pkm.pokemonID){
+                        NavigationLink(destination: PokemonDetailView(pokemon: poke)) {
+                            PokemonView(pokemon: poke)
+                            
+                        }
                     }
                 }
             }

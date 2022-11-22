@@ -29,15 +29,21 @@ class PokemonViewModel: ObservableObject{
         }
     }
     
-//    func add(pokemon: PKMPokemon) {
-//        db.runTransaction({ (transaction, errorPointer) -> Any? in
-//
-//        }) { object, error in
-//            if let error = error {
-//                print("Transaction failed: \(error)")
-//            }
-//        }
-//    }
+    func add(pokemon: PKMPokemon) {
+        let collection = db.collection("pokemon")
+        
+        if let name = pokemon.name, let id = pokemon.id{
+            let pkm = FirestorePokemon(name: name, pokemonID: id, caught: .init())
+            
+            do {
+                let doc = try collection.addDocument(from: pkm)
+                print(doc.documentID)
+            } catch {
+                print("Error adding pokemon to PC \(error.localizedDescription)")
+            }
+        }
+        
+    }
     
     deinit {
       unsubscribe()

@@ -33,6 +33,7 @@ struct PokemonDetailView: View {
             if fromPokedex {
                 Button("Add to PC") {
                     print("adding \(pokemon.name!) to my PC")
+                    VM.add(pokemon: pokemon)
                 }
             }
             
