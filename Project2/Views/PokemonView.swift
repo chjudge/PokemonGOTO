@@ -10,7 +10,7 @@ import PokemonAPI
 
 struct PokemonView: View {
     let pokemon: PKMPokemon
-    let dimensions: Double = 120
+    let dimensions: Double
     
     var body: some View {
         VStack {

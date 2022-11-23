@@ -10,6 +10,7 @@ import PokemonAPI
 
 struct PokemonDetailView: View {
     let pokemon: PKMPokemon
+    let dimensions: Double
     
     let VM = PokemonViewModel.shared
     
@@ -28,34 +29,49 @@ struct PokemonDetailView: View {
     
     var body: some View {
         VStack{
-            PokemonView(pokemon: pokemon)
+            PokemonView(pokemon: pokemon, dimensions: dimensions)
             
-            if fromPokedex {
-                Button("Add to PC") {
-                    print("adding \(pokemon.name!) to my PC")
-                    VM.add(pokemon: pokemon)
-                }
-            }
-            
-            VStack(spacing: 10) {
-                Text("**ID**: \(pokemon.id ?? 0)")
-                Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
-                Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
+            HStack {
                 
-                ForEach(moves, id: \.id){move in
-                    if let name = move.name{
-                        Text(name)
+                Spacer()
+                
+                VStack(spacing: 10) {
+                    Text("**ID**: \(pokemon.id ?? 0)")
+                    Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
+                    Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
+                    
+                    ForEach(moves, id: \.id){move in
+                        if let name = move.name{
+                            Text(name)
+                        }
+                    }
+                    
+                    
+                }
+                .padding()
+                //            .task {
+                //                if let pokemonMoves = pokemon.moves{
+                //                    await getMoves(moveResources: pokemonMoves)
+                //                }
+                //            }
+                
+                Spacer()
+                
+                // ADD pokemon to PC button
+                if fromPokedex {
+                    Button {
+                        print("adding \(pokemon.name!) to my PC")
+                        VM.add(pokemon: pokemon)
+                    } label: {
+                        VStack {
+                            Image(systemName: "plus")
+                            Text("Add to PC")
+                        }
                     }
                 }
                 
-                
+                Spacer()
             }
-            .padding()
-//            .task {
-//                if let pokemonMoves = pokemon.moves{
-//                    await getMoves(moveResources: pokemonMoves)
-//                }
-//            }
         }
     }
 }
