@@ -30,12 +30,24 @@ class PokedexViewModel: ObservableObject{
         do {
             let pagedObject = try await pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState)
             if let results = pagedObject.results as? [PKMNamedAPIResource]{
-                for r in results.suffix(from: start){
-                    let pokemon = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
-                    DispatchQueue.main.async {
-                        self.allPokemon.append(pokemon)
+                await withThrowingTaskGroup(of: Void.self){ group in
+                    for r in results.suffix(from: start){
+                        group.addTask{
+                            let pkm = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
+                            DispatchQueue.main.async{ self.allPokemon.append(pkm) }
+//                            return pkm
+                        }
                     }
+//                    for try await pkm in group{
+//                        DispatchQueue.main.async{ self.allPokemon.append(pkm) }
+//                    }
                 }
+//                for r in results.suffix(from: start){
+//                    let pokemon = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
+//                    DispatchQueue.main.async {
+//                        self.allPokemon.append(pokemon)
+//                    }
+//                }
             }
         } catch {
             print("Error loading pokedex: \(error.localizedDescription)")
