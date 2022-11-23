@@ -35,19 +35,9 @@ class PokedexViewModel: ObservableObject{
                         group.addTask{
                             let pkm = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
                             DispatchQueue.main.async{ self.allPokemon.append(pkm) }
-//                            return pkm
                         }
                     }
-//                    for try await pkm in group{
-//                        DispatchQueue.main.async{ self.allPokemon.append(pkm) }
-//                    }
                 }
-//                for r in results.suffix(from: start){
-//                    let pokemon = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
-//                    DispatchQueue.main.async {
-//                        self.allPokemon.append(pokemon)
-//                    }
-//                }
             }
         } catch {
             print("Error loading pokedex: \(error.localizedDescription)")
