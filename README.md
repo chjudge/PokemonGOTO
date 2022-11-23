@@ -6,7 +6,7 @@ A Pokemon game that incentivises users to engage in their community and be more 
 
 - Pokedex
 - Map
-
+- PC
 
 ## Roadmap
 
