@@ -20,9 +20,9 @@
 		0131159B292C804000F32C59 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0131159A292C804000F32C59 /* FirebaseFirestore */; };
 		0131159D292C804000F32C59 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0131159C292C804000F32C59 /* FirebaseFirestoreSwift */; };
 		013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115A0292C812D00F32C59 /* PCViewModel.swift */; };
-		013115AA292C947600F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115A9292C947600F32C59 /* GoogleService-Info.plist */; };
 		013115AE292CBB4400F32C59 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AD292CBB4400F32C59 /* UserViewModel.swift */; };
 		013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AF292EABC600F32C59 /* FirestoreModels.swift */; };
+		013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115B1292EB05900F32C59 /* GoogleService-Info.plist */; };
 		BC38B04D2924468A000174BF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04C2924468A000174BF /* MapView.swift */; };
 		BC38B04F292446D4000174BF /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04E292446D4000174BF /* PCView.swift */; };
 		BC38B05129246704000174BF /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* UserLocationModel.swift */; };
@@ -42,9 +42,9 @@
 		0131155329270B4200F32C59 /* PokedexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewModel.swift; sourceTree = "<group>"; };
 		01311555292718EC00F32C59 /* PokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModel.swift; sourceTree = "<group>"; };
 		013115A0292C812D00F32C59 /* PCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCViewModel.swift; sourceTree = "<group>"; };
-		013115A9292C947600F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		013115AD292CBB4400F32C59 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		013115AF292EABC600F32C59 /* FirestoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModels.swift; sourceTree = "<group>"; };
+		013115B1292EB05900F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Project2/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		BC38B05029246704000174BF /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 				010D75D32921C824004BF362 /* Assets.xcassets */,
 				010D75D52921C824004BF362 /* Preview Content */,
 				BC38B05229247D32000174BF /* pokemon.json */,
-				013115A9292C947600F32C59 /* GoogleService-Info.plist */,
+				013115B1292EB05900F32C59 /* GoogleService-Info.plist */,
 				010D75CF2921C821004BF362 /* Project2App.swift */,
 			);
 			path = Project2;
@@ -223,7 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				010D75D72921C824004BF362 /* Preview Assets.xcassets in Resources */,
-				013115AA292C947600F32C59 /* GoogleService-Info.plist in Resources */,
+				013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */,
 				BC38B05329247D32000174BF /* pokemon.json in Resources */,
 				010D75D42921C824004BF362 /* Assets.xcassets in Resources */,
 			);

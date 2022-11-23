@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>8664994744-2eqh3lm30h3hb0hr2iv822odgtuc86v5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.8664994744-2eqh3lm30h3hb0hr2iv822odgtuc86v5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC8eUFBBnFLTqjglNT8h6kNIAdQjyHnIuM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>8664994744</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>clayton.Project2</string>
+	<key>PROJECT_ID</key>
+	<string>pokemon-goto</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pokemon-goto.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:8664994744:ios:878aeb04195f98f72c354d</string>
+</dict>
+</plist>
