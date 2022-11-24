@@ -17,8 +17,8 @@ struct PCView: View {
         NavigationView {
             VStack {
                 List(PCVM.pokemon, id: \.id) { pkm in
-                    NavigationLink(destination: PokemonDetailView(pokemon:pkm )) {
-                        PokemonView(pokemon: pkm)
+                    NavigationLink(destination: PokemonDetailView(pokemon:pkm, dimensions: 120)) {
+                        PokemonView(pokemon: pkm, dimensions: 120)
                     }
                 }
             }
