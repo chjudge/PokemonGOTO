@@ -28,7 +28,6 @@
 		BC38B05129246704000174BF /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* UserLocationModel.swift */; };
 		BC38B05329247D32000174BF /* pokemon.json in Resources */ = {isa = PBXBuildFile; fileRef = BC38B05229247D32000174BF /* pokemon.json */; };
 		BC38B06B2927121A000174BF /* Extenders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B06A2927121A000174BF /* Extenders.swift */; };
-		BCEB832C292EB3CA00754B0E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCEB832B292EB3CA00754B0E /* GoogleService-Info.plist */; };
 		BCEB832E292EC93300754B0E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB832D292EC93300754B0E /* TestView.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +51,6 @@
 		BC38B05029246704000174BF /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
 		BC38B05229247D32000174BF /* pokemon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pokemon.json; sourceTree = "<group>"; };
 		BC38B06A2927121A000174BF /* Extenders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extenders.swift; sourceTree = "<group>"; };
-		BCEB832B292EB3CA00754B0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Project2/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BCEB832D292EC93300754B0E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,7 +71,6 @@
 		010D75C32921C821004BF362 = {
 			isa = PBXGroup;
 			children = (
-				BCEB832B292EB3CA00754B0E /* GoogleService-Info.plist */,
 				010D75CE2921C821004BF362 /* Project2 */,
 				010D75CD2921C821004BF362 /* Products */,
 				0131155229270ADB00F32C59 /* Recovered References */,
