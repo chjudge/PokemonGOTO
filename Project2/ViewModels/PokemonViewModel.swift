@@ -30,11 +30,9 @@ class PokemonViewModel: ObservableObject{
     
     func fetchType(types: [PKMPokemonType]) async -> [PKMType] {
         var out = [PKMType]()
-        print(types.count)
         do{
             for type in types{
                 let t = try await pokemonAPI.pokemonService.fetchType(type.type!.name!)
-                print(t.name!)
                 out.append(t)
             }
         } catch{
