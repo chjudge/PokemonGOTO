@@ -37,28 +37,6 @@ class PCViewModel: ObservableObject {
         }
     }
     
-//    func fetchPokemon(id: Int) -> PKMPokemon?{
-//        let pokemon = PokedexViewModel.shared.allPokemon
-//
-//        print(id)
-//
-//        if let pkm = pokemon.first (where: { $0.id == id }){
-//            return pkm
-//        } else {
-//            Task{
-//                do{
-//                    try await Task.sleep(nanoseconds: 100000000)
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
-//                return fetchPokemon(id: id)
-//            }
-//
-//        }
-//        return nil
-//
-//    }
-    
     deinit {
         unsubscribe()
     }
