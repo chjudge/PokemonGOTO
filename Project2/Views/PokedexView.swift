@@ -20,12 +20,13 @@ struct PokedexView: View {
     
     var mainContent: some View {
         GeometryReader { geo in
-        
-        VStack {
-
-            Text("Pokedex")
-                .font(.largeTitle)
-
+            
+            Image("pokedex_bg")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .ignoresSafeArea()
+            
+            VStack {
                 
                 VStack {
                     ZStack {
@@ -34,6 +35,7 @@ struct PokedexView: View {
                             .fill(.white)
                             .shadow(radius: 10)
                             .padding(.horizontal, 10)
+                            .padding(.bottom, 10)
                         
                         // Pokemond details
                         if pokemonIndex >= 0 {
@@ -43,6 +45,10 @@ struct PokedexView: View {
                         }
                     }
                     .frame(height: geo.size.height/3)
+                    
+                    Text("Pokemon")
+                        .foregroundColor(.white)
+                        .font(.title)
                     
                     ScrollView {
                         LazyVGrid(columns: adaptiveColumns, spacing: 10) {
