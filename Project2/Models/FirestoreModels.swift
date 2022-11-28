@@ -32,3 +32,19 @@ struct FirestorePokemon: Identifiable, Codable {
     }
 }
 
+struct FirestoreEvent: Identifiable, Codable {
+    var id: String = UUID().uuidString
+    
+    var title: String
+    var sender: String
+    var location: GeoPoint
+    var seconds: Int
+    var start: Timestamp
+    var end: Timestamp
+    var pokemon_id: Int
+    
+    enum CodingKeys: CodingKey {
+        case title, sender, location, seconds, start, end, pokemon_id
+    }
+}
+

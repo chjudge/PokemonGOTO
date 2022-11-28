@@ -29,7 +29,6 @@
 		BC38B05329247D32000174BF /* pokemon.json in Resources */ = {isa = PBXBuildFile; fileRef = BC38B05229247D32000174BF /* pokemon.json */; };
 		BC38B06B2927121A000174BF /* Extenders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B06A2927121A000174BF /* Extenders.swift */; };
 		BCEB832E292EC93300754B0E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB832D292EC93300754B0E /* TestView.swift */; };
-		BCEB83302931DC2600754B0E /* mock_data.json in Resources */ = {isa = PBXBuildFile; fileRef = BCEB832F2931DC2600754B0E /* mock_data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +52,6 @@
 		BC38B05229247D32000174BF /* pokemon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pokemon.json; sourceTree = "<group>"; };
 		BC38B06A2927121A000174BF /* Extenders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extenders.swift; sourceTree = "<group>"; };
 		BCEB832D292EC93300754B0E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		BCEB832F2931DC2600754B0E /* mock_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock_data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +88,6 @@
 		010D75CE2921C821004BF362 /* Project2 */ = {
 			isa = PBXGroup;
 			children = (
-				BCEB832F2931DC2600754B0E /* mock_data.json */,
 				BC38B05429247DE1000174BF /* Helpers */,
 				013115652928CDEA00F32C59 /* Models */,
 				BC38B04A292444FD000174BF /* ViewModels */,
@@ -228,7 +225,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCEB83302931DC2600754B0E /* mock_data.json in Resources */,
 				010D75D72921C824004BF362 /* Preview Assets.xcassets in Resources */,
 				013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */,
 				BC38B05329247D32000174BF /* pokemon.json in Resources */,
