@@ -44,6 +44,10 @@ struct PokemonDetailView: View {
 //
 //                    }
                     Text("**Type**: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
+                        .task {
+                            print("loading types")
+                            types = await VM.fetchType(types: pokemon.types!)
+                        }
 //                    ForEach(moves, id: \.id){move in
 //                        if let name = move.name{
 //                            Text(name)
@@ -70,10 +74,6 @@ struct PokemonDetailView: View {
 //                }
 //            }
             }
-        }
-        .task {
-            print("loading types")
-            types = await VM.fetchType(types: pokemon.types!)
         }
         
     }

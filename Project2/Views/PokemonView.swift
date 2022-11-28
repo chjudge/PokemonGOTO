@@ -32,6 +32,7 @@ struct PokemonView: View {
             Text("\(pokemon.name!.capitalized)")
                 .font(.system(size: 16, weight: .regular, design: .monospaced))
                 .padding(.bottom, 20)
+                .foregroundColor(.black)
 
         }
     }
