@@ -10,34 +10,38 @@ import PokemonAPI
 
 struct ContentView: View {
     
-    @State var tabIndex = 2
+    @State var tabIndex = 0
     
     var body: some View {
-        TabView(selection: $tabIndex) {
+        
+        ZStack {
             
-            PCView().tabItem {
-                Image(systemName: "car")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("PC")
+            TabView(selection: $tabIndex) {
+                
+                PCView().tabItem {
+                    Image(systemName: "car")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                    Text("PC")
+                }
+                .tag(0)
+                
+                MapView().tabItem {
+                    Image(systemName: "globe")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                    Text("Map")
+                }
+                .tag(1)
+                
+                PokedexView().tabItem {
+                    Image(systemName: "info")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                    Text("Pokedex")
+                }
+                .tag(2)
             }
-            .tag(0)
-            
-            MapView().tabItem {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Map")
-            }
-            .tag(1)
-            
-            PokedexView().tabItem {
-                Image(systemName: "info")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Pokedex")
-            }
-            .tag(2)
         }
     }
 }

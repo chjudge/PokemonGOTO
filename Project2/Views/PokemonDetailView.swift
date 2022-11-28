@@ -75,6 +75,7 @@ struct PokemonDetailView: View {
             print("loading types")
             types = await VM.fetchType(types: pokemon.types!)
         }
+        
     }
 }
 
