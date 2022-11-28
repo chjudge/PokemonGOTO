@@ -19,3 +19,28 @@ extension PKMPokemonMove : Equatable {
         lhs.move?.name == rhs.move?.name
     }
 }
+
+extension Bundle {
+    func LoadJson<T: Decodable> (resource: String) -> T? {
+        // 1. get the path to the json file with the app bundle
+        let pathString = Bundle.main.path(forResource: resource, ofType: "json")
+        
+        if let path = pathString {
+            // 2. create a URL Object
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                // 3. create a Data object with the URL file
+                let data = try Data(contentsOf: url)
+                // 4. create a JSON decoder
+                let json_decoder = JSONDecoder()
+                // 5. extract the models from the json file
+                return try json_decoder.decode(T.self, from: data)
+                
+            } catch {
+                print(error)
+            }
+        }
+        return nil
+    }
+}
