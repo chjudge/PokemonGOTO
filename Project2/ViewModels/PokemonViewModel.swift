@@ -44,12 +44,20 @@ class PokemonViewModel: ObservableObject{
     func add(pokemon: PKMPokemon) {
         let collection = db.collection("pokemon")
         
-        if let name = pokemon.name, let id = pokemon.id{
-            let pkm = FirestorePokemon(name: name, pokemonID: id, caught: .init())
+        if let name = pokemon.name, let id = pokemon.id {
+            //check if pokemon already caught
+            collection.document("\(id)").getDocument{ (document, error) in
+                if let document = document, document.exists {
+                    print("Error: Pokemon already in PC")
+                    return
+                }
+            }
+            
+            
+            let pkm = FirestorePokemon(name: name, caught: .init())
             
             do {
-                let doc = try collection.addDocument(from: pkm)
-                print(doc.documentID)
+                try collection.document("\(id)").setData(from: pkm)
             } catch {
                 print("Error adding pokemon to PC \(error.localizedDescription)")
             }

@@ -61,9 +61,9 @@ class PCViewModel: ObservableObject {
                 self.PCPokemon = documents.compactMap { document in
                     do {
                         let pokemon = try document.data(as: FirestorePokemon.self)
-                        if !self.pokemon.contains(where: { pkm in pkm.id ?? -1 == pokemon.pokemonID }){
+                        if !self.pokemon.contains(where: { pkm in pkm.id ?? -1 == Int(document.documentID) }){
                             Task{
-                                await self.fetchPokemon(id: pokemon.pokemonID)
+                                await self.fetchPokemon(id: Int(document.documentID) ?? 0)
                             }
                         }
                         return pokemon
