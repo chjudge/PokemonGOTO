@@ -39,16 +39,12 @@ class UserLocationModel: NSObject, CLLocationManagerDelegate, ObservableObject {
         if locationManager.authorizationStatus == .authorizedAlways ||
             locationManager.authorizationStatus == .authorizedWhenInUse {
             
-            // We have permission
-            print("Yeah, we get the permission")
-            
             // start geolocating the user, after we get the permission
             locationManager.startUpdatingLocation()
             
         } else if locationManager.authorizationStatus == .denied {
             
-            // We do not have permission
-            print("oh no")
+            print("location access not given")
             
         }
         

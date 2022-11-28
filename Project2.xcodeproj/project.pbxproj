@@ -23,6 +23,7 @@
 		013115AE292CBB4400F32C59 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AD292CBB4400F32C59 /* UserViewModel.swift */; };
 		013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AF292EABC600F32C59 /* FirestoreModels.swift */; };
 		013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115B1292EB05900F32C59 /* GoogleService-Info.plist */; };
+		013115B629354BDF00F32C59 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115B529354BDF00F32C59 /* FirestoreManager.swift */; };
 		BC38B04D2924468A000174BF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04C2924468A000174BF /* MapView.swift */; };
 		BC38B04F292446D4000174BF /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04E292446D4000174BF /* PCView.swift */; };
 		BC38B05129246704000174BF /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* UserLocationModel.swift */; };
@@ -46,6 +47,7 @@
 		013115AD292CBB4400F32C59 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		013115AF292EABC600F32C59 /* FirestoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModels.swift; sourceTree = "<group>"; };
 		013115B1292EB05900F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Project2/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		013115B529354BDF00F32C59 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		BC38B05029246704000174BF /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				BC38B06A2927121A000174BF /* Extenders.swift */,
+				013115B529354BDF00F32C59 /* FirestoreManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */,
 				010D760E2924929D004BF362 /* PokemonView.swift in Sources */,
 				BC38B05129246704000174BF /* UserLocationModel.swift in Sources */,
+				013115B629354BDF00F32C59 /* FirestoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

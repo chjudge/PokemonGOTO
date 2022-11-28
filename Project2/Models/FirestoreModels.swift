@@ -23,11 +23,13 @@ struct FirestoreUser: Identifiable, Codable {
 struct FirestorePokemon: Identifiable, Codable {
     var id: String = UUID().uuidString
 
+    var pokemonID: Int
     var name: String
     var caught: Timestamp
     
     enum CodingKeys: CodingKey {
         case name
+        case pokemonID
         case caught
     }
 }

@@ -54,7 +54,7 @@ class PokemonViewModel: ObservableObject{
             }
             
             
-            let pkm = FirestorePokemon(name: name, caught: .init())
+            let pkm = FirestorePokemon(pokemonID: id, name: name, caught: .init())
             
             do {
                 try collection.document("\(id)").setData(from: pkm)

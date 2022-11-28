@@ -20,16 +20,24 @@ struct PCView: View {
                     NavigationLink(destination: PokemonDetailView(pokemon:pkm, dimensions: 120)) {
                         PokemonView(pokemon: pkm, dimensions: 120)
                     }
+                }.onReceive(PCVM.firestore.$firestoreModels){ pokemon in
+                    for pkm in pokemon{
+                        if !PCVM.pokemon.contains(where: {$0.id! == pkm.pokemonID}){
+                            Task{
+                                await PCVM.fetchPokemon(id: pkm.pokemonID)
+                            }
+                        }
+                    }
                 }
             }
             .navigationBarTitle("My PC")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                let query = PCVM.query()
-                PCVM.subscribe(to: query)
+                let query = PCVM.firestore.query()
+                PCVM.firestore.subscribe(to: query)
             }
             .onDisappear {
-              PCVM.unsubscribe()
+                PCVM.firestore.unsubscribe()
             }
         }
         
