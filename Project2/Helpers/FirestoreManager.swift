@@ -33,6 +33,7 @@ class FirestoreManager<Model: Decodable>: ObservableObject {
                 
                 self.firestoreModels = documents.compactMap { document in
                     do {
+                        print(document.documentID)
                         let doc = try document.data(as: Model.self)
                         return doc
                     } catch {
@@ -55,9 +56,13 @@ class FirestoreManager<Model: Decodable>: ObservableObject {
         }
     }
     
-    func query() -> Query {
-        var query = baseQuery
-
-        return query
+    func query(query: Query? = nil, collection: String? = nil) -> Query {
+        if let query = query{
+            return query
+        } else if let collection = collection{
+            return db.collection(collection).limit(to: 50)
+        } else {
+            return baseQuery
+        }
     }
 }

@@ -42,7 +42,7 @@ class PokemonViewModel: ObservableObject{
     }
     
     func add(pokemon: PKMPokemon) {
-        let collection = db.collection("pokemon")
+        let collection = db.collection(AuthManager.shared.pkmPath ?? "pokemon")
         
         if let name = pokemon.name, let id = pokemon.id {
             //check if pokemon already caught
@@ -53,7 +53,6 @@ class PokemonViewModel: ObservableObject{
                 }
             }
             
-            
             let pkm = FirestorePokemon(pokemonID: id, name: name, caught: .init())
             
             do {
@@ -62,6 +61,5 @@ class PokemonViewModel: ObservableObject{
                 print("Error adding pokemon to PC \(error.localizedDescription)")
             }
         }
-        
     }
 }

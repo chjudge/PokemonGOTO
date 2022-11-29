@@ -11,11 +11,9 @@ import FirebaseFirestoreSwift
 struct FirestoreUser: Identifiable, Codable {
     var id: String = UUID().uuidString
 
-    var name: String
     var pokemon: DocumentReference?
     
     enum CodingKeys: CodingKey {
-        case name
         case pokemon
     }
 }

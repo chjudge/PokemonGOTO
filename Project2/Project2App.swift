@@ -7,11 +7,17 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseAuth
 
 @main
 struct Project2App: App {
     init(){
         FirebaseApp.configure()
+        Auth.auth().signInAnonymously { authResult, error in
+            guard let user = authResult?.user else { print("error authenticating user: \(error!)"); return }
+            print(user.uid)
+        }
+
         Task{ await PokedexViewModel.shared.loadPokemon() }
     }
     

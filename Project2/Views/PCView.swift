@@ -7,7 +7,7 @@
 
 import SwiftUI
 import PokemonAPI
-
+import FirebaseAuth
 
 struct PCView: View {
     
@@ -33,15 +33,16 @@ struct PCView: View {
             .navigationBarTitle("My PC")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                let query = PCVM.firestore.query()
-                PCVM.firestore.subscribe(to: query)
+                if let path = AuthManager.shared.pkmPath {
+                    print("creating query \(path)")
+                    let query = PCVM.firestore.query(collection: path)
+                    PCVM.firestore.subscribe(to: query)
+                }
             }
             .onDisappear {
                 PCVM.firestore.unsubscribe()
             }
         }
-        
-        
     }
 }
 
