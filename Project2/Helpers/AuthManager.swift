@@ -55,6 +55,8 @@ class AuthManager: ObservableObject {
                         try userDoc.setData(from: user)
                         let pkm = userDoc.collection("pokemon")
                         try pkm.document("1").setData(from: bulb)
+                        self.pkmPath = pkm.path
+                        print("pkm path: \(self.pkmPath!)")
                     } catch  {
                         print("error setting user or pokemon")
                     }
