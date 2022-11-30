@@ -47,9 +47,9 @@ struct PokedexView: View {
                     }
                     .frame(height: geo.size.height/3)
                     
-                    Text("Pokemon")
-                        .foregroundColor(.white)
-                        .font(.title)
+//                    Text("Pokemon")
+//                        .foregroundColor(.white)
+//                        .font(.title)
                     
                     ScrollView {
                         LazyVGrid(columns: adaptiveColumns, spacing: 10) {

@@ -8,6 +8,7 @@
 import Foundation
 import PokemonAPI
 import FirebaseFirestore
+import SwiftUI
 
 class PokemonManager: ObservableObject {
     let pokemonAPI = PokemonAPI()
@@ -75,7 +76,7 @@ class PokemonManager: ObservableObject {
         return out
     }
     
-    func add(pokemon: PKMPokemon) {
+    func add(pokemon: PKMPokemon, didFail: Binding<Bool>) {
         let collection = db.collection(AuthManager.shared.pkmPath ?? "pokemon")
         
         if let name = pokemon.name, let id = pokemon.id {
@@ -83,6 +84,7 @@ class PokemonManager: ObservableObject {
             collection.document("\(id)").getDocument{ (document, error) in
                 if let document = document, document.exists {
                     print("Error: Pokemon already in PC")
+                    didFail.wrappedValue = true
                     return
                 }
             }

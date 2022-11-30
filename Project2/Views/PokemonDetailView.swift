@@ -17,6 +17,8 @@ struct PokemonDetailView: View {
     var fromPokedex: Bool = false
     @State var types: [PKMType] = []
     
+    @State private var didFail = false
+    
 //    @State var moves: [PKMMove] = []
     
 //    func getMoves(moveResources: [PKMPokemonMove]) async {
@@ -58,13 +60,16 @@ struct PokemonDetailView: View {
                     Spacer()
                     if fromPokedex {
                         Button {
-                            PKMManager.add(pokemon: pokemon)
+                            PKMManager.add(pokemon: pokemon, didFail: $didFail)
                         } label: {
                             HStack {
                                 Image(systemName: "plus")
                                 Text("Add to PC")
                             }
-                        }
+                        }.alert(
+                            "This pokemon is already in your PC",
+                            isPresented: $didFail
+                        ) { }
                     }
                 }
                 .padding()
