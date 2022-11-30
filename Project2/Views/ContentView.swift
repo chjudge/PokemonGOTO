@@ -48,6 +48,14 @@ struct ContentView: View {
                     Text("Map")
                 }
                 .tag(3)
+                
+                TeamView().tabItem {
+                    Image(systemName: "person.3")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                    Text("Pokemon")
+                }
+                .tag(4)
             }
         }
     }
