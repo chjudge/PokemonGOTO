@@ -16,13 +16,13 @@
 		010D760E2924929D004BF362 /* PokemonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D760D2924929D004BF362 /* PokemonView.swift */; };
 		010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D760F2924C3B7004BF362 /* PokemonDetailView.swift */; };
 		0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131155329270B4200F32C59 /* PokedexViewModel.swift */; };
-		01311556292718EC00F32C59 /* PokemonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01311555292718EC00F32C59 /* PokemonViewModel.swift */; };
 		013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115A0292C812D00F32C59 /* PCViewModel.swift */; };
 		013115AE292CBB4400F32C59 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AD292CBB4400F32C59 /* AuthManager.swift */; };
 		013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AF292EABC600F32C59 /* FirestoreModels.swift */; };
 		013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115B1292EB05900F32C59 /* GoogleService-Info.plist */; };
 		013115B629354BDF00F32C59 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115B529354BDF00F32C59 /* FirestoreManager.swift */; };
 		0153CE782937187600FF02E5 /* NewMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153CE772937187600FF02E5 /* NewMapView.swift */; };
+		0153CE7D29373A7F00FF02E5 /* PokemonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */; };
 		0189DC0729355F0D003C5054 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0629355F0D003C5054 /* FirebaseAuth */; };
 		0189DC0929355F0D003C5054 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0829355F0D003C5054 /* FirebaseFirestore */; };
 		0189DC0B29355F0D003C5054 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0A29355F0D003C5054 /* FirebaseFirestoreSwift */; };
@@ -44,13 +44,13 @@
 		010D760D2924929D004BF362 /* PokemonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonView.swift; sourceTree = "<group>"; };
 		010D760F2924C3B7004BF362 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		0131155329270B4200F32C59 /* PokedexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewModel.swift; sourceTree = "<group>"; };
-		01311555292718EC00F32C59 /* PokemonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModel.swift; sourceTree = "<group>"; };
 		013115A0292C812D00F32C59 /* PCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCViewModel.swift; sourceTree = "<group>"; };
 		013115AD292CBB4400F32C59 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		013115AF292EABC600F32C59 /* FirestoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModels.swift; sourceTree = "<group>"; };
 		013115B1292EB05900F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Project2/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		013115B529354BDF00F32C59 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		0153CE772937187600FF02E5 /* NewMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMapView.swift; sourceTree = "<group>"; };
+		0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonManager.swift; sourceTree = "<group>"; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		BC38B05029246704000174BF /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -150,7 +150,6 @@
 			children = (
 				BC38B05029246704000174BF /* MapViewModel.swift */,
 				0131155329270B4200F32C59 /* PokedexViewModel.swift */,
-				01311555292718EC00F32C59 /* PokemonViewModel.swift */,
 				013115A0292C812D00F32C59 /* PCViewModel.swift */,
 			);
 			path = ViewModels;
@@ -161,6 +160,7 @@
 			children = (
 				BC38B06A2927121A000174BF /* Extenders.swift */,
 				013115B529354BDF00F32C59 /* FirestoreManager.swift */,
+				0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */,
 				013115AD292CBB4400F32C59 /* AuthManager.swift */,
 			);
 			path = Helpers;
@@ -250,7 +250,6 @@
 			files = (
 				BC38B04D2924468A000174BF /* MapView.swift in Sources */,
 				BC38B06B2927121A000174BF /* Extenders.swift in Sources */,
-				01311556292718EC00F32C59 /* PokemonViewModel.swift in Sources */,
 				013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */,
 				010D760A29248DB2004BF362 /* PokedexView.swift in Sources */,
 				013115AE292CBB4400F32C59 /* AuthManager.swift in Sources */,
@@ -261,6 +260,7 @@
 				010D75D22921C821004BF362 /* ContentView.swift in Sources */,
 				BC38B04F292446D4000174BF /* PCView.swift in Sources */,
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
+				0153CE7D29373A7F00FF02E5 /* PokemonManager.swift in Sources */,
 				010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */,
 				010D760E2924929D004BF362 /* PokemonView.swift in Sources */,
 				BC38B05129246704000174BF /* MapViewModel.swift in Sources */,

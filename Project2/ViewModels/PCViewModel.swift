@@ -21,15 +21,4 @@ class PCViewModel: ObservableObject {
         let instance = PCViewModel()
         return instance
     }()
-    
-    func fetchPokemon(id: Int) async {
-        do {
-            let pkm = try await pokemonAPI.pokemonService.fetchPokemon(id)
-            DispatchQueue.main.async {
-                self.pokemon.append(pkm)
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
 }

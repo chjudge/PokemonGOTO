@@ -15,14 +15,6 @@ class AuthManager: ObservableObject {
     var pkmPath: String?
     var user: FirestoreUser?
     
-    var handle = Auth.auth().addStateDidChangeListener{ auth, user in
-        print("authing user")
-        if let user = Auth.auth().currentUser{
-            print("setting user")
-            AuthManager.shared.setUser()
-        }
-    }
-    
     let firestore = FirestoreManager<FirestoreUser>(collection: "users")
     
     static let shared = {

@@ -10,6 +10,7 @@ import PokemonAPI
 
 class PokedexViewModel: ObservableObject{
     let pokemonAPI = PokemonAPI()
+    var PKMManager = PokemonManager.shared
     
     static let shared = {
         let instance = PokedexViewModel()
@@ -17,30 +18,9 @@ class PokedexViewModel: ObservableObject{
     }()
     
     @Published var searchText = ""
-    @Published var allPokemon: [PKMPokemon] = [PKMPokemon]()
     
     var filteredPokemon: [PKMPokemon] {
-        let list = searchText.isEmpty ? allPokemon : allPokemon.filter({ $0.name!.contains(searchText.lowercased()) })
+        let list = searchText.isEmpty ? PKMManager.allPokemon : PKMManager.allPokemon.filter({ $0.name!.contains(searchText.lowercased()) })
         return list.sorted {$0.id! < $1.id!}
-    }
-    
-    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
-        let start = allPokemon.count
-        
-        do {
-            let pagedObject = try await pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState)
-            if let results = pagedObject.results as? [PKMNamedAPIResource]{
-                await withThrowingTaskGroup(of: Void.self){ group in
-                    for r in results.suffix(from: start){
-                        group.addTask{
-                            let pkm = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
-                            DispatchQueue.main.async{ self.allPokemon.append(pkm) }
-                        }
-                    }
-                }
-            }
-        } catch {
-            print("Error loading pokedex: \(error.localizedDescription)")
-        }
     }
 }

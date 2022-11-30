@@ -1,23 +1,57 @@
 //
-//  PokemonViewModel.swift
+//  PokemonManager.swift
 //  Project2
 //
-//  Created by Clayton Judge on 11/17/22.
+//  Created by Clayton Judge on 11/30/22.
 //
 
-import FirebaseFirestore
-import Combine
+import Foundation
 import PokemonAPI
+import FirebaseFirestore
 
-class PokemonViewModel: ObservableObject{
+class PokemonManager: ObservableObject {
     let pokemonAPI = PokemonAPI()
-    
     private var db = Firestore.firestore()
     
     static let shared = {
-        let instance = PokemonViewModel()
+        let instance = PokemonManager()
         return instance
     }()
+    
+    @Published var allPokemon: [PKMPokemon] = [PKMPokemon]()
+    
+    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
+        let start = allPokemon.count
+        
+        do {
+            let pagedObject = try await pokemonAPI.pokemonService.fetchPokemonList(paginationState: paginationState)
+            if let results = pagedObject.results as? [PKMNamedAPIResource]{
+                await withThrowingTaskGroup(of: Void.self){ group in
+                    for r in results.suffix(from: start){
+                        group.addTask{
+                            let pkm = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
+                            DispatchQueue.main.async{ self.allPokemon.append(pkm) }
+                        }
+                    }
+                }
+            }
+        } catch {
+            print("Error loading pokedex: \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchPokemon(id: Int) async -> PKMPokemon?{
+        if let pkm = allPokemon.first(where: { $0.id == id } ){
+            return pkm
+        }
+        do {
+            let pkm = try await pokemonAPI.pokemonService.fetchPokemon(id)
+            return pkm
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
     
     func fetchMove(moveResource: PKMNamedAPIResource<PKMMove>) async -> PKMMove? {
         do{

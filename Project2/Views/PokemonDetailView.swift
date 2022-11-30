@@ -12,7 +12,7 @@ struct PokemonDetailView: View {
     let pokemon: PKMPokemon
     let dimensions: Double
     
-    let VM = PokemonViewModel.shared
+    let PKMManager = PokemonManager.shared
     
     var fromPokedex: Bool = false
     @State var types: [PKMType] = []
@@ -46,7 +46,7 @@ struct PokemonDetailView: View {
                     Text("**Type**: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
                         .task {
                             print("loading types")
-                            types = await VM.fetchType(types: pokemon.types!)
+                            types = await PKMManager.fetchType(types: pokemon.types!)
                         }
 //                    ForEach(moves, id: \.id){move in
 //                        if let name = move.name{
@@ -58,7 +58,7 @@ struct PokemonDetailView: View {
                     Spacer()
                     if fromPokedex {
                         Button {
-                            VM.add(pokemon: pokemon)
+                            PKMManager.add(pokemon: pokemon)
                         } label: {
                             HStack {
                                 Image(systemName: "plus")

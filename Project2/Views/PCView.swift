@@ -12,6 +12,7 @@ import FirebaseAuth
 struct PCView: View {
     
     @ObservedObject var PCVM = PCViewModel.shared
+    @ObservedObject var PKMManager = PokemonManager.shared
     
     var body: some View {
         NavigationView {
@@ -24,7 +25,9 @@ struct PCView: View {
                     for pkm in pokemon{
                         if !PCVM.pokemon.contains(where: {$0.id! == pkm.pokemonID}){
                             Task{
-                                await PCVM.fetchPokemon(id: pkm.pokemonID)
+                                if let pk = await PKMManager.fetchPokemon(id: pkm.pokemonID){
+                                    PCVM.pokemon.append(pk)
+                                }
                             }
                         }
                     }

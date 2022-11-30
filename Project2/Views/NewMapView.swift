@@ -25,7 +25,7 @@ struct NewMapView: View {
         ){ event in
             MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: event.location.latitude, longitude: event.location.longitude)){
                 ZStack{
-                    AsyncImage(url: URL(string:PokedexViewModel.shared.allPokemon.first(where: { $0.id == event.pokemon_id })?.sprites?.frontDefault ?? "")) { image in
+                    AsyncImage(url: URL(string:PokemonManager.shared.allPokemon.first(where: { $0.id == event.pokemon_id })?.sprites?.frontDefault ?? "")) { image in
                         if let image = image {
                             image
                                 .resizable()
