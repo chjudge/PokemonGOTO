@@ -12,7 +12,6 @@ import Combine
 class AuthManager: ObservableObject {
     private var db = Firestore.firestore()
     var uid: String?
-    var pkmPath: String?
     var user: FirestoreUser?
     
     let firestore = FirestoreManager<FirestoreUser>(collection: "users")
@@ -33,9 +32,6 @@ class AuthManager: ObservableObject {
                     do{
                         print("getting user")
                         self.user = try document.data(as: FirestoreUser.self)
-                        let pkm = userDoc.collection("pokemon")
-                        self.pkmPath = pkm.path
-                        print("pkm path: \(self.pkmPath!)")
                     } catch {
                         print("error loading user from firestore")
                     }
@@ -45,10 +41,6 @@ class AuthManager: ObservableObject {
                     let bulb = FirestorePokemon(pokemonID: 1, name: "Bulbasaur", caught: .init())
                     do {
                         try userDoc.setData(from: user)
-                        let pkm = userDoc.collection("pokemon")
-                        try pkm.document("1").setData(from: bulb)
-                        self.pkmPath = pkm.path
-                        print("pkm path: \(self.pkmPath!)")
                     } catch  {
                         print("error setting user or pokemon")
                     }
