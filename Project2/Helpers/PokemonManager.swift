@@ -77,7 +77,7 @@ class PokemonManager: ObservableObject {
     }
     
     func add(pokemon: PKMPokemon, didFail: Binding<Bool>) {
-        let collection = db.collection(AuthManager.shared.pkmPath ?? "pokemon")
+        let collection = db.collection("users/\(AuthManager.shared.uid!)/pokemon")
         
         if let name = pokemon.name, let id = pokemon.id {
             //check if pokemon already caught
