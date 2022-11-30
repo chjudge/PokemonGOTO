@@ -37,7 +37,7 @@ struct MapView: UIViewRepresentable {
         map.delegate = context.coordinator
         map.showsUserLocation = true
         map.userTrackingMode = .followWithHeading
-        map.preferredConfiguration = MKImageryMapConfiguration()
+//        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
     
@@ -45,8 +45,8 @@ struct MapView: UIViewRepresentable {
         uiView.setRegion(region, animated: true)
 //        print("Count: \(VM.firestore.firestoreModels)")
         
-        updateEvents(uiView, VM.firestore.firestoreModels)
-        populateWildPokemon(uiView)
+//        updateEvents(uiView, VM.firestore.firestoreModels)
+        //populateWildPokemon(uiView)
         
     }
     

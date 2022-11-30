@@ -10,7 +10,7 @@ import PokemonAPI
 
 struct ContentView: View {
     
-    @State var tabIndex = 1
+    @State var tabIndex = 3
     
     var body: some View {
         
@@ -41,6 +41,13 @@ struct ContentView: View {
                     Text("Pokedex")
                 }
                 .tag(2)
+                NewMapView().tabItem {
+                    Image(systemName: "globe")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                    Text("Map")
+                }
+                .tag(3)
             }
         }
     }
@@ -48,6 +55,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ForEach(ColorScheme.allCases, id: \.self) {
+            ContentView().preferredColorScheme($0)
+        }
     }
 }

@@ -22,6 +22,7 @@
 		013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AF292EABC600F32C59 /* FirestoreModels.swift */; };
 		013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115B1292EB05900F32C59 /* GoogleService-Info.plist */; };
 		013115B629354BDF00F32C59 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115B529354BDF00F32C59 /* FirestoreManager.swift */; };
+		0153CE782937187600FF02E5 /* NewMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153CE772937187600FF02E5 /* NewMapView.swift */; };
 		0189DC0729355F0D003C5054 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0629355F0D003C5054 /* FirebaseAuth */; };
 		0189DC0929355F0D003C5054 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0829355F0D003C5054 /* FirebaseFirestore */; };
 		0189DC0B29355F0D003C5054 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0A29355F0D003C5054 /* FirebaseFirestoreSwift */; };
@@ -49,6 +50,7 @@
 		013115AF292EABC600F32C59 /* FirestoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModels.swift; sourceTree = "<group>"; };
 		013115B1292EB05900F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Project2/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		013115B529354BDF00F32C59 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		0153CE772937187600FF02E5 /* NewMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMapView.swift; sourceTree = "<group>"; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		BC38B05029246704000174BF /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				010D75D12921C821004BF362 /* ContentView.swift */,
 				BC38B04C2924468A000174BF /* MapView.swift */,
+				0153CE772937187600FF02E5 /* NewMapView.swift */,
 				010D760F2924C3B7004BF362 /* PokemonDetailView.swift */,
 				BC38B04E292446D4000174BF /* PCView.swift */,
 				010D760D2924929D004BF362 /* PokemonView.swift */,
@@ -254,6 +257,7 @@
 				BCEB832E292EC93300754B0E /* TestView.swift in Sources */,
 				0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */,
 				013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */,
+				0153CE782937187600FF02E5 /* NewMapView.swift in Sources */,
 				010D75D22921C821004BF362 /* ContentView.swift in Sources */,
 				BC38B04F292446D4000174BF /* PCView.swift in Sources */,
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
@@ -386,13 +390,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Project2/Preview Content\"";
 				DEVELOPMENT_TEAM = N48V78FY2Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location Usage";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -400,7 +405,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -419,13 +424,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Project2/Preview Content\"";
 				DEVELOPMENT_TEAM = N48V78FY2Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location Usage";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -433,7 +439,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
