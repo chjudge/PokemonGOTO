@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import PokemonAPI
 
 struct MapView: UIViewRepresentable {
     
@@ -43,7 +44,44 @@ struct MapView: UIViewRepresentable {
         uiView.setRegion(region, animated: true)
 //        print("Count: \(VM.firestore.firestoreModels)")
         
-        for event in VM.firestore.firestoreModels {
+        updateEvents(uiView, VM.firestore.firestoreModels)
+        populateWildPokemon(uiView)
+        
+    }
+    
+    func populateWildPokemon(_ uiView: MKMapView) {
+        print("Populating wild pokemon onto map")
+        var coords = [CLLocationCoordinate2D]()
+        
+        //let pokemonAPI = PokemonAPI()
+        
+        let maxSpawns = 5
+        let highestPokemonId = 151 // Test
+        let highestLevel = 5
+        
+        for _ in [1..<Int.random(in: 1..<maxSpawns)] {
+            let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
+            let randomLong = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
+            coords.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(randomLat), longitude: CLLocationDegrees(randomLong)))
+        }
+        
+        for coord in coords {
+            let randomPokemon = Int.random(in: 1..<highestPokemonId)
+            let randomLevel = Int.random(in: 1..<highestLevel)
+            
+            //let pokemon = try await pokemonAPI.pokemonService.fetchPokemon(randomPokemon)
+            
+            let wildPokemonMarker = MKPointAnnotation()
+            wildPokemonMarker.title = String(randomPokemon)// pokemon.name
+            wildPokemonMarker.coordinate = coord
+            uiView.addAnnotation(wildPokemonMarker)
+        }
+        
+    }
+    
+    func updateEvents(_ uiView: MKMapView, _ events: [FirestoreEvent]) {
+        print("Populating events onto map")
+        for event in events {
             // Add annotations
             let loc = MKPointAnnotation()
 //            print("Event: \(event)")
