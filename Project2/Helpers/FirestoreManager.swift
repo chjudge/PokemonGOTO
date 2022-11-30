@@ -33,8 +33,9 @@ class FirestoreManager<Model: Decodable>: ObservableObject {
                 
                 self.firestoreModels = documents.compactMap { document in
                     do {
-                        print(document.documentID)
+//                        print(document.documentID)
                         let doc = try document.data(as: Model.self)
+//                        print("Doc: \(doc)")
                         return doc
                     } catch {
                         print(error.localizedDescription)

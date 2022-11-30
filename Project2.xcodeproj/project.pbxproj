@@ -27,7 +27,7 @@
 		0189DC0B29355F0D003C5054 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0A29355F0D003C5054 /* FirebaseFirestoreSwift */; };
 		BC38B04D2924468A000174BF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04C2924468A000174BF /* MapView.swift */; };
 		BC38B04F292446D4000174BF /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04E292446D4000174BF /* PCView.swift */; };
-		BC38B05129246704000174BF /* UserLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* UserLocationModel.swift */; };
+		BC38B05129246704000174BF /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* MapViewModel.swift */; };
 		BC38B05329247D32000174BF /* pokemon.json in Resources */ = {isa = PBXBuildFile; fileRef = BC38B05229247D32000174BF /* pokemon.json */; };
 		BC38B06B2927121A000174BF /* Extenders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B06A2927121A000174BF /* Extenders.swift */; };
 		BCEB832E292EC93300754B0E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB832D292EC93300754B0E /* TestView.swift */; };
@@ -51,7 +51,7 @@
 		013115B529354BDF00F32C59 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
-		BC38B05029246704000174BF /* UserLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationModel.swift; sourceTree = "<group>"; };
+		BC38B05029246704000174BF /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BC38B05229247D32000174BF /* pokemon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pokemon.json; sourceTree = "<group>"; };
 		BC38B06A2927121A000174BF /* Extenders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extenders.swift; sourceTree = "<group>"; };
 		BCEB832D292EC93300754B0E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 		BC38B04A292444FD000174BF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				BC38B05029246704000174BF /* UserLocationModel.swift */,
+				BC38B05029246704000174BF /* MapViewModel.swift */,
 				0131155329270B4200F32C59 /* PokedexViewModel.swift */,
 				01311555292718EC00F32C59 /* PokemonViewModel.swift */,
 				013115A0292C812D00F32C59 /* PCViewModel.swift */,
@@ -259,7 +259,7 @@
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
 				010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */,
 				010D760E2924929D004BF362 /* PokemonView.swift in Sources */,
-				BC38B05129246704000174BF /* UserLocationModel.swift in Sources */,
+				BC38B05129246704000174BF /* MapViewModel.swift in Sources */,
 				013115B629354BDF00F32C59 /* FirestoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,16 +7,21 @@
 
 import Foundation
 import CoreLocation
+import UIKit
+import MapKit
+import UserNotifications
 
-class UserLocationModel: NSObject, CLLocationManagerDelegate, ObservableObject {
+class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
+    
+    let firestore = FirestoreManager<FirestoreEvent>(collection: "event")
     
     var locationManager = CLLocationManager()
     
     @Published var userLat: Double? = nil
     @Published var userLon: Double? = nil
     
-    static let shared: UserLocationModel = {
-        return UserLocationModel()
+    static let shared: MapViewModel = {
+        return MapViewModel()
     }()
     
     override init() {
@@ -58,6 +63,18 @@ class UserLocationModel: NSObject, CLLocationManagerDelegate, ObservableObject {
             self.userLat = userLocation.coordinate.latitude
             self.userLon = userLocation.coordinate.longitude
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+            let title = "You Entered the Region"
+            let message = "Wow theres cool stuff in here! YAY!"
+            print("\(title): \(message)")
+        }
+        
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        let title = "You Left the Region"
+        let message = "Say bye bye to all that cool stuff. =["
+        print("\(title): \(message)")
     }
     
 }
