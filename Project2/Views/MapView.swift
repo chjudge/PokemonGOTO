@@ -37,6 +37,7 @@ struct MapView: UIViewRepresentable {
         map.delegate = context.coordinator
         map.showsUserLocation = true
         map.userTrackingMode = .followWithHeading
+        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
     
