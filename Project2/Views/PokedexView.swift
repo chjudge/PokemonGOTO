@@ -32,10 +32,11 @@ struct PokedexView: View {
                     ZStack {
                         // Background box
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(.white)
+                            .fill(.primary)
                             .shadow(radius: 10)
                             .padding(.horizontal, 10)
                             .padding(.bottom, 10)
+                            .colorInvert()
                         
                         // Pokemond details
                         if pokemonIndex >= 0 {
@@ -75,6 +76,8 @@ struct PokedexView: View {
 
 struct NewPokedexView_Previews: PreviewProvider {
     static var previews: some View {
-        PokedexView()
+        ForEach(ColorScheme.allCases, id: \.self) {
+            PokedexView().preferredColorScheme($0)
+        }
     }
 }
