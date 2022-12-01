@@ -34,6 +34,7 @@
 		BCEB832E292EC93300754B0E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB832D292EC93300754B0E /* TestView.swift */; };
 		BCEB8338293821AC00754B0E /* TeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB8337293821AC00754B0E /* TeamViewModel.swift */; };
 		BCEB833A293821D300754B0E /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB8339293821D300754B0E /* TeamView.swift */; };
+		BCEB833C2938F4F500754B0E /* TeamSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB833B2938F4F500754B0E /* TeamSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		BCEB832D292EC93300754B0E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		BCEB8337293821AC00754B0E /* TeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamViewModel.swift; sourceTree = "<group>"; };
 		BCEB8339293821D300754B0E /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
+		BCEB833B2938F4F500754B0E /* TeamSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				010D760929248DB2004BF362 /* PokedexView.swift */,
 				BCEB832D292EC93300754B0E /* TestView.swift */,
 				BCEB8339293821D300754B0E /* TeamView.swift */,
+				BCEB833B2938F4F500754B0E /* TeamSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
 				0153CE7D29373A7F00FF02E5 /* PokemonManager.swift in Sources */,
 				BCEB833A293821D300754B0E /* TeamView.swift in Sources */,
+				BCEB833C2938F4F500754B0E /* TeamSelectionView.swift in Sources */,
 				010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */,
 				010D760E2924929D004BF362 /* PokemonView.swift in Sources */,
 				BC38B05129246704000174BF /* MapViewModel.swift in Sources */,

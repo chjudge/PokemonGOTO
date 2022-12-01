@@ -17,47 +17,52 @@ struct TeamView: View {
     var body: some View {
         
 //        Text("lol broken")
-        
-        LazyVGrid(columns: adaptiveColumns, spacing: 10) {
-            ForEach(0..<6, id: \.self){ index in
-                if let pokemon = TVM.team[index] {
-                    PokemonView(pokemon: pokemon, dimensions: 120)
-                } else {
-                    VStack{
-                        Circle()
-                            .background(.thinMaterial)
-                            .frame(width: 120, height: 120)
-                            .clipShape(Circle())
-                        Text("Empty")
-                            .font(.system(size: 16, weight: .regular, design: .monospaced))
-                            .padding(.bottom, 20)
-                            .foregroundColor(.primary)
+        NavigationView {
+            LazyVGrid(columns: adaptiveColumns, spacing: 10) {
+                ForEach(0..<6, id: \.self){ index in
+                    NavigationLink {
+                        TeamSelectionView(index: index)
+                    } label: {
+                        if let pokemon = TVM.team[index] {
+                            PokemonView(pokemon: pokemon, dimensions: 120)
+                        } else {
+                            VStack{
+                                Circle()
+                                    .background(.thinMaterial)
+                                    .frame(width: 120, height: 120)
+                                    .clipShape(Circle())
+                                Text("Empty")
+                                    .font(.system(size: 16, weight: .regular, design: .monospaced))
+                                    .padding(.bottom, 20)
+                                    .foregroundColor(.primary)
+                            }
+                        }
+                    }
+                }
+                
+                //            ForEach(TVM.team, id: \.id) { pokemon in
+                //                PokemonView(pokemon: pokemon, dimensions: 120)
+                //            }
+            }.onReceive(TVM.firestore.$firestoreModels){ documents in
+                for doc in documents{
+                    Task{
+                        if let pkm = await PKMManager.fetchPokemon(ref: doc.pokemon){
+                            TVM.team[doc.index] = pkm
+                        }
                     }
                 }
             }
-            
-//            ForEach(TVM.team, id: \.id) { pokemon in
-//                PokemonView(pokemon: pokemon, dimensions: 120)
-//            }
-        }.onReceive(TVM.firestore.$firestoreModels){ documents in
-            for doc in documents{
-                Task{
-                    if let pkm = await PKMManager.fetchPokemon(ref: doc.pokemon){
-                        TVM.team[doc.index] = pkm
-                    }
+            .onAppear {
+                if let uid = AuthManager.shared.uid {
+                    let path = "users/\(uid)/team"
+                    print("creating query \(path)")
+                    let query = TVM.firestore.query(collection: path)
+                    TVM.firestore.subscribe(to: query)
                 }
             }
-        }
-        .onAppear {
-            if let uid = AuthManager.shared.uid {
-                let path = "users/\(uid)/team"
-                print("creating query \(path)")
-                let query = TVM.firestore.query(collection: path)
-                TVM.firestore.subscribe(to: query)
+            .onDisappear {
+                TVM.firestore.unsubscribe()
             }
-        }
-        .onDisappear {
-            TVM.firestore.unsubscribe()
         }
         
     }
