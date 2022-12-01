@@ -41,6 +41,14 @@ class PokemonManager: ObservableObject {
         }
     }
     
+    func fetchPokemon(ref: DocumentReference) async -> PKMPokemon? {
+        
+        // TODO: I dont know how to do this
+        // let pkm = db.document(ref.documentID).getDoc .data(as: FirestorePokemon.self)
+        
+        return nil
+    }
+    
     func fetchPokemon(id: Int) async -> PKMPokemon?{
         if let pkm = allPokemon.first(where: { $0.id == id } ){
             return pkm
@@ -97,5 +105,17 @@ class PokemonManager: ObservableObject {
                 print("Error adding pokemon to PC \(error.localizedDescription)")
             }
         }
+    }
+    
+    func addToTeam(pokemon: DocumentReference, index: Int, didFail: Binding<Bool>) {
+        let team = db.collection("users/\(AuthManager.shared.uid!)/team")
+        
+        do {
+            try team.document("\(index)").setData(from: pokemon)
+        } catch {
+            print("Error adding pokemon to team \(error.localizedDescription)")
+            didFail.wrappedValue = true
+        }
+
     }
 }

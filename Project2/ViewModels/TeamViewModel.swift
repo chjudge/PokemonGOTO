@@ -11,7 +11,10 @@ import PokemonAPI
 class TeamViewModel: ObservableObject {
     let pokemonAPI = PokemonAPI()
     var PKMManager = PokemonManager.shared
-    var team: [PKMPokemon]
+    
+    let firestore = FirestoreManager<FirestoreTeam>(collection: "user/\(AuthManager.shared.uid)/team")
+    
+    @Published var team: [PKMPokemon]
     
     static let shared = {
         let instance = TeamViewModel()
@@ -20,14 +23,6 @@ class TeamViewModel: ObservableObject {
     
     init() {
         team = [PKMPokemon]()
-        populateTeam()
-    }
-    
-    func populateTeam() {
-        // TODO: Get real team from Firestore
-//        for _ in [1..<6] {
-//
-//        }
     }
     
 }

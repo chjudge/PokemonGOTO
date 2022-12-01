@@ -49,3 +49,13 @@ struct FirestoreEvent: Identifiable, Codable {
     }
 }
 
+struct FirestoreTeam: Identifiable, Codable {
+    var id: String = UUID().uuidString
+    
+    var pokemon: DocumentReference
+    
+    enum CodingKeys: CodingKey {
+        case pokemon
+    }
+}
+
