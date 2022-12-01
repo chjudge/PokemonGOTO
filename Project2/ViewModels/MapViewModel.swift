@@ -32,6 +32,8 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
         // create a delegate
         locationManager.delegate = self
         
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
         // request permission to the user
         locationManager.requestWhenInUseAuthorization()
         
