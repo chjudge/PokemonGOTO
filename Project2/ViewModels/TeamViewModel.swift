@@ -14,7 +14,7 @@ class TeamViewModel: ObservableObject {
     
     let firestore = FirestoreManager<FirestoreTeam>()
     
-    @Published var team: [PKMPokemon] = [PKMPokemon]()
+    @Published var team: [PKMPokemon?] = [nil, nil, nil, nil, nil, nil]
     
     static let shared = {
         let instance = TeamViewModel()

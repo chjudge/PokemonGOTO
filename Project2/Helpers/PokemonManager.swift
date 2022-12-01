@@ -113,11 +113,15 @@ class PokemonManager: ObservableObject {
         }
     }
     
-    func addToTeam(pokemon: DocumentReference, index: Int, didFail: Binding<Bool>) {
+    func addToTeam(pokemonID: Int, index: Int, didFail: Binding<Bool>) {
+        let pokemon = db.collection("users/\(AuthManager.shared.uid!)/pokemon")
+        
         let team = db.collection("users/\(AuthManager.shared.uid!)/team")
         
         do {
-            try team.document("\(index)").setData(from: pokemon)
+            let ref = pokemon.document("\(pokemonID)")
+            print(ref.path)
+            try team.document("\(index)").setData(from: FirestoreTeam(pokemon: ref, index: index))
         } catch {
             print("Error adding pokemon to team \(error.localizedDescription)")
             didFail.wrappedValue = true

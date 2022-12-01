@@ -55,9 +55,11 @@ struct FirestoreTeam: Identifiable, Codable {
     var id: String = UUID().uuidString
     
     var pokemon: DocumentReference
+    var index: Int
     
     enum CodingKeys: CodingKey {
         case pokemon
+        case index
     }
 }
 
