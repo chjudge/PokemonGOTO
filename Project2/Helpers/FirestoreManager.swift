@@ -17,7 +17,7 @@ class FirestoreManager<Model: Decodable>: ObservableObject {
     @Published var firestoreModels = [Model]()
     
     
-    init(collection: String, limit: Int = 50) {
+    init(collection: String = "pokemon", limit: Int = 50) {
         baseQuery = db.collection(collection).limit(to: limit)
     }
     

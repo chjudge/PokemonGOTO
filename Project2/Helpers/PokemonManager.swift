@@ -42,10 +42,16 @@ class PokemonManager: ObservableObject {
     }
     
     func fetchPokemon(ref: DocumentReference) async -> PKMPokemon? {
-        
-        // TODO: I dont know how to do this
-        // let pkm = db.document(ref.documentID).getDoc .data(as: FirestorePokemon.self)
-        
+        do {
+            let doc = try await ref.getDocument()
+            if doc.exists{
+                let FSPKM = try doc.data(as: FirestorePokemon.self)
+                return await fetchPokemon(id: FSPKM.pokemonID)
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+        }
         return nil
     }
     

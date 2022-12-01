@@ -12,17 +12,12 @@ class TeamViewModel: ObservableObject {
     let pokemonAPI = PokemonAPI()
     var PKMManager = PokemonManager.shared
     
-    let firestore = FirestoreManager<FirestoreTeam>(collection: "user/\(AuthManager.shared.uid)/team")
+    let firestore = FirestoreManager<FirestoreTeam>()
     
-    @Published var team: [PKMPokemon]
+    @Published var team: [PKMPokemon] = [PKMPokemon]()
     
     static let shared = {
         let instance = TeamViewModel()
         return instance
     }()
-    
-    init() {
-        team = [PKMPokemon]()
-    }
-    
 }

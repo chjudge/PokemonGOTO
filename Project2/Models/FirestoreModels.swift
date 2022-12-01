@@ -12,9 +12,11 @@ struct FirestoreUser: Identifiable, Codable {
     var id: String = UUID().uuidString
 
     var pokemon: DocumentReference?
+    var team: DocumentReference?
     
     enum CodingKeys: CodingKey {
         case pokemon
+        case team
     }
 }
 

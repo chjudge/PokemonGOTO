@@ -22,15 +22,15 @@ struct PCView: View {
                         PokemonView(pokemon: pkm, dimensions: 120)
                     }
                 }.onReceive(PCVM.firestore.$firestoreModels){ pokemon in
+                    PCVM.pokemon.removeAll()
                     for pkm in pokemon{
-                        if !PCVM.pokemon.contains(where: {$0.id! == pkm.pokemonID}){
-                            Task{
-                                if let pk = await PKMManager.fetchPokemon(id: pkm.pokemonID){
+                        Task{
+                            if let pk = await PKMManager.fetchPokemon(id: pkm.pokemonID){
                                     PCVM.pokemon.append(pk)
                                 }
                             }
                         }
-                    }
+                    
                 }
             }
             .navigationBarTitle("My PC")
