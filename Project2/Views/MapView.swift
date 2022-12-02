@@ -37,16 +37,18 @@ struct MapView: UIViewRepresentable {
         map.delegate = context.coordinator
         map.showsUserLocation = true
         map.userTrackingMode = .followWithHeading
+        updateEvents(map, VM.firestore.firestoreModels)
+        populateWildPokemon(map)
 //        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.setRegion(region, animated: true)
+//        uiView.setRegion(region, animated: true)
 //        print("Count: \(VM.firestore.firestoreModels)")
         
-//        updateEvents(uiView, VM.firestore.firestoreModels)
-        //populateWildPokemon(uiView)
+        updateEvents(uiView, VM.firestore.firestoreModels)
+        populateWildPokemon(uiView)
         
     }
     
@@ -54,13 +56,13 @@ struct MapView: UIViewRepresentable {
         print("Populating wild pokemon onto map")
         var coords = [CLLocationCoordinate2D]()
         
-        //let pokemonAPI = PokemonAPI()
+        let pokemonAPI = PokemonAPI()
         
         let maxSpawns = 5
         let highestPokemonId = 151 // Test
         let highestLevel = 5
         
-        for _ in [1..<Int.random(in: 1..<maxSpawns)] {
+        for _ in [1..<Int.random(in: 3..<maxSpawns)] {
             let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
             let randomLong = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
             coords.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(randomLat), longitude: CLLocationDegrees(randomLong)))
@@ -69,8 +71,9 @@ struct MapView: UIViewRepresentable {
         for coord in coords {
             let randomPokemon = Int.random(in: 1..<highestPokemonId)
             let randomLevel = Int.random(in: 1..<highestLevel)
-            
-            //let pokemon = try await pokemonAPI.pokemonService.fetchPokemon(randomPokemon)
+            Task{
+                let pokemon = try await pokemonAPI.pokemonService.fetchPokemon(randomPokemon)
+            }
             
             let wildPokemonMarker = MKPointAnnotation()
             wildPokemonMarker.title = String(randomPokemon)// pokemon.name
@@ -120,6 +123,16 @@ struct MapView: UIViewRepresentable {
             }
             return MKOverlayRenderer(overlay: overlay)
         }
+        
+//        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Reuse")
+//            annotationView.canShowCallout = true
+//            annotationView.collisionMode = .circle
+////            annotationView.image = AsyncImage(url: <#T##URL?#>)
+////            annotation.title.
+//
+//            return annotationView
+//        }
         
     }
     
