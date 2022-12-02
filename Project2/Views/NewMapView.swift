@@ -41,7 +41,8 @@ struct NewMapView: View {
                 }
             }
         }
-        .ignoresSafeArea(edges: .top) // I did this for you Clayton <3 notice me senpai
+        .edgesIgnoringSafeArea(.top)
+        //.ignoresSafeArea(edges: .top) // I did this for you Clayton <3 notice me senpai
         .onAppear{
             let query = VM.firestore.query(collection: "event")
             VM.firestore.subscribe(to: query)

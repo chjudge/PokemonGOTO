@@ -35,17 +35,17 @@ struct PCView: View {
             }
             .navigationBarTitle("My PC")
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                if let uid = AuthManager.shared.uid {
-                    let path = "users/\(uid)/pokemon"
-                    print("creating query \(path)")
-                    let query = PCVM.firestore.query(collection: path)
-                    PCVM.firestore.subscribe(to: query)
-                }
-            }
-            .onDisappear {
-                PCVM.firestore.unsubscribe()
-            }
+//            .onAppear {
+//                if let uid = AuthManager.shared.uid {
+//                    let path = "users/\(uid)/pokemon"
+//                    print("creating query \(path)")
+//                    let query = PCVM.firestore.query(collection: path)
+//                    PCVM.firestore.subscribe(to: query)
+//                }
+//            }
+//            .onDisappear {
+//                PCVM.firestore.unsubscribe()
+//            }
         }
     }
 }

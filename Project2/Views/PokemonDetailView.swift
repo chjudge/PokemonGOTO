@@ -71,18 +71,6 @@ struct PokemonDetailView: View {
                             "This pokemon is already in your PC",
                             isPresented: $didFail
                         ) { }
-                    } else {
-                        Button {
-                            PKMManager.addToTeam(pokemonID: pokemon.id!, index: 0, didFail: $didFail)
-                        } label: {
-                            HStack {
-                                Image(systemName: "plus")
-                                Text("Add to team")
-                            }
-                        }.alert(
-                            "This pokemon is already on your team",
-                            isPresented: $didFail
-                        ) { }
                     }
                 }
                 .padding()

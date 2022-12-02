@@ -13,10 +13,12 @@ struct FirestoreUser: Identifiable, Codable {
 
     var pokemon: DocumentReference?
     var team: DocumentReference?
+    var steps: Int
     
     enum CodingKeys: CodingKey {
         case pokemon
         case team
+        case steps
     }
 }
 
@@ -26,11 +28,21 @@ struct FirestorePokemon: Identifiable, Codable {
     var pokemonID: Int
     var name: String
     var caught: Timestamp
+    var moves: [Int]?
+    var level: Int
+    var hp: Int
+    var maxHP: Int
+    var xp: Int
     
     enum CodingKeys: CodingKey {
         case name
         case pokemonID
         case caught
+        case moves
+        case level
+        case hp
+        case maxHP
+        case xp
     }
 }
 

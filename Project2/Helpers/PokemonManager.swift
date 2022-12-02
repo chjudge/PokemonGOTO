@@ -21,7 +21,7 @@ class PokemonManager: ObservableObject {
     
     @Published var allPokemon: [PKMPokemon] = [PKMPokemon]()
     
-    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 386)) async {
+    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
         let start = allPokemon.count
         
         do {
@@ -103,7 +103,7 @@ class PokemonManager: ObservableObject {
                 }
             }
             
-            let pkm = FirestorePokemon(pokemonID: id, name: name, caught: .init())
+            let pkm = FirestorePokemon(pokemonID: id, name: name, caught: .init(), level: 1, hp: 30, maxHP: 30, xp: 0)
             
             do {
                 try collection.document("\(id)").setData(from: pkm)

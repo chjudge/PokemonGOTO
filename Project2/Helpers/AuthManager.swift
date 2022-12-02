@@ -14,8 +14,6 @@ class AuthManager: ObservableObject {
     var uid: String?
     var user: FirestoreUser?
     
-    let firestore = FirestoreManager<FirestoreUser>(collection: "users")
-    
     static let shared = {
         let instance = AuthManager()
         return instance
@@ -37,8 +35,7 @@ class AuthManager: ObservableObject {
                     }
                 } else {
                     print("adding user to users collection")
-                    let user = FirestoreUser()
-                    let bulb = FirestorePokemon(pokemonID: 1, name: "Bulbasaur", caught: .init())
+                    let user = FirestoreUser(steps: 0)
                     do {
                         try userDoc.setData(from: user)
                     } catch  {
@@ -46,6 +43,17 @@ class AuthManager: ObservableObject {
                     }
                 }
             }
+            var userpkm = "users/\(uid)/pokemon"
+            print("creating query \(userpkm)")
+            PCViewModel.shared.firestore.subscribe(to: PCViewModel.shared.firestore.query(collection: userpkm))
+            
+            var event = "event"
+            print("creating query \(event)")
+            MapViewModel.shared.firestore.subscribe(to: MapViewModel.shared.firestore.query(collection: event))
+            
+            var userteam = "users/\(uid)/team"
+            print("creating query \(userteam)")
+            TeamViewModel.shared.firestore.subscribe(to: TeamViewModel.shared.firestore.query(collection: userteam))
         }
     }
 }

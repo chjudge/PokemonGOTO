@@ -17,7 +17,6 @@ struct Project2App: App {
             guard let user = authResult?.user else { print("error authenticating user: \(error!)"); return }
             print(user.uid)
             if Auth.auth().currentUser != nil{
-                print("setting user")
                 AuthManager.shared.setUser()
             }
         }
