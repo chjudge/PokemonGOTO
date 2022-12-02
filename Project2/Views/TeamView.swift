@@ -67,17 +67,17 @@ struct TeamView: View {
                 }
             }.padding()
         }
-        .onAppear {
-            if let uid = AuthManager.shared.uid {
-                let path = "users/\(uid)/team"
-                print("creating query \(path)")
-                let query = TVM.firestore.query(collection: path)
-                TVM.firestore.subscribe(to: query)
-            }
-        }
-        .onDisappear {
-            TVM.firestore.unsubscribe()
-        }
+//        .onAppear {
+//            if let uid = AuthManager.shared.uid {
+//                let path = "users/\(uid)/team"
+//                print("creating query \(path)")
+//                let query = TVM.firestore.query(collection: path)
+//                TVM.firestore.subscribe(to: query)
+//            }
+//        }
+//        .onDisappear {
+//            TVM.firestore.unsubscribe()
+//        }
     }
         
 //    }

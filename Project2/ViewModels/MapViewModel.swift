@@ -66,12 +66,13 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
             self.userLon = userLocation.coordinate.longitude
         }
     }
+
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-            let title = "You Entered the Region"
-            let message = "Wow theres cool stuff in here! YAY!"
-            print("\(title): \(message)")
-        }
+        let title = "You Entered the Region"
+        let message = "Wow theres cool stuff in here! YAY!"
+        print("\(title): \(message)")
+    }
         
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         let title = "You Left the Region"

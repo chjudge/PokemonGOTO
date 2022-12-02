@@ -30,15 +30,16 @@ struct MapView: UIViewRepresentable {
         let map = MKMapView()
         
         // create annotations
-        let query = VM.firestore.query(collection: "event")
-        VM.firestore.subscribe(to: query)
+//        let query = VM.firestore.query(collection: "event")
+//        VM.firestore.subscribe(to: query)
         
         //make the user to show up in the map; need to request permission for location first, otherwise function will not work
         map.delegate = context.coordinator
         map.showsUserLocation = true
         map.userTrackingMode = .followWithHeading
+        map.setRegion(region, animated: true)
         updateEvents(map, VM.firestore.firestoreModels)
-        populateWildPokemon(map)
+//        populateWildPokemon(map)
 //        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
@@ -47,8 +48,8 @@ struct MapView: UIViewRepresentable {
 //        uiView.setRegion(region, animated: true)
 //        print("Count: \(VM.firestore.firestoreModels)")
         
-        updateEvents(uiView, VM.firestore.firestoreModels)
-        populateWildPokemon(uiView)
+//        updateEvents(uiView, VM.firestore.firestoreModels)
+//        populateWildPokemon(uiView)
         
     }
     
@@ -69,11 +70,12 @@ struct MapView: UIViewRepresentable {
         }
         
         for coord in coords {
+            print("adding pokemon")
             let randomPokemon = Int.random(in: 1..<highestPokemonId)
             let randomLevel = Int.random(in: 1..<highestLevel)
-            Task{
-                let pokemon = try await pokemonAPI.pokemonService.fetchPokemon(randomPokemon)
-            }
+//            Task{
+//                let pokemon = try await pokemonAPI.pokemonService.fetchPokemon(randomPokemon)
+//            }
             
             let wildPokemonMarker = MKPointAnnotation()
             wildPokemonMarker.title = String(randomPokemon)// pokemon.name
@@ -85,6 +87,8 @@ struct MapView: UIViewRepresentable {
     
     func updateEvents(_ uiView: MKMapView, _ events: [FirestoreEvent]) {
         print("Populating events onto map")
+        uiView.removeAnnotations(uiView.annotations)
+        uiView.removeOverlays(uiView.overlays)
         for event in events {
             // Add annotations
             let loc = MKPointAnnotation()
@@ -128,8 +132,8 @@ struct MapView: UIViewRepresentable {
 //            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Reuse")
 //            annotationView.canShowCallout = true
 //            annotationView.collisionMode = .circle
-////            annotationView.image = AsyncImage(url: <#T##URL?#>)
-////            annotation.title.
+//            annotationView.image = UIImage()
+//            annotation.title.
 //
 //            return annotationView
 //        }
