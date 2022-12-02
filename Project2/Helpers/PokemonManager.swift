@@ -21,7 +21,7 @@ class PokemonManager: ObservableObject {
     
     @Published var allPokemon: [PKMPokemon] = [PKMPokemon]()
     
-    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
+    func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 386)) async {
         let start = allPokemon.count
         
         do {

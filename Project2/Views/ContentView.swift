@@ -41,13 +41,13 @@ struct ContentView: View {
                     Text("Pokedex")
                 }
                 .tag(2)
-                NewMapView().tabItem {
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                    Text("Map")
-                }
-                .tag(3)
+//                NewMapView().tabItem {
+//                    Image(systemName: "globe")
+//                        .imageScale(.large)
+//                        .foregroundColor(.accentColor)
+//                    Text("Map")
+//                }
+//                .tag(3)
                 
                 TeamView().tabItem {
                     Image(systemName: "person.3")

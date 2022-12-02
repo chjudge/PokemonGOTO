@@ -46,9 +46,10 @@ struct PokemonDetailView: View {
 //
 //                    }
                     Text("**Type**: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
-                        .task {
-                            print("loading types")
-                            types = await PKMManager.fetchType(types: pokemon.types!)
+                        .onChange(of: pokemon){newValue in
+                            Task(){
+                                types = await PKMManager.fetchType(types: newValue.types!)
+                            }
                         }
 //                    ForEach(moves, id: \.id){move in
 //                        if let name = move.name{
