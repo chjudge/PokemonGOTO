@@ -63,6 +63,17 @@ struct FirestoreEvent: Identifiable, Codable {
     }
 }
 
+struct FirestoreActiveEvent: Identifiable, Codable {
+    @DocumentID var id: String? // = UUID().uuidString
+    
+    var event_id: String
+    var seconds: Int
+    
+    enum CodingKeys: CodingKey {
+        case id, event_id, seconds
+    }
+}
+
 struct FirestoreTeam: Identifiable, Codable {
     var id: String = UUID().uuidString
     
@@ -74,4 +85,5 @@ struct FirestoreTeam: Identifiable, Codable {
         case index
     }
 }
+
 
