@@ -47,7 +47,7 @@ struct FirestorePokemon: Identifiable, Codable {
 }
 
 struct FirestoreEvent: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String? // = UUID().uuidString
     
     var title: String
     var sender: String
@@ -59,7 +59,7 @@ struct FirestoreEvent: Identifiable, Codable {
     var pokemon_id: Int
     
     enum CodingKeys: CodingKey {
-        case title, sender, location, radius, seconds, start, end, pokemon_id
+        case id, title, sender, location, radius, seconds, start, end, pokemon_id
     }
 }
 

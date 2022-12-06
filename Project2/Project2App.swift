@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseCore
 import FirebaseAuth
 
-@main
+ @main
 struct Project2App: App {
     init(){
         FirebaseApp.configure()

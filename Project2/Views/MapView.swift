@@ -48,7 +48,7 @@ struct MapView: UIViewRepresentable {
 //        uiView.setRegion(region, animated: true)
 //        print("Count: \(VM.firestore.firestoreModels)")
         
-//        updateEvents(uiView, VM.firestore.firestoreModels)
+        updateEvents(uiView, VM.firestore.firestoreModels)
 //        populateWildPokemon(uiView)
         
     }
@@ -97,7 +97,7 @@ struct MapView: UIViewRepresentable {
             loc.coordinate = CLLocationCoordinate2D(latitude: event.location.latitude, longitude: event.location.longitude)
             uiView.addAnnotation(loc)
             // Add region
-            let region = CLCircularRegion(center: loc.coordinate, radius: CLLocationDistance(event.radius), identifier: "geofence")
+            let region = CLCircularRegion(center: loc.coordinate, radius: CLLocationDistance(event.radius), identifier: event.id ?? "N/A")
 //            uiView.removeOverlays(uiView.overlays)
             VM.locationManager.startMonitoring(for: region)
             // Add zone

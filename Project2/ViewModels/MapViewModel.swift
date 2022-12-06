@@ -69,12 +69,14 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
 
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        // TODO: Start incrementing time within event zone
         let title = "You Entered the Region"
         let message = "Wow theres cool stuff in here! YAY!"
         print("\(title): \(message)")
     }
         
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        // TODO: Stop incrementing time within event zone
         let title = "You Left the Region"
         let message = "Say bye bye to all that cool stuff. =["
         print("\(title): \(message)")

@@ -9,7 +9,7 @@ import Combine
 import FirebaseFirestore
 import SwiftUI
 
-class FirestoreManager<Model: Decodable>: ObservableObject {
+class FirestoreManager<Model: Codable>: ObservableObject {
     private var db = Firestore.firestore()
     private var listener: ListenerRegistration?
     private let baseQuery: Query
