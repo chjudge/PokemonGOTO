@@ -26,7 +26,7 @@ struct ContentView: View {
                 }
                 .tag(0)
                 
-                MapView().tabItem {
+                WorldView().tabItem {
                     Image(systemName: "globe")
                         .imageScale(.large)
                         .foregroundColor(.accentColor)

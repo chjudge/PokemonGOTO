@@ -21,7 +21,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     @Published var userLat: Double? = nil
     @Published var userLon: Double? = nil
-    var eventTimer: EventTimer? = nil
+    @Published var eventTimer: EventTimer? = nil
     var regionEvent: FirestoreActiveEvent? = nil
     
     
