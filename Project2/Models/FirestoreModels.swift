@@ -54,8 +54,8 @@ struct FirestoreEvent: Identifiable, Codable {
     var location: GeoPoint
     var radius: Float
     var seconds: Int
-    var start: Timestamp
-    var end: Timestamp
+    var start: Date // Timestamp
+    var end: Date // Timestamp
     var pokemon_id: Int
     
     enum CodingKeys: CodingKey {

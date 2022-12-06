@@ -8,10 +8,12 @@
 import SwiftUI
 import MapKit
 import PokemonAPI
+import FirebaseFirestore
 
 struct MapView: UIViewRepresentable {
     
     @ObservedObject var VM: MapViewModel = MapViewModel.shared
+    let db = Firestore.firestore()
     
     //Computed variable based on user's current location after getting approved.
     var region : MKCoordinateRegion {
@@ -45,14 +47,16 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-//        uiView.setRegion(region, animated: true)
-//        print("Count: \(VM.firestore.firestoreModels)")
         
-        updateEvents(uiView, VM.firestore.firestoreModels)
+        updateEvents(uiView, VM.firestore.firestoreModels.filter{ event in
+            event.start <= Date() && event.end >= Date()
+        })
+        
 //        populateWildPokemon(uiView)
         
     }
     
+    // TODO: Have these as firestore collection to populate
     func populateWildPokemon(_ uiView: MKMapView) {
         print("Populating wild pokemon onto map")
         var coords = [CLLocationCoordinate2D]()
@@ -88,23 +92,67 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateEvents(_ uiView: MKMapView, _ events: [FirestoreEvent]) {
-        print("Populating events onto map")
+
         uiView.removeAnnotations(uiView.annotations)
         uiView.removeOverlays(uiView.overlays)
+        
         for event in events {
+            // Skip ones youve already achieved
+            // Check if you have been to event
+            let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+            let query = collection.whereField("event_id", isEqualTo: event.id!)
+            
+            var finished: Bool = false
+            
             // Add annotations
             let loc = MKPointAnnotation()
-//            print("Event: \(event)")
             loc.title = event.title
             loc.coordinate = CLLocationCoordinate2D(latitude: event.location.latitude, longitude: event.location.longitude)
-            uiView.addAnnotation(loc)
+            
             // Add region
             let region = CLCircularRegion(center: loc.coordinate, radius: CLLocationDistance(event.radius), identifier: event.id ?? "N/A")
-//            uiView.removeOverlays(uiView.overlays)
-            VM.locationManager.startMonitoring(for: region)
+            
             // Add zone
             let circle = MKCircle(center: loc.coordinate, radius: region.radius)
-            uiView.addOverlay(circle)
+            
+            query.getDocuments() { (querySnapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    // If the event was active already
+                    if let doc = querySnapshot?.documents.first, doc.exists {
+                        
+                        do {
+                            let regionEvent = try doc.data(as: FirestoreActiveEvent.self)
+                            if regionEvent.seconds > 0 {
+                                print("\(event.title) is good to go")
+                                uiView.addAnnotation(loc)
+                                uiView.addOverlay(circle)
+                                VM.locationManager.startMonitoring(for: region)
+                                print("They already have this event finished")
+                                finished = true
+                            } else {
+                                print("finished the event \(event.title)")
+                            }
+                        } catch {
+                            print("Error reading in firestore active event model from firestore data")
+                        }
+                        
+                    } else {
+                        uiView.addAnnotation(loc)
+                        uiView.addOverlay(circle)
+                        VM.locationManager.startMonitoring(for: region)
+                    }
+                }
+            }
+            
+            if finished { continue } // Dont place this one on the map
+            
+            print("PASSED: \(event.title)")
+            
+//            uiView.addAnnotation(loc)
+//            VM.locationManager.startMonitoring(for: region)
+//            uiView.addOverlay(circle)
         }
     }
     
@@ -134,8 +182,9 @@ struct MapView: UIViewRepresentable {
             let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Reuse")
             annotationView.canShowCallout = true
 //            annotationView.collisionMode = .circle
-            print("mapping \(annotation.title! ?? "oops")")
-            print(PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! })?.pokemon.name!)
+
+            //print(PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! })?.pokemon.name!)
+            
             if let pkm = PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! }) {
                 print("we in big boys")
                 annotationView.image = pkm.sprite
