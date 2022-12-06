@@ -10,6 +10,12 @@ import PokemonAPI
 import FirebaseFirestore
 import SwiftUI
 
+struct PokemonObject {
+    var pokemon: PKMPokemon
+    var types: [PKMType]
+    var sprite: UIImage?
+}
+
 class PokemonManager: ObservableObject {
     let pokemonAPI = PokemonAPI()
     private var db = Firestore.firestore()
@@ -19,7 +25,7 @@ class PokemonManager: ObservableObject {
         return instance
     }()
     
-    @Published var allPokemon: [PKMPokemon] = [PKMPokemon]()
+    @Published var allPokemon: [PokemonObject] = [PokemonObject]()
     
     func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
         let start = allPokemon.count
@@ -29,9 +35,19 @@ class PokemonManager: ObservableObject {
             if let results = pagedObject.results as? [PKMNamedAPIResource]{
                 await withThrowingTaskGroup(of: Void.self){ group in
                     for r in results.suffix(from: start){
-                        group.addTask{
-                            let pkm = try await self.pokemonAPI.pokemonService.fetchPokemon(r.name!)
-                            DispatchQueue.main.async{ self.allPokemon.append(pkm) }
+                        group.addTask{ [self] in
+                            let pkm = try await pokemonAPI.pokemonService.fetchPokemon(r.name!)
+                            let types = await fetchType(types: pkm.types!)
+                            
+                            var image: UIImage? = nil
+                            
+                            if let url = URL(string: pkm.sprites?.frontDefault ?? ""){
+                                let imageData = try Data(contentsOf: url)
+                                image = UIImage(data: imageData)
+                            }
+                            let pokemonOBJ = PokemonObject(pokemon: pkm, types: types, sprite: image)
+//                            let sprite = try await pokemonAPI.pokemonService
+                            DispatchQueue.main.async{ self.allPokemon.append(pokemonOBJ) }
                         }
                     }
                 }
@@ -56,8 +72,8 @@ class PokemonManager: ObservableObject {
     }
     
     func fetchPokemon(id: Int) async -> PKMPokemon?{
-        if let pkm = allPokemon.first(where: { $0.id == id } ){
-            return pkm
+        if let pkm = allPokemon.first(where: { $0.pokemon.id == id } ){
+            return pkm.pokemon
         }
         do {
             let pkm = try await pokemonAPI.pokemonService.fetchPokemon(id)
