@@ -39,7 +39,7 @@ struct MapView: UIViewRepresentable {
         map.userTrackingMode = .followWithHeading
         map.setRegion(region, animated: true)
         updateEvents(map, VM.firestore.firestoreModels)
-//        populateWildPokemon(map)
+        populateWildPokemon(map)
 //        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
@@ -71,16 +71,18 @@ struct MapView: UIViewRepresentable {
         
         for coord in coords {
             print("adding pokemon")
-            let randomPokemon = Int.random(in: 1..<highestPokemonId)
+//            let randomPokemon = Int.random(in: 1..<highestPokemonId)
+            let randomPokemon = 1
             let randomLevel = Int.random(in: 1..<highestLevel)
-//            Task{
-//                let pokemon = try await pokemonAPI.pokemonService.fetchPokemon(randomPokemon)
-//            }
-            
             let wildPokemonMarker = MKPointAnnotation()
-            wildPokemonMarker.title = String(randomPokemon)// pokemon.name
             wildPokemonMarker.coordinate = coord
-            uiView.addAnnotation(wildPokemonMarker)
+            Task{
+                let pokemon = try await pokemonAPI.pokemonService.fetchPokemon(randomPokemon)
+                wildPokemonMarker.title = pokemon.name!
+                uiView.addAnnotation(wildPokemonMarker)
+            }
+            
+            
         }
         
     }
@@ -128,15 +130,20 @@ struct MapView: UIViewRepresentable {
             return MKOverlayRenderer(overlay: overlay)
         }
         
-//        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Reuse")
-//            annotationView.canShowCallout = true
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Reuse")
+            annotationView.canShowCallout = true
 //            annotationView.collisionMode = .circle
-//            annotationView.image = UIImage()
-//            annotation.title.
-//
-//            return annotationView
-//        }
+            print("mapping \(annotation.title! ?? "oops")")
+            print(PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! })?.pokemon.name!)
+            if let pkm = PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! }) {
+                print("we in big boys")
+                annotationView.image = pkm.sprite
+                return annotationView
+            }
+            return nil
+            
+        }
         
     }
     

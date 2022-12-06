@@ -20,7 +20,8 @@ class PokedexViewModel: ObservableObject{
     @Published var searchText = ""
     
     var filteredPokemon: [PKMPokemon] {
-        let list = searchText.isEmpty ? PKMManager.allPokemon : PKMManager.allPokemon.filter({ $0.name!.contains(searchText.lowercased()) })
-        return list.sorted {$0.id! < $1.id!}
+        return PKMManager.allPokemon.map{ $0.pokemon }.sorted{ $0.id! < $1.id! }
+//        let list = searchText.isEmpty ? PKMManager.allPokemon.map{ $0.pokemon } : PKMManager.allPokemon.filter({ $0.name!.contains(searchText.lowercased()) })
+//        return list.sorted {$0.id! < $1.id!}
     }
 }
