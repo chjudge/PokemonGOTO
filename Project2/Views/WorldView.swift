@@ -15,15 +15,17 @@ struct WorldView: View {
     @State var showEvent = false
     
     var body: some View {
-        MapView(showEvent: $showEvent)
-            .sheet(isPresented: $showEvent) {
-                MapSheetView(event: MVM.clickedEvent ?? FirestoreEvent(title: "meh", sender: "meh", location: GeoPoint(latitude: 40, longitude: -80), radius: 20, seconds: 20, start: Date(), end: Date(), pokemon_id: 1))
-            }
-            .edgesIgnoringSafeArea(.top)
-//            .alert(
-//                "Event pokemon added to your collection",
-//                isPresented: // TODO: Bool to represent timer finished
-//            ) { }
+        ZStack {
+            MapView(showEvent: $showEvent)
+                .sheet(isPresented: $showEvent) {
+                    MapSheetView(event: MVM.clickedEvent ?? FirestoreEvent(title: "meh", sender: "meh", location: GeoPoint(latitude: 40, longitude: -80), radius: 20, seconds: 20, start: Date(), end: Date(), pokemon_id: 1))
+                }
+                .edgesIgnoringSafeArea(.top)
+            //            .alert(
+            //                "Event pokemon added to your collection",
+            //                isPresented: // TODO: Bool to represent timer finished
+            //            ) { }
+        }
     }
 }
 

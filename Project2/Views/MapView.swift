@@ -15,6 +15,7 @@ struct MapView: UIViewRepresentable {
     @ObservedObject var VM: MapViewModel = MapViewModel.shared
     let db = Firestore.firestore()
     
+    @Binding var showEvent: Bool
     @State var wildPokemon = [MKPointAnnotation]()
     
     //Computed variable based on user's current location after getting approved.
@@ -49,7 +50,6 @@ struct MapView: UIViewRepresentable {
         map.userTrackingMode = .followWithHeading
         map.setRegion(region, animated: true)
 //        updateEvents(map, VM.firestore.firestoreModels)
-//        populateWildPokemon(map)
 //        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
@@ -100,41 +100,6 @@ struct MapView: UIViewRepresentable {
                 
             }
         }
-    }
-    
-    // TODO: Have these as firestore collection to populate
-    func populateWildPokemon(_ uiView: MKMapView, _ wildPokemon: [FirestoreWildPokemon]) {
-        print("Populating wild pokemon onto map")
-        var coords = [CLLocationCoordinate2D]()
-        
-//        let pokemonAPI = PokemonAPI()
-        
-        let maxSpawns = 5
-        let highestPokemonId = 151 // Test
-        let highestLevel = 5
-        
-        for _ in [1..<Int.random(in: 3..<maxSpawns)] {
-            let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
-            let randomLong = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
-            coords.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(randomLat), longitude: CLLocationDegrees(randomLong)))
-        }
-        
-        for coord in coords {
-            print("adding pokemon")
-            let randomPokemon = Int.random(in: 1..<highestPokemonId)
-//            let randomPokemon = 1
-            let randomLevel = Int.random(in: 1..<highestLevel)
-            let wildPokemonMarker = MKPointAnnotation()
-            wildPokemonMarker.coordinate = coord
-            Task{
-                let pokemon = await PokemonManager.shared.fetchPokemon(id: randomPokemon)
-                wildPokemonMarker.title = pokemon?.name!
-                uiView.addAnnotation(wildPokemonMarker)
-            }
-            
-            
-        }
-        
     }
     
     func updateEvents(_ uiView: MKMapView, _ events: [FirestoreEvent]) {
