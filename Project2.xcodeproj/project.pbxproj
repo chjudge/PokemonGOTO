@@ -27,7 +27,6 @@
 		0189DC0B29355F0D003C5054 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0A29355F0D003C5054 /* FirebaseFirestoreSwift */; };
 		BC1B5B41293F25A100C47CA1 /* WorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B5B40293F25A100C47CA1 /* WorldView.swift */; };
 		BC1B5B432940075900C47CA1 /* MapSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B5B422940075900C47CA1 /* MapSheetView.swift */; };
-		BC1B5B4729405BC000C47CA1 /* PointOfInterestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B5B4629405BC000C47CA1 /* PointOfInterestModel.swift */; };
 		BC38B04D2924468A000174BF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04C2924468A000174BF /* MapView.swift */; };
 		BC38B04F292446D4000174BF /* PCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B04E292446D4000174BF /* PCView.swift */; };
 		BC38B05129246704000174BF /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* MapViewModel.swift */; };
@@ -57,7 +56,6 @@
 		0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonManager.swift; sourceTree = "<group>"; };
 		BC1B5B40293F25A100C47CA1 /* WorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldView.swift; sourceTree = "<group>"; };
 		BC1B5B422940075900C47CA1 /* MapSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSheetView.swift; sourceTree = "<group>"; };
-		BC1B5B4629405BC000C47CA1 /* PointOfInterestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointOfInterestModel.swift; sourceTree = "<group>"; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
 		BC38B05029246704000174BF /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				013115AF292EABC600F32C59 /* FirestoreModels.swift */,
-				BC1B5B4629405BC000C47CA1 /* PointOfInterestModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -276,7 +273,6 @@
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
 				0153CE7D29373A7F00FF02E5 /* PokemonManager.swift in Sources */,
 				BCEB833A293821D300754B0E /* TeamView.swift in Sources */,
-				BC1B5B4729405BC000C47CA1 /* PointOfInterestModel.swift in Sources */,
 				BCEB833C2938F4F500754B0E /* TeamSelectionView.swift in Sources */,
 				010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */,
 				010D760E2924929D004BF362 /* PokemonView.swift in Sources */,

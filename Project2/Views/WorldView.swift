@@ -18,7 +18,7 @@ struct WorldView: View {
         ZStack {
             MapView(showEvent: $showEvent)
                 .sheet(isPresented: $showEvent) {
-                    MapSheetView(event: MVM.clickedEvent ?? FirestoreEvent(title: "meh", sender: "meh", location: GeoPoint(latitude: 40, longitude: -80), radius: 20, seconds: 20, start: Date(), end: Date(), pokemon_id: 1))
+                    MapSheetView(pointOfInterest: MVM.pointOfInterest)
                 }
                 .edgesIgnoringSafeArea(.top)
             //            .alert(

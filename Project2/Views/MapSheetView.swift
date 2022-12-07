@@ -6,29 +6,43 @@
 //
 
 import SwiftUI
+import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct MapSheetView: View {
     
-    var event: FirestoreEvent
+    var pointOfInterest: PointOfInterestModel
+    let allPokemon = PokemonManager.shared.allPokemon
     
     var body: some View {
         VStack {
-            // TODO: Get image of pokemon and its stats
-            Text("Title: \(event.title)")
-                .font(.largeTitle)
-            Text("Pokemon ID: \(event.pokemon_id)")
-                .font(.largeTitle)
-            // TODO: Format time
-            Text("Timeframe: \(event.start) - \(event.end)")
-                .font(.largeTitle)
+
+            if let pokemon = pointOfInterest.mapPokemon, pointOfInterest.isPokemon() {
+                // TODO: Display pokemon info
+                Text("Pokemon: \(pokemon.name)")
+                Text("ID: \(pokemon.pokemonID)")
+                Text("Level: \(pokemon.level)")
+                Text("Max Hp: \(pokemon.maxHP)")
+                
+            } else if let event = pointOfInterest.event, pointOfInterest.isEvent() {
+                // TODO: Display event info
+                Text("Title: \(event.title)")
+                    .font(.largeTitle)
+                Text("@ \(event.start.formatted()) - \(event.end.formatted())")
+                    .font(.title)
+                // TODO: Display stats of pokemon (NEED TO UPLOAD THESE INTO THE EVENT AS WELL)
+                Text("Pokemon Reward: \(event.pokemon_id)")
+                    .font(.title)
+                
+            } else { Text("Error") }
+            
         }.padding(30)
     }
 }
 
-struct MapSheetView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapSheetView(event: FirestoreEvent(title: "meh", sender: "meh", location: GeoPoint(latitude: 40, longitude: -80), radius: 20, seconds: 20, start: Date(), end: Date(), pokemon_id: 1))
-    }
-}
+//struct MapSheetView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MapSheetView()
+//    }
+//}

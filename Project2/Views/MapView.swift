@@ -70,14 +70,17 @@ struct MapView: UIViewRepresentable {
 //            print(annotation.title!)
 //        }
         for pkm in VM.randomPokemonFirestore.firestoreModels {
+            
             if uiView.annotations.contains(where: { $0.title == pkm.name }) { continue }
 //            print("adding annotation for \(pkm.name)")
             
             let marker = MKPointAnnotation()
             marker.title = pkm.name
             marker.coordinate = CLLocationCoordinate2D(latitude: pkm.location!.latitude, longitude: pkm.location!.longitude)
-//            wildPokemon.append(marker)
+            // Add region
+            //let region = CLCircularRegion(center: marker.coordinate, radius: CLLocationDistance(3), identifier: "pokemon\(pkm.id!)")
             uiView.addAnnotation(marker)
+            //VM.locationManager.startMonitoring(for: region)
         }
         
         if VM.randomPokemonFirestore.firestoreModels.count > 6 { return }
@@ -210,9 +213,22 @@ struct MapView: UIViewRepresentable {
         
         // how to respond to clicking annotation
         func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-            
+            let MVM = MapViewModel.shared
             print("Uwu")
             parent.showEvent = true;
+            if let event = MVM.firestore.firestoreModels.first(where: { $0.title == view.annotation?.title }) {
+                
+                MVM.pointOfInterest.setToEvent(event: event)
+                
+            } else { // is pokemon
+                if let pokemon = MVM.randomPokemonFirestore.firestoreModels.first(where: { $0.name == view.annotation?.title }) {
+                    
+                    MVM.pointOfInterest.setToPokemon(pokemon: pokemon)
+                    
+                } else {
+                    print("error")
+                }
+            }
             
         }
         
