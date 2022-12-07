@@ -23,6 +23,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     @Published var userLon: Double? = nil
     @Published var eventTimer: EventTimer? = nil
     var regionEvent: FirestoreActiveEvent? = nil
+    var clickedEvent: FirestoreEvent? = nil
     
     
     static let shared: MapViewModel = {
@@ -36,7 +37,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
         
         // create a delegate
         locationManager.delegate = self
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         // request permission to the user
@@ -74,7 +74,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
 
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        // TODO: Start incrementing time within event zone
         
         // Check if you have been to event
         let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
@@ -133,7 +132,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     }
         
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        // TODO: Stop incrementing time within event zone
+
         if let timer = eventTimer {
             timer.stop()
             

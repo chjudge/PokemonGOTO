@@ -46,6 +46,32 @@ struct FirestorePokemon: Identifiable, Codable {
     }
 }
 
+struct FirestoreWildPokemon: Identifiable, Codable {
+    var id: String = UUID().uuidString
+
+    var pokemonID: Int
+    var name: String
+    var caught: Date // Timestamp
+    var location: GeoPoint
+    var moves: [Int]?
+    var level: Int
+    var hp: Int
+    var maxHP: Int
+    var xp: Int
+    
+    enum CodingKeys: CodingKey {
+        case name
+        case pokemonID
+        case caught
+        case location
+        case moves
+        case level
+        case hp
+        case maxHP
+        case xp
+    }
+}
+
 struct FirestoreEvent: Identifiable, Codable {
     @DocumentID var id: String? // = UUID().uuidString
     
