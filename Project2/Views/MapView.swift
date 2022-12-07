@@ -82,24 +82,24 @@ struct MapView: UIViewRepresentable {
         
         if VM.randomPokemonFirestore.firestoreModels.count > 6 { return }
         
-        let PKMManager = PokemonManager.shared
-        
-        let highestPokemonId = 151
-        
-        let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
-        let randomLon = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
-        
-        let randomPokemon = Int.random(in: 1..<highestPokemonId)
-        Task{
-            if let pokemon = await PKMManager.fetchPokemon(id: randomPokemon){
-                print("adding pokemon \(pokemon.name!)")
-                
-                let fpokemon = FirestorePokemon(pokemonID: randomPokemon, name: (pokemon.name)!, level: 1, hp: 30, maxHP: 30, xp: 0, location: .init(latitude: Double(randomLat), longitude: Double(randomLon)))
-                
-                PokemonManager.shared.newRandomPokemon(pokemon: fpokemon)
-                
-            }
-        }
+//        let PKMManager = PokemonManager.shared
+//        
+//        let highestPokemonId = 151
+//        
+//        let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
+//        let randomLon = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
+//        
+//        let randomPokemon = Int.random(in: 1..<highestPokemonId)
+//        Task{
+//            if let pokemon = await PKMManager.fetchPokemon(id: randomPokemon){
+//                print("adding pokemon \(pokemon.name!)")
+//                
+//                let fpokemon = FirestorePokemon(pokemonID: randomPokemon, name: (pokemon.name)!, level: 1, hp: 30, maxHP: 30, xp: 0, location: .init(latitude: Double(randomLat), longitude: Double(randomLon)))
+//                
+//                PokemonManager.shared.newRandomPokemon(pokemon: fpokemon)
+//                
+//            }
+//        }
     }
     
     func updateEvents(_ uiView: MKMapView, _ events: [FirestoreEvent]) {
