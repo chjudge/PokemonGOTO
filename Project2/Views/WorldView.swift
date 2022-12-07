@@ -13,6 +13,7 @@ struct WorldView: View {
     
     var body: some View {
         MapView()
+            .edgesIgnoringSafeArea(.top)
 //            .alert(
 //                "Event pokemon added to your collection",
 //                isPresented: // TODO: Bool to represent timer finished

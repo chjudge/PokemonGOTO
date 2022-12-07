@@ -65,7 +65,6 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateWildPokemon(_ uiView: MKMapView) {
-        if wildPokemon.count == VM.randomPokemonFirestore.firestoreModels.count { return }
         
 //        for annotation in uiView.annotations {
 //            print(annotation.title!)
