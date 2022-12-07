@@ -15,6 +15,7 @@ import FirebaseFirestore
 class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     let firestore = FirestoreManager<FirestoreEvent>(collection: "event")
+    let randomPokemonFirestore = FirestoreManager<FirestorePokemon>(collection: "map_pokemon")
     let db = Firestore.firestore()
     
     var locationManager = CLLocationManager()

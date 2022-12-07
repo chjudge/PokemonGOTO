@@ -13,10 +13,9 @@ import FirebaseFirestore
 struct MapView: UIViewRepresentable {
     
     @ObservedObject var VM: MapViewModel = MapViewModel.shared
-    let WPManager = FirestoreManager<FirestoreWildPokemon>(collection: "wildpokemon")
     let db = Firestore.firestore()
     
-    @Binding var showEvent: Bool
+    @State var wildPokemon = [MKPointAnnotation]()
     
     //Computed variable based on user's current location after getting approved.
     var region : MKCoordinateRegion {
@@ -34,9 +33,15 @@ struct MapView: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView()
         
+        let event = "event"
+        print("creating query \(event)")
+        MapViewModel.shared.firestore.subscribe(to: MapViewModel.shared.firestore.query(collection: event))
+        
+        let randomPokemon = "map_pokemon"
+        print("creeating query \(randomPokemon)")
+        MapViewModel.shared.randomPokemonFirestore.subscribe(to: MapViewModel.shared.randomPokemonFirestore.query(collection: randomPokemon))
+        
         // create annotations
-//        let query = VM.firestore.query(collection: "event")
-//        VM.firestore.subscribe(to: query)
         
         //make the user to show up in the map; need to request permission for location first, otherwise function will not work
         map.delegate = context.coordinator
@@ -44,38 +49,98 @@ struct MapView: UIViewRepresentable {
         map.userTrackingMode = .followWithHeading
         map.setRegion(region, animated: true)
 //        updateEvents(map, VM.firestore.firestoreModels)
-//        populateWildPokemon(map, WPManager.firestoreModels)
+//        populateWildPokemon(map)
 //        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         
-        uiView.removeAnnotations(uiView.annotations)
-        uiView.removeOverlays(uiView.overlays)
-        
         updateEvents(uiView, VM.firestore.firestoreModels.filter{ event in
             event.start <= Date() && event.end >= Date()
         })
         
-        populateWildPokemon(uiView, WPManager.firestoreModels.filter { pokemon in
-            pokemon.caught >= Date() // Filter out any you have caught in the past
-        })
+        updateWildPokemon(uiView)
         
+    }
+    
+    func updateWildPokemon(_ uiView: MKMapView) {
+        
+//        for annotation in uiView.annotations {
+//            print(annotation.title!)
+//        }
+        for pkm in VM.randomPokemonFirestore.firestoreModels {
+            if uiView.annotations.contains(where: { $0.title == pkm.name }) { continue }
+//            print("adding annotation for \(pkm.name)")
+            
+            let marker = MKPointAnnotation()
+            marker.title = pkm.name
+            marker.coordinate = CLLocationCoordinate2D(latitude: pkm.location!.latitude, longitude: pkm.location!.longitude)
+//            wildPokemon.append(marker)
+            uiView.addAnnotation(marker)
+        }
+        
+        if VM.randomPokemonFirestore.firestoreModels.count > 6 { return }
+        
+        let PKMManager = PokemonManager.shared
+        
+        let highestPokemonId = 151
+        
+        let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
+        let randomLon = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
+        
+        let randomPokemon = Int.random(in: 1..<highestPokemonId)
+        Task{
+            if let pokemon = await PKMManager.fetchPokemon(id: randomPokemon){
+                print("adding pokemon \(pokemon.name!)")
+                
+                let fpokemon = FirestorePokemon(pokemonID: randomPokemon, name: (pokemon.name)!, level: 1, hp: 30, maxHP: 30, xp: 0, location: .init(latitude: Double(randomLat), longitude: Double(randomLon)))
+                
+                PokemonManager.shared.newRandomPokemon(pokemon: fpokemon)
+                
+            }
+        }
     }
     
     // TODO: Have these as firestore collection to populate
     func populateWildPokemon(_ uiView: MKMapView, _ wildPokemon: [FirestoreWildPokemon]) {
         print("Populating wild pokemon onto map")
+        var coords = [CLLocationCoordinate2D]()
         
-//        for pokemon in wildPokemon {
-//
-//            // TODO: populate onto map
-//        }
+//        let pokemonAPI = PokemonAPI()
+        
+        let maxSpawns = 5
+        let highestPokemonId = 151 // Test
+        let highestLevel = 5
+        
+        for _ in [1..<Int.random(in: 3..<maxSpawns)] {
+            let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
+            let randomLong = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
+            coords.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(randomLat), longitude: CLLocationDegrees(randomLong)))
+        }
+        
+        for coord in coords {
+            print("adding pokemon")
+            let randomPokemon = Int.random(in: 1..<highestPokemonId)
+//            let randomPokemon = 1
+            let randomLevel = Int.random(in: 1..<highestLevel)
+            let wildPokemonMarker = MKPointAnnotation()
+            wildPokemonMarker.coordinate = coord
+            Task{
+                let pokemon = await PokemonManager.shared.fetchPokemon(id: randomPokemon)
+                wildPokemonMarker.title = pokemon?.name!
+                uiView.addAnnotation(wildPokemonMarker)
+            }
+            
+            
+        }
         
     }
     
     func updateEvents(_ uiView: MKMapView, _ events: [FirestoreEvent]) {
+
+//        uiView.removeAnnotations(uiView.annotations)
+//        uiView.removeOverlays(uiView.overlays)
         
         for event in events {
             // Skip ones youve already achieved
@@ -158,7 +223,9 @@ struct MapView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            
+            if annotation is MKUserLocation{
+                return nil
+            }
             let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Reuse")
             annotationView.canShowCallout = true
             annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
@@ -168,7 +235,6 @@ struct MapView: UIViewRepresentable {
             // print(PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! })?.pokemon.name!)
             
             if let pkm = PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! }) {
-                print("we in big boys")
                 annotationView.image = pkm.sprite
                 return annotationView
             }
