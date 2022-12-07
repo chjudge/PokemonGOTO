@@ -142,6 +142,16 @@ class PokemonManager: ObservableObject {
             print("Error adding pokemon to team \(error.localizedDescription)")
             didFail.wrappedValue = true
         }
-
+    }
+    
+    func newRandomPokemon(pokemon: FirestorePokemon){
+        let collection = db.collection("map_pokemon")
+        
+        do {
+            try collection.document("\(pokemon.pokemonID)").setData(from: pokemon)
+        } catch {
+            print("Error adding pokemon to PC \(error.localizedDescription)")
+        }
+        
     }
 }

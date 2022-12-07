@@ -9,13 +9,14 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct FirestoreUser: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String?
 
     var pokemon: DocumentReference?
     var team: DocumentReference?
     var steps: Int
     
     enum CodingKeys: CodingKey {
+        case id
         case pokemon
         case team
         case steps
@@ -23,18 +24,20 @@ struct FirestoreUser: Identifiable, Codable {
 }
 
 struct FirestorePokemon: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String?
 
     var pokemonID: Int
     var name: String
-    var caught: Timestamp
+    var caught: Timestamp?
     var moves: [Int]?
     var level: Int
     var hp: Int
     var maxHP: Int
     var xp: Int
+    var location: GeoPoint?
     
     enum CodingKeys: CodingKey {
+        case id
         case name
         case pokemonID
         case caught
@@ -43,6 +46,7 @@ struct FirestorePokemon: Identifiable, Codable {
         case hp
         case maxHP
         case xp
+        case location
     }
 }
 

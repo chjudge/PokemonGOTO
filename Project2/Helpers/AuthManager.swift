@@ -43,15 +43,11 @@ class AuthManager: ObservableObject {
                     }
                 }
             }
-            var userpkm = "users/\(uid)/pokemon"
+            let userpkm = "users/\(uid)/pokemon"
             print("creating query \(userpkm)")
             PCViewModel.shared.firestore.subscribe(to: PCViewModel.shared.firestore.query(collection: userpkm))
             
-            var event = "event"
-            print("creating query \(event)")
-            MapViewModel.shared.firestore.subscribe(to: MapViewModel.shared.firestore.query(collection: event))
-            
-            var userteam = "users/\(uid)/team"
+            let userteam = "users/\(uid)/team"
             print("creating query \(userteam)")
             TeamViewModel.shared.firestore.subscribe(to: TeamViewModel.shared.firestore.query(collection: userteam))
         }
