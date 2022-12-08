@@ -15,26 +15,21 @@ struct PokemonDetailView: View {
     let PKMManager = PokemonManager.shared
     
     var fromPokedex: Bool = false
-    @State var types: [PKMType] = []
+//    @State var types: [PKMType] = []
     
     @State private var didFail = false
     
     var body: some View {
         VStack{
             HStack(alignment: .center){
-                PokemonView(pokemon: pokemon, dimensions: dimensions)
+                PokemonView(pokemon: pokemon, dimensions: dimensions, showName: true)
             
                 VStack(spacing: 10) {
                     
                     //Text("**ID**: \(pokemon.id ?? 0)")
                     Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
                     Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
-                    Text("**Type**: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
-                        .onChange(of: pokemon){newValue in
-                            Task(){
-                                types = await PKMManager.fetchType(types: newValue.types!)
-                            }
-                        }
+                    Text("**Type**: \((PKMManager.allPokemon.first{ $0.pokemon.id == pokemon.id }!.types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")})))")
 
                     // ADD pokemon to PC button
                     

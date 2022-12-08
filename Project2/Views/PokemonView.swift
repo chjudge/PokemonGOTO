@@ -11,6 +11,19 @@ import PokemonAPI
 struct PokemonView: View {
     let pokemon: PKMPokemon
     let dimensions: Double
+    let showName: Bool
+    
+    init(pokemon: PKMPokemon, dimensions: Double) {
+        self.pokemon = pokemon
+        self.dimensions = dimensions
+        showName = true
+    }
+    
+    init(pokemon: PKMPokemon, dimensions: Double, showName: Bool) {
+        self.pokemon = pokemon
+        self.dimensions = dimensions
+        self.showName = showName
+    }
     
     var body: some View {
         VStack {
@@ -29,11 +42,12 @@ struct PokemonView: View {
             .background(.thinMaterial)
             .clipShape(Circle())
 
-            Text("No. \(pokemon.id!) \(pokemon.name!.capitalized)")
-                .font(.system(size: 16, weight: .regular, design: .monospaced))
-                .padding(.bottom, 20)
-                .foregroundColor(.primary)
-
+            if showName{
+                Text("No. \(pokemon.id!) \(pokemon.name!.capitalized)")
+                    .font(.system(size: 16, weight: .regular, design: .monospaced))
+                    .padding(.bottom, 20)
+                    .foregroundColor(.primary)
+            }
         }
     }
 }
