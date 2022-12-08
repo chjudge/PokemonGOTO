@@ -29,7 +29,7 @@ struct PokemonView: View {
             .background(.thinMaterial)
             .clipShape(Circle())
 
-            Text("\(pokemon.name!.capitalized)")
+            Text("No. \(pokemon.id!) \(pokemon.name!.capitalized)")
                 .font(.system(size: 16, weight: .regular, design: .monospaced))
                 .padding(.bottom, 20)
                 .foregroundColor(.primary)

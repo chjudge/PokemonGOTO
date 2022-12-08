@@ -26,7 +26,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     var regionEvent: FirestoreActiveEvent? = nil
     var pointOfInterest = PointOfInterestModel()
     
-    
     static let shared: MapViewModel = {
         return MapViewModel()
     }()

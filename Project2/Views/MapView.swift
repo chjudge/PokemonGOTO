@@ -49,8 +49,8 @@ struct MapView: UIViewRepresentable {
         map.showsUserLocation = true
         map.userTrackingMode = .followWithHeading
         map.setRegion(region, animated: true)
-//        updateEvents(map, VM.firestore.firestoreModels)
-//        populateWildPokemon(map)
+        updateEvents(map, VM.firestore.firestoreModels)
+        updateWildPokemon(map)
 //        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
@@ -161,7 +161,7 @@ struct MapView: UIViewRepresentable {
                 }
             }
             
-            print("PASSED: \(event.title)")
+//            print("PASSED: \(event.title)")
             
 //            uiView.addAnnotation(loc)
 //            VM.locationManager.startMonitoring(for: region)
