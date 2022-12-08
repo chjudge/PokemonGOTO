@@ -13,35 +13,46 @@ struct PokemonView: View {
     let dimensions: Double
     let showName: Bool
     let showID: Bool
+    let seen: Bool
     
-    init(pokemon: PKMPokemon, dimensions: Double, showName: Bool = false, showID: Bool = false) {
+    init(pokemon: PKMPokemon, dimensions: Double, showName: Bool = false, showID: Bool = false, seen: Bool = true) {
         self.pokemon = pokemon
         self.dimensions = dimensions
         self.showName = showName
         self.showID = showID
+        self.seen = seen
     }
-    
-//    init(pokemon: PKMPokemon, dimensions: Double, showName: Bool) {
-//        self.pokemon = pokemon
-//        self.dimensions = dimensions
-//        self.showName = showName
-//    }
     
     var body: some View {
         VStack {
             
             if showID {
-                Text("No. \(pokemon.id!)")
-                    .font(.system(size: 16, weight: .regular, design: .monospaced))
-                    .foregroundColor(.primary)
+                if seen {
+                    Text("No. \(pokemon.id!)")
+                        .font(.system(size: 16, weight: .regular, design: .monospaced))
+                        .foregroundColor(.primary)
+                } else {
+                    Text("No. ???")
+                        .font(.system(size: 16, weight: .regular, design: .monospaced))
+                        .foregroundColor(.primary)
+                }
             }
             
             AsyncImage(url: URL(string:pokemon.sprites?.frontDefault ?? "")) { image in
                 if let image = image {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: dimensions, height: dimensions)
+                    if seen{
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: dimensions, height: dimensions)
+                    } else {
+                        image
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: dimensions, height: dimensions)
+                            .foregroundColor(.black)
+                    }
                 }
             } placeholder: {
                 ProgressView()
@@ -50,12 +61,20 @@ struct PokemonView: View {
             }
             .background(.thinMaterial)
             .clipShape(Circle())
+//            .colorMultiply(.black)
 
             if showName{
-                Text("\(pokemon.name!.capitalized)")
-                    .font(.system(size: 16, weight: .regular, design: .monospaced))
-                    .padding(.bottom, 20)
-                    .foregroundColor(.primary)
+                if seen {
+                    Text("\(pokemon.name!.capitalized)")
+                        .font(.system(size: 16, weight: .regular, design: .monospaced))
+                        .padding(.bottom, 20)
+                        .foregroundColor(.primary)
+                } else {
+                    Text("????")
+                        .font(.system(size: 16, weight: .regular, design: .monospaced))
+                        .padding(.bottom, 20)
+                        .foregroundColor(.primary)
+                }
             }
         }
     }
