@@ -19,34 +19,22 @@ struct ContentView: View {
             TabView(selection: $tabIndex) {
                 
                 PCView().tabItem {
-                    Image(systemName: "car")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                    Text("PC")
+                    Label("PC", systemImage: "car")
                 }
                 .tag(0)
                 
                 WorldView().tabItem {
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                    Text("Map")
+                    Label("Map", systemImage: "globe")
                 }
                 .tag(1)
                 
                 PokedexView().tabItem {
-                    Image(systemName: "info")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                    Text("Pokedex")
+                    Label("Pokedex", systemImage: "info")
                 }
                 .tag(2)
                 
                 TeamView().tabItem {
-                    Image(systemName: "person.3")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                    Text("Team")
+                    Label("Team", systemImage: "person.3")
                 }
                 .tag(3)
             }

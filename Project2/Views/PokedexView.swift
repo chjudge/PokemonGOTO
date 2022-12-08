@@ -24,9 +24,9 @@ struct PokedexView: View {
             Image("pokedex_bg")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .ignoresSafeArea()
+                .edgesIgnoringSafeArea(.top)
             
-            VStack {
+//            VStack {
                 
                 VStack {
                     ZStack {
@@ -47,10 +47,6 @@ struct PokedexView: View {
                     }
                     .frame(height: geo.size.height/3)
                     
-//                    Text("Pokemon")
-//                        .foregroundColor(.white)
-//                        .font(.title)
-                    
                     ScrollView {
                         LazyVGrid(columns: adaptiveColumns, spacing: 10) {
                             ForEach(VM.filteredPokemon, id: \.id) { pokemon in
@@ -64,12 +60,12 @@ struct PokedexView: View {
                             }
                         }
                         .animation(.easeInOut(duration: 0.3), value: VM.filteredPokemon)
-                        .navigationTitle("PokemonUI")
-                        .navigationBarTitleDisplayMode(.inline)
                     }
+//                    .onre
                     .searchable(text: $VM.searchText)
+                    .frame(height: geo.size.height/1.5)
                 }
-            }
+//            }
         }
     }
 }
