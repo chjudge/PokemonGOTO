@@ -17,7 +17,7 @@
 		010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D760F2924C3B7004BF362 /* PokemonDetailView.swift */; };
 		0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131155329270B4200F32C59 /* PokedexViewModel.swift */; };
 		013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115A0292C812D00F32C59 /* PCViewModel.swift */; };
-		013115AE292CBB4400F32C59 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AD292CBB4400F32C59 /* AuthManager.swift */; };
+		013115AE292CBB4400F32C59 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AD292CBB4400F32C59 /* UserManager.swift */; };
 		013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115AF292EABC600F32C59 /* FirestoreModels.swift */; };
 		013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115B1292EB05900F32C59 /* GoogleService-Info.plist */; };
 		013115B629354BDF00F32C59 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115B529354BDF00F32C59 /* FirestoreManager.swift */; };
@@ -49,7 +49,7 @@
 		010D760F2924C3B7004BF362 /* PokemonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailView.swift; sourceTree = "<group>"; };
 		0131155329270B4200F32C59 /* PokedexViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexViewModel.swift; sourceTree = "<group>"; };
 		013115A0292C812D00F32C59 /* PCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCViewModel.swift; sourceTree = "<group>"; };
-		013115AD292CBB4400F32C59 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		013115AD292CBB4400F32C59 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		013115AF292EABC600F32C59 /* FirestoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreModels.swift; sourceTree = "<group>"; };
 		013115B1292EB05900F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Project2/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		013115B529354BDF00F32C59 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 				013115B529354BDF00F32C59 /* FirestoreManager.swift */,
 				0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */,
 				0153CE80294067D100FF02E5 /* HealthKitManager.swift */,
-				013115AD292CBB4400F32C59 /* AuthManager.swift */,
+				013115AD292CBB4400F32C59 /* UserManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 				BC38B06B2927121A000174BF /* Extenders.swift in Sources */,
 				013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */,
 				010D760A29248DB2004BF362 /* PokedexView.swift in Sources */,
-				013115AE292CBB4400F32C59 /* AuthManager.swift in Sources */,
+				013115AE292CBB4400F32C59 /* UserManager.swift in Sources */,
 				0153CE81294067D100FF02E5 /* HealthKitManager.swift in Sources */,
 				BCEB832E292EC93300754B0E /* TestView.swift in Sources */,
 				0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */,

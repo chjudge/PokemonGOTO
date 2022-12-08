@@ -39,7 +39,7 @@ class HealthKitManager {
             }
             
             
-            if let user = AuthManager.shared.user{
+            if let user = UserManager.shared.user{
                 let startDay = Calendar.current.startOfDay(for: user.start_day.dateValue())
                 
                 self.readStepCount(startDay: startDay) { step in
