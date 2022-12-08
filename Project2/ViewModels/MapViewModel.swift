@@ -219,8 +219,7 @@ class EventTimer: ObservableObject {
         status = .finished
         active_event.seconds = 0
 
-        let alertController = UIAlertController(title: "Congratulations!", message: "You completed \"Attend \(eventDetails.title)\"\n\n+250 Experience\n\n\n             \(PokemonManager.shared.allPokemon.first{ $0.pokemon.id == eventDetails.pokemon_id }!.pokemon.name!.capitalized)\n             Lvl. 45\n\n", preferredStyle: .alert)
-        //TODO: Get add level and experience of pokemon to database
+        let alertController = UIAlertController(title: "Congratulations!", message: "You completed \"Attend \(eventDetails.title)\"\n\n+\(eventDetails.experience) Experience\n\n\n             \(PokemonManager.shared.allPokemon.first{ $0.pokemon.id == eventDetails.pokemon_id }!.pokemon.name!.capitalized)\n             Lvl. \(eventDetails.pokemon_level)\n\n", preferredStyle: .alert)
         
         let acceptAction = UIAlertAction(title: "Accept!", style: .default)
         
