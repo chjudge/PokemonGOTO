@@ -25,6 +25,9 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     @Published var eventTimer: EventTimer? = nil
     var regionEvent: FirestoreActiveEvent? = nil
     
+//    @Published var popupNotification: Bool = false
+//    @Published var receivedRewardTitle: Poi
+    
     
     static let shared: MapViewModel = {
         return MapViewModel()
@@ -145,7 +148,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
-                    
                     if let doc = querySnapshot?.documents.first, doc.exists {
                         collection.document(doc.documentID).updateData(["seconds": timer.active_event.seconds])
                     }
@@ -173,11 +175,15 @@ enum mode {
 class EventTimer: ObservableObject {
     var timer = Timer()
     
+    let eventDetails: FirestoreEvent
+    
+    
     @Published var status : mode = .stopped
     var active_event: FirestoreActiveEvent
     
     init (event: FirestoreActiveEvent) {
-        self.active_event = event
+        eventDetails = MapViewModel.shared.firestore.firestoreModels.first{$0.id == String(event.event_id)}!
+        active_event = event
         print("Timer is init")
     }
     
@@ -198,6 +204,17 @@ class EventTimer: ObservableObject {
         print("timer reached .finished")
         status = .finished
         active_event.seconds = 0
+
+        let alertController = UIAlertController(title: "Title", message: "\(eventDetails.title)", preferredStyle: .alert)
+        
+        let acceptAction = UIAlertAction(title: "Accept!", style: .default)
+        
+        alertController.addAction(acceptAction)
+        
+        //allows the notification to be seen anywhere
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true) {
+            // optional code for what happens after the alert controller has finished presenting
+        }
         timer.invalidate()
     }
     
