@@ -61,7 +61,6 @@ struct PokemonView: View {
             }
             .background(.thinMaterial)
             .clipShape(Circle())
-//            .colorMultiply(.black)
 
             if showName{
                 if seen {

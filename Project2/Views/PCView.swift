@@ -19,7 +19,7 @@ struct PCView: View {
             VStack {
                 Text("XP: \(PCVM.userStepCount)")
                 List(PCVM.pokemon, id: \.id) { pkm in
-                    NavigationLink(destination: PokemonDetailView(pokemon:pkm, dimensions: 120)) {
+                    NavigationLink(destination: PokemonDetailView(pokemon:pkm, dimensions: 120, seen: true)) {
                         PokemonView(pokemon: pkm, dimensions: 120, showName: true, showID: true)
                     }
                 }.onReceive(PCVM.firestore.$firestoreModels){ pokemon in

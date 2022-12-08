@@ -11,10 +11,11 @@ import PokemonAPI
 struct PokemonDetailView: View {
     let pokemon: PKMPokemon
     let dimensions: Double
+    var fromPokedex: Bool = false
+    let seen: Bool?
     
     let PKMManager = PokemonManager.shared
     
-    var fromPokedex: Bool = false
 //    @State var types: [PKMType] = []
     
     @State private var didFail = false
@@ -22,18 +23,23 @@ struct PokemonDetailView: View {
     var body: some View {
         VStack{
             HStack(alignment: .center){
-                PokemonView(pokemon: pokemon, dimensions: dimensions, showName: true, showID: true)
+                PokemonView(pokemon: pokemon, dimensions: dimensions, showName: true, showID: true, seen: seen ?? true)
             
                 VStack(spacing: 10) {
                     
-                    //Text("**ID**: \(pokemon.id ?? 0)")
-                    Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
-                    Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
-                    Text("**Type**: \((PKMManager.allPokemon.first{ $0.pokemon.id == pokemon.id }!.types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")})))")
+                    if seen ?? true {
+                        Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
+                        Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
+                        Text("**Type**: \((PKMManager.allPokemon.first{ $0.pokemon.id == pokemon.id }!.types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")})))")
+                    } else {
+                        Text("**Weight**: ??? KG")
+                        Text("**Height**: ??? M")
+                        Text("**Type**: ???")
+                    }
 
                     // ADD pokemon to PC button
                     
-                    Spacer()
+//                    Spacer()
                     if fromPokedex {
                         Button {
                             PKMManager.add(pokemon: pokemon, didFail: $didFail)
