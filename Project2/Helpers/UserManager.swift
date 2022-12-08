@@ -57,9 +57,18 @@ class UserManager: ObservableObject {
         }
     }
     
+    func addSteps(steps: Int){
+        user?.steps -=  steps
+        updateUser()
+    }
+    
     func removeSteps(steps: Int){
+        user?.steps +=  steps
+        updateUser()
+    }
+    
+    func updateUser(){
         if let uid = uid{
-            user?.steps +=  steps
             do{
                 try db.collection("users").document(uid).setData(from: self.user)
             } catch  {
