@@ -114,7 +114,7 @@ struct MapView: UIViewRepresentable {
         for event in events {
             // Skip ones youve already achieved
             // Check if you have been to event
-            let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+            let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
             let query = collection.whereField("event_id", isEqualTo: event.id!)
             
             // Add annotations

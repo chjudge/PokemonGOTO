@@ -84,7 +84,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
             
         } else { // Event encounter
             // Check if you have been to event
-            let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+            let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
             let query = collection.whereField("event_id", isEqualTo: region.identifier)
             
             query.getDocuments() { (querySnapshot, error) in
@@ -154,7 +154,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                 timer.stop()
                 
                 // Upload new time
-                let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+                let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
                 let query = collection.whereField("event_id", isEqualTo: region.identifier)
                 query.getDocuments() { (querySnapshot, error) in
                     if let error = error {
