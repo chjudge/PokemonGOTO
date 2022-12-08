@@ -223,6 +223,7 @@ class EventTimer: ObservableObject {
         
         let acceptAction = UIAlertAction(title: "Accept!", style: .default) { thing in
             PokemonManager.shared.addReward(pokemon: PokedexViewModel.shared.filteredPokemon.first{ $0.id == self.eventDetails.pokemon_id}!, level: self.eventDetails.pokemon_level)
+            UserManager.shared.addXP(steps: self.eventDetails.experience)
         }
         
         alertController.addAction(acceptAction)

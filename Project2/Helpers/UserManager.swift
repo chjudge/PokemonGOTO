@@ -57,12 +57,12 @@ class UserManager: ObservableObject {
         }
     }
     
-    func addSteps(steps: Int){
+    func addXP(steps: Int){
         user?.steps -=  steps
         updateUser()
     }
     
-    func removeSteps(steps: Int){
+    func removeXP(steps: Int){
         user?.steps +=  steps
         updateUser()
     }
