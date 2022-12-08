@@ -219,11 +219,17 @@ class EventTimer: ObservableObject {
         status = .finished
         active_event.seconds = 0
 
-        let alertController = UIAlertController(title: "Title", message: "\(eventDetails.title)", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Congratulations!", message: "You completed \"Attend \(eventDetails.title)\"\n\n+250 Experience\n\n\n             \(PokemonManager.shared.allPokemon.first{ $0.pokemon.id == eventDetails.pokemon_id }!.pokemon.name!.capitalized)\n             Lvl. 45\n\n", preferredStyle: .alert)
+        //TODO: Get add level and experience of pokemon to database
         
         let acceptAction = UIAlertAction(title: "Accept!", style: .default)
         
         alertController.addAction(acceptAction)
+        
+        var imageView = UIImageView(frame: CGRect(x: 50, y: 95, width: 80, height: 80))
+        imageView.image = PokemonManager.shared.allPokemon.first{ $0.pokemon.id == eventDetails.pokemon_id }!.sprite
+
+        alertController.view.addSubview(imageView)
         
         //allows the notification to be seen anywhere
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true) {
