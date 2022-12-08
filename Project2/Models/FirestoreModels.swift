@@ -91,5 +91,3 @@ struct FirestoreTeam: Identifiable, Codable {
         case index
     }
 }
-
-

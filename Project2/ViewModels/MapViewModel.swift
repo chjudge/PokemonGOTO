@@ -24,10 +24,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     @Published var userLon: Double? = nil
     @Published var eventTimer: EventTimer? = nil
     var regionEvent: FirestoreActiveEvent? = nil
-    
-//    @Published var popupNotification: Bool = false
-//    @Published var receivedRewardTitle: Poi
-    
+    var pointOfInterest = PointOfInterestModel()
     
     static let shared: MapViewModel = {
         return MapViewModel()
@@ -40,7 +37,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
         
         // create a delegate
         locationManager.delegate = self
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         // request permission to the user
@@ -78,54 +74,62 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
 
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        // TODO: Start incrementing time within event zone
         
-        // Check if you have been to event
-        let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
-        let query = collection.whereField("event_id", isEqualTo: region.identifier)
-        
-        query.getDocuments() { (querySnapshot, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                // If the event was active already
-                if let doc = querySnapshot?.documents.first, doc.exists {
-                    
-                    print("event was already activated before")
-                    
-                    // Get the remaining seconds to tick down from
-                    do {
+        if region.identifier.hasPrefix("pokemon") {
+            // TODO: wild pokemon encounter
+            print("Contacted with pokemon")
+            let pokemondID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
+            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemondID })
+            // TODO: continue
+            
+        } else { // Event encounter
+            // Check if you have been to event
+            let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+            let query = collection.whereField("event_id", isEqualTo: region.identifier)
+            
+            query.getDocuments() { (querySnapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    // If the event was active already
+                    if let doc = querySnapshot?.documents.first, doc.exists {
                         
-                        self.regionEvent = try doc.data(as: FirestoreActiveEvent.self)
-                        // Start timer
-                        self.eventTimer = EventTimer(event: self.regionEvent!)
-                        self.eventTimer?.start()
+                        print("event was already activated before")
                         
-                    } catch {
-                        print("Error reading in firestore active event model from firestore data")
-                    }
-                    //self.seconds = doc.data()["seconds"] as! Int
-                    
-                } else { // New event => Initialize it in db
-                    
-                    print("discovered a brand new event!")
-                    
-                    if let event = self.firestore.firestoreModels.first(where: { $0.id == region.identifier }) {
-                        // Add to user's active events
-                        do {
-                            print("Adding to user a new active event")
-                            try collection.addDocument(from: FirestoreActiveEvent(event_id: region.identifier, seconds: event.seconds)) // ["event_id": region.identifier, "seconds": event.seconds])
-                        } catch {
-                            print("Error uploading the active event to firebase")
-                        }
                         // Get the remaining seconds to tick down from
-                        self.regionEvent = FirestoreActiveEvent(event_id: event.id!, seconds: event.seconds)
+                        do {
+                            
+                            self.regionEvent = try doc.data(as: FirestoreActiveEvent.self)
+                            // Start timer
+                            self.eventTimer = EventTimer(event: self.regionEvent!)
+                            self.eventTimer?.start()
+                            
+                        } catch {
+                            print("Error reading in firestore active event model from firestore data")
+                        }
+                        //self.seconds = doc.data()["seconds"] as! Int
                         
-                        // Start timer
-                        self.eventTimer = EventTimer(event: self.regionEvent!)
-                        self.eventTimer?.start()
+                    } else { // New event => Initialize it in db
+                        
+                        print("discovered a brand new event!")
+                        
+                        if let event = self.firestore.firestoreModels.first(where: { $0.id == region.identifier }) {
+                            // Add to user's active events
+                            do {
+                                print("Adding to user a new active event")
+                                try collection.addDocument(from: FirestoreActiveEvent(event_id: region.identifier, seconds: event.seconds)) // ["event_id": region.identifier, "seconds": event.seconds])
+                            } catch {
+                                print("Error uploading the active event to firebase")
+                            }
+                            // Get the remaining seconds to tick down from
+                            self.regionEvent = FirestoreActiveEvent(event_id: event.id!, seconds: event.seconds)
+                            
+                            // Start timer
+                            self.eventTimer = EventTimer(event: self.regionEvent!)
+                            self.eventTimer?.start()
+                        }
+                        
                     }
-                    
                 }
             }
         }
@@ -137,21 +141,31 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     }
         
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        // TODO: Stop incrementing time within event zone
-        if let timer = eventTimer {
-            timer.stop()
+
+        if region.identifier.hasPrefix("pokemon") {
+            // TODO: wild pokemon dis-encounter
+            print("Contacted with pokemon")
+            let pokemondID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
+            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemondID })
+            // TODO: continue
             
-            // Upload new time
-            let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
-            let query = collection.whereField("event_id", isEqualTo: region.identifier)
-            query.getDocuments() { (querySnapshot, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    if let doc = querySnapshot?.documents.first, doc.exists {
-                        collection.document(doc.documentID).updateData(["seconds": timer.active_event.seconds])
+        } else { // Event dis-encounter
+            if let timer = eventTimer {
+                timer.stop()
+                
+                // Upload new time
+                let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+                let query = collection.whereField("event_id", isEqualTo: region.identifier)
+                query.getDocuments() { (querySnapshot, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        
+                        if let doc = querySnapshot?.documents.first, doc.exists {
+                            collection.document(doc.documentID).updateData(["seconds": timer.active_event.seconds])
+                        }
+                        
                     }
-                    
                 }
             }
         }
@@ -225,6 +239,29 @@ class EventTimer: ObservableObject {
         }
         timer.invalidate()
     }
+}
+
+class PointOfInterestModel {
+    
+    var event: FirestoreEvent? = nil
+    var mapPokemon: FirestorePokemon? = nil
+    
+    init () {}
+    
+    func setToEvent(event: FirestoreEvent) {
+        self.event = event
+        mapPokemon = nil
+    }
+    
+    func setToPokemon(pokemon: FirestorePokemon) {
+        self.mapPokemon = pokemon
+        event = nil
+    }
+    
+    func isEvent() -> Bool { return event != nil }
+    func isPokemon() -> Bool { return mapPokemon != nil }
+    func isSet() -> Bool { return isEvent() || isPokemon() }
+    
 }
 
 
