@@ -33,7 +33,6 @@ struct PokemonDetailView: View {
 
                     // ADD pokemon to PC button
                     
-                    Spacer()
                     if fromPokedex {
                         Button {
                             PKMManager.add(pokemon: pokemon, didFail: $didFail)
