@@ -15,6 +15,7 @@ struct MapView: UIViewRepresentable {
     @ObservedObject var VM: MapViewModel = MapViewModel.shared
     let db = Firestore.firestore()
     
+    @Binding var showEvent: Bool
     @State var wildPokemon = [MKPointAnnotation]()
     
     //Computed variable based on user's current location after getting approved.
@@ -48,8 +49,8 @@ struct MapView: UIViewRepresentable {
         map.showsUserLocation = true
         map.userTrackingMode = .followWithHeading
         map.setRegion(region, animated: true)
-//        updateEvents(map, VM.firestore.firestoreModels)
-//        populateWildPokemon(map)
+        updateEvents(map, VM.firestore.firestoreModels)
+        updateWildPokemon(map)
 //        map.preferredConfiguration = MKImageryMapConfiguration()
         return map
     }
@@ -70,14 +71,17 @@ struct MapView: UIViewRepresentable {
 //            print(annotation.title!)
 //        }
         for pkm in VM.randomPokemonFirestore.firestoreModels {
+            
             if uiView.annotations.contains(where: { $0.title == pkm.name }) { continue }
 //            print("adding annotation for \(pkm.name)")
             
             let marker = MKPointAnnotation()
             marker.title = pkm.name
             marker.coordinate = CLLocationCoordinate2D(latitude: pkm.location!.latitude, longitude: pkm.location!.longitude)
-//            wildPokemon.append(marker)
+            // Add region
+            //let region = CLCircularRegion(center: marker.coordinate, radius: CLLocationDistance(3), identifier: "pokemon\(pkm.id!)")
             uiView.addAnnotation(marker)
+            //VM.locationManager.startMonitoring(for: region)
         }
         
         if VM.randomPokemonFirestore.firestoreModels.count > 6 { return }
@@ -102,41 +106,6 @@ struct MapView: UIViewRepresentable {
 //        }
     }
     
-    // TODO: Have these as firestore collection to populate
-    func populateWildPokemon(_ uiView: MKMapView) {
-        print("Populating wild pokemon onto map")
-        var coords = [CLLocationCoordinate2D]()
-        
-//        let pokemonAPI = PokemonAPI()
-        
-        let maxSpawns = 5
-        let highestPokemonId = 151 // Test
-        let highestLevel = 5
-        
-        for _ in [1..<Int.random(in: 3..<maxSpawns)] {
-            let randomLat = Float.random(in: 41.154001937356284 ..< 41.157117172039925)
-            let randomLong = Float.random(in: -80.08110060219843 ..< -80.07630910217662)
-            coords.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(randomLat), longitude: CLLocationDegrees(randomLong)))
-        }
-        
-        for coord in coords {
-            print("adding pokemon")
-            let randomPokemon = Int.random(in: 1..<highestPokemonId)
-//            let randomPokemon = 1
-            let randomLevel = Int.random(in: 1..<highestLevel)
-            let wildPokemonMarker = MKPointAnnotation()
-            wildPokemonMarker.coordinate = coord
-            Task{
-                let pokemon = await PokemonManager.shared.fetchPokemon(id: randomPokemon)
-                wildPokemonMarker.title = pokemon?.name!
-                uiView.addAnnotation(wildPokemonMarker)
-            }
-            
-            
-        }
-        
-    }
-    
     func updateEvents(_ uiView: MKMapView, _ events: [FirestoreEvent]) {
 
 //        uiView.removeAnnotations(uiView.annotations)
@@ -147,8 +116,6 @@ struct MapView: UIViewRepresentable {
             // Check if you have been to event
             let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
             let query = collection.whereField("event_id", isEqualTo: event.id!)
-            
-            var finished: Bool = false
             
             // Add annotations
             let loc = MKPointAnnotation()
@@ -169,17 +136,19 @@ struct MapView: UIViewRepresentable {
                     if let doc = querySnapshot?.documents.first, doc.exists {
                         
                         do {
+                            
                             let regionEvent = try doc.data(as: FirestoreActiveEvent.self)
+                            
                             if regionEvent.seconds > 0 {
                                 print("\(event.title) is good to go")
                                 uiView.addAnnotation(loc)
                                 uiView.addOverlay(circle)
                                 VM.locationManager.startMonitoring(for: region)
                                 print("They already have this event finished")
-                                finished = true
                             } else {
                                 print("finished the event \(event.title)")
                             }
+                            
                         } catch {
                             print("Error reading in firestore active event model from firestore data")
                         }
@@ -191,8 +160,6 @@ struct MapView: UIViewRepresentable {
                     }
                 }
             }
-            
-            if finished { continue } // Dont place this one on the map
             
 //            print("PASSED: \(event.title)")
             
@@ -230,15 +197,39 @@ struct MapView: UIViewRepresentable {
             }
             let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Reuse")
             annotationView.canShowCallout = true
+            annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            
 //            annotationView.collisionMode = .circle
 
-            //print(PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! })?.pokemon.name!)
+            // print(PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! })?.pokemon.name!)
             
             if let pkm = PokemonManager.shared.allPokemon.first(where: { $0.pokemon.name! == annotation.title! }) {
                 annotationView.image = pkm.sprite
                 return annotationView
             }
-            return nil
+            
+            return annotationView
+            
+        }
+        
+        // how to respond to clicking annotation
+        func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+            let MVM = MapViewModel.shared
+            print("Uwu")
+            parent.showEvent = true;
+            if let event = MVM.firestore.firestoreModels.first(where: { $0.title == view.annotation?.title }) {
+                
+                MVM.pointOfInterest.setToEvent(event: event)
+                
+            } else { // is pokemon
+                if let pokemon = MVM.randomPokemonFirestore.firestoreModels.first(where: { $0.name == view.annotation?.title }) {
+                    
+                    MVM.pointOfInterest.setToPokemon(pokemon: pokemon)
+                    
+                } else {
+                    print("error")
+                }
+            }
             
         }
         

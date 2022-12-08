@@ -26,7 +26,7 @@ struct PokemonDetailView: View {
             
                 VStack(spacing: 10) {
                     
-                    Text("**ID**: \(pokemon.id ?? 0)")
+                    //Text("**ID**: \(pokemon.id ?? 0)")
                     Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
                     Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
                     Text("**Type**: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
