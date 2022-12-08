@@ -17,6 +17,7 @@ struct PCView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Text("XP: \(PCVM.userStepCount)")
                 List(PCVM.pokemon, id: \.id) { pkm in
                     NavigationLink(destination: PokemonDetailView(pokemon:pkm, dimensions: 120)) {
                         PokemonView(pokemon: pkm, dimensions: 120)

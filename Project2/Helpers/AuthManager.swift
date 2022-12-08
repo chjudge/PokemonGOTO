@@ -30,14 +30,18 @@ class AuthManager: ObservableObject {
                     do{
                         print("getting user")
                         self.user = try document.data(as: FirestoreUser.self)
+                        PCViewModel.shared.healthKitManager.setUpHealthRequest()
                     } catch {
                         print("error loading user from firestore")
                     }
                 } else {
                     print("adding user to users collection")
-                    let user = FirestoreUser(steps: 0)
+                    let start_day: Date = .now
+                    self.user = FirestoreUser(steps: 0, start_day: Timestamp(date: start_day))
+                    
+                    PCViewModel.shared.healthKitManager.setUpHealthRequest()
                     do {
-                        try userDoc.setData(from: user)
+                        try userDoc.setData(from: self.user)
                     } catch  {
                         print("error setting user or pokemon")
                     }

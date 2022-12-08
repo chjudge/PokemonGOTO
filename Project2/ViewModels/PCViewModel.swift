@@ -5,15 +5,14 @@
 //  Created by Clayton Judge on 11/21/22.
 //
 
-import Combine
-import FirebaseFirestore
-import SwiftUI
 import PokemonAPI
+import HealthKit
 
 class PCViewModel: ObservableObject {
-    @Published var pokemon = [PKMPokemon]()
+    let healthKitManager = HealthKitManager()
     
-    var pokemonAPI = PokemonAPI()
+    @Published var pokemon = [PKMPokemon]()
+    @Published var userStepCount = 0
     
     let firestore = FirestoreManager<FirestorePokemon>(collection: "pokemon")
     
