@@ -64,7 +64,7 @@ struct MapSheetView: View {
             if let pokemon = pointOfInterest.mapPokemon, pointOfInterest.isPokemon() {
                 let pkm = allPokemon.first{ $0.pokemon.id! == pokemon.pokemonID }!
                 
-                PokemonView(pokemon: pkm.pokemon, dimensions: 120, showName: true)
+                PokemonView(pokemon: pkm.pokemon, dimensions: 120, showName: true, showID: true)
                 
                 Text("Level: \(pokemon.level)").padding(.top, 20)
                 Text("Max Hp: \(pokemon.maxHP)")
@@ -78,7 +78,7 @@ struct MapSheetView: View {
                 
             } else if let event = pointOfInterest.event, pointOfInterest.isEvent() {
                 
-                PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == event.pokemon_id })!.pokemon, dimensions: 120)
+                PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == event.pokemon_id })!.pokemon, dimensions: 120, showName: true, showID: true)
                 
                 Text("Level: ???") // \(pokemon.level)").padding(.top, 20)
                 Text("Max Hp: ???") // \(pokemon.maxHP)")
