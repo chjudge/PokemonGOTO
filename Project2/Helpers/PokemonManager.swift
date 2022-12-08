@@ -115,16 +115,15 @@ class PokemonManager: ObservableObject {
                 if let document = document, document.exists {
                     print("Error: Pokemon already in PC")
                     didFail.wrappedValue = true
-                    return
+                } else {
+                    let pkm = FirestorePokemon(pokemonID: id, name: name, caught: .init(), level: 1, hp: 30, maxHP: 30, xp: 0)
+                    
+                    do {
+                        try collection.document("\(id)").setData(from: pkm)
+                    } catch {
+                        print("Error adding pokemon to PC \(error.localizedDescription)")
+                    }
                 }
-            }
-            
-            let pkm = FirestorePokemon(pokemonID: id, name: name, caught: .init(), level: 1, hp: 30, maxHP: 30, xp: 0)
-            
-            do {
-                try collection.document("\(id)").setData(from: pkm)
-            } catch {
-                print("Error adding pokemon to PC \(error.localizedDescription)")
             }
         }
     }
