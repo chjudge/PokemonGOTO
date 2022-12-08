@@ -59,7 +59,7 @@ struct PokedexView: View {
                                         pokemonIndex = id - 1
                                     } else { /* Do nothing */ }
                                 } label: {
-                                    PokemonView(pokemon: pokemon, dimensions: 120, showName: false)
+                                    PokemonView(pokemon: pokemon, dimensions: 120, showName: true)
                                 }
                             }
                         }

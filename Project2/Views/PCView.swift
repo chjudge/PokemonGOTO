@@ -20,7 +20,7 @@ struct PCView: View {
                 Text("XP: \(PCVM.userStepCount)")
                 List(PCVM.pokemon, id: \.id) { pkm in
                     NavigationLink(destination: PokemonDetailView(pokemon:pkm, dimensions: 120)) {
-                        PokemonView(pokemon: pkm, dimensions: 120, showName: true)
+                        PokemonView(pokemon: pkm, dimensions: 120, showName: true, showID: true)
                     }
                 }.onReceive(PCVM.firestore.$firestoreModels){ pokemon in
                     PCVM.pokemon.removeAll()

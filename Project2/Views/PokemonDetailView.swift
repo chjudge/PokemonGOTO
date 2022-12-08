@@ -22,7 +22,7 @@ struct PokemonDetailView: View {
     var body: some View {
         VStack{
             HStack(alignment: .center){
-                PokemonView(pokemon: pokemon, dimensions: dimensions, showName: true)
+                PokemonView(pokemon: pokemon, dimensions: dimensions, showName: true, showID: true)
             
                 VStack(spacing: 10) {
                     
