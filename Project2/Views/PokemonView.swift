@@ -13,26 +13,17 @@ struct PokemonView: View {
     let dimensions: Double
     let showName: Bool
     
-    init(pokemon: PKMPokemon, dimensions: Double) {
-        self.pokemon = pokemon
-        self.dimensions = dimensions
-        showName = true
-    }
-    
-    init(pokemon: PKMPokemon, dimensions: Double, showName: Bool) {
-        self.pokemon = pokemon
-        self.dimensions = dimensions
-        self.showName = showName
-    }
-    
     var body: some View {
         VStack {
             AsyncImage(url: URL(string:pokemon.sprites?.frontDefault ?? "")) { image in
                 if let image = image {
                     image
+                        .renderingMode(.template)
+//                        .colorMultiply(.black)
                         .resizable()
                         .scaledToFit()
                         .frame(width: dimensions, height: dimensions)
+                        .foregroundColor(.black)
                 }
             } placeholder: {
                 ProgressView()
@@ -41,6 +32,7 @@ struct PokemonView: View {
             }
             .background(.thinMaterial)
             .clipShape(Circle())
+//            .colorMultiply(.black)
 
             if showName{
                 Text("No. \(pokemon.id!) \(pokemon.name!.capitalized)")
