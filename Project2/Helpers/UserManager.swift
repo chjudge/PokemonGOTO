@@ -9,13 +9,13 @@ import FirebaseFirestore
 import FirebaseAuth
 import Combine
 
-class AuthManager: ObservableObject {
+class UserManager: ObservableObject {
     private var db = Firestore.firestore()
     var uid: String?
     var user: FirestoreUser?
     
     static let shared = {
-        let instance = AuthManager()
+        let instance = UserManager()
         return instance
     }()
     
@@ -54,6 +54,19 @@ class AuthManager: ObservableObject {
             let userteam = "users/\(uid)/team"
             print("creating query \(userteam)")
             TeamViewModel.shared.firestore.subscribe(to: TeamViewModel.shared.firestore.query(collection: userteam))
+        }
+    }
+    
+    func removeSteps(steps: Int){
+        if let uid = uid{
+            user?.steps +=  steps
+            do{
+                try db.collection("users").document(uid).setData(from: self.user)
+            } catch  {
+                print("error setting user or pokemon")
+            }
+        } else {
+            print("error no uid")
         }
     }
 }

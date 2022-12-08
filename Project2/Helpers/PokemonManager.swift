@@ -107,7 +107,7 @@ class PokemonManager: ObservableObject {
     }
     
     func add(pokemon: PKMPokemon, didFail: Binding<Bool>) {
-        let collection = db.collection("users/\(AuthManager.shared.uid!)/pokemon")
+        let collection = db.collection("users/\(UserManager.shared.uid!)/pokemon")
         
         if let name = pokemon.name, let id = pokemon.id {
             //check if pokemon already caught
@@ -129,9 +129,9 @@ class PokemonManager: ObservableObject {
     }
     
     func addToTeam(pokemonID: Int, index: Int, didFail: Binding<Bool>) {
-        let pokemon = db.collection("users/\(AuthManager.shared.uid!)/pokemon")
+        let pokemon = db.collection("users/\(UserManager.shared.uid!)/pokemon")
         
-        let team = db.collection("users/\(AuthManager.shared.uid!)/team")
+        let team = db.collection("users/\(UserManager.shared.uid!)/team")
         
         do {
             let ref = pokemon.document("\(pokemonID)")

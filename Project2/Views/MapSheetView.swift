@@ -63,7 +63,7 @@ struct MapSheetView: View {
         VStack {
             if let pokemon = pointOfInterest.mapPokemon, pointOfInterest.isPokemon() {
                 
-                PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == pokemon.pokemonID })!.pokemon, dimensions: 120)
+                PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == pokemon.pokemonID })!.pokemon, dimensions: 120, showName: true)
                 
                 Text("Type: ")
                 Text("Level: \(pokemon.level)").padding(.top, 20)

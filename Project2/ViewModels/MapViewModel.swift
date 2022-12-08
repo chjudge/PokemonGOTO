@@ -84,7 +84,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
             
         } else { // Event encounter
             // Check if you have been to event
-            let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+            let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
             let query = collection.whereField("event_id", isEqualTo: region.identifier)
             
             query.getDocuments() { (querySnapshot, error) in
@@ -154,7 +154,7 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                 timer.stop()
                 
                 // Upload new time
-                let collection = db.collection("users/\(AuthManager.shared.uid!)/active_events")
+                let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
                 let query = collection.whereField("event_id", isEqualTo: region.identifier)
                 query.getDocuments() { (querySnapshot, error) in
                     if let error = error {
@@ -189,11 +189,15 @@ enum mode {
 class EventTimer: ObservableObject {
     var timer = Timer()
     
+    let eventDetails: FirestoreEvent
+    
+    
     @Published var status : mode = .stopped
     var active_event: FirestoreActiveEvent
     
     init (event: FirestoreActiveEvent) {
-        self.active_event = event
+        eventDetails = MapViewModel.shared.firestore.firestoreModels.first{$0.id == String(event.event_id)}!
+        active_event = event
         print("Timer is init")
     }
     
@@ -214,6 +218,17 @@ class EventTimer: ObservableObject {
         print("timer reached .finished")
         status = .finished
         active_event.seconds = 0
+
+        let alertController = UIAlertController(title: "Title", message: "\(eventDetails.title)", preferredStyle: .alert)
+        
+        let acceptAction = UIAlertAction(title: "Accept!", style: .default)
+        
+        alertController.addAction(acceptAction)
+        
+        //allows the notification to be seen anywhere
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true) {
+            // optional code for what happens after the alert controller has finished presenting
+        }
         timer.invalidate()
     }
     

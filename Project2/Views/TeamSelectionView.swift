@@ -24,7 +24,7 @@ struct TeamSelectionView: View {
                     // TODO: return to team view somehow
                     //TeamView()
                 } label: {
-                    PokemonView(pokemon: pkm, dimensions: 120)
+                    PokemonView(pokemon: pkm, dimensions: 120, showName: true)
                 }
             }//.onReceive(PCVM.firestore.$firestoreModels){ pokemon in
 //                PCVM.pokemon.removeAll()
