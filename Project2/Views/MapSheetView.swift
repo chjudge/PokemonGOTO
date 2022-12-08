@@ -65,8 +65,9 @@ struct MapSheetView: View {
                 
                 PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == pokemon.pokemonID })!.pokemon, dimensions: 120)
                 
+                Text("Type: ")
                 Text("Level: \(pokemon.level)").padding(.top, 20)
-                Text("Max Hp: \(pokemon.maxHP)")
+                Text("Max Hp: \(pokemon.maxHP)"
                 
 //                Text("Type: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
 //                    .onAppear{
@@ -79,6 +80,7 @@ struct MapSheetView: View {
                 
                 PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == event.pokemon_id })!.pokemon, dimensions: 120)
                 
+                Text("Type: ")
                 Text("Level: ???") // \(pokemon.level)").padding(.top, 20)
                 Text("Max Hp: ???") // \(pokemon.maxHP)")
                 
