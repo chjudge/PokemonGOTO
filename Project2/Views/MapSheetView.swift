@@ -67,7 +67,7 @@ struct MapSheetView: View {
                 
                 Text("Type: ")
                 Text("Level: \(pokemon.level)").padding(.top, 20)
-                Text("Max Hp: \(pokemon.maxHP)"
+                Text("Max Hp: \(pokemon.maxHP)")
                 
 //                Text("Type: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
 //                    .onAppear{
