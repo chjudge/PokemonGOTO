@@ -27,7 +27,7 @@ struct TeamView: View {
                     showSheet.toggle()
                 } label: {
                     if let pokemon = TVM.team[index] {
-                        PokemonView(pokemon: pokemon, dimensions: 120)
+                        PokemonView(pokemon: pokemon, dimensions: 120, showName: true)
                     } else {
                         VStack{
                             Circle()
@@ -54,33 +54,26 @@ struct TeamView: View {
         .sheet(isPresented: $showSheet){
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))], spacing: 10) {
+                    Button{
+                        PKMManager.removeFromTeam(index: teamIndex)
+                        showSheet.toggle()
+                    }label: {
+                        Text("Remove")
+                    }
                     ForEach(PCViewModel.shared.pokemon, id: \.id){ pkm in
-                        Button{
-                            if (!TVM.team.contains(pkm)) {
+                        if (!TVM.team.contains(pkm)) {
+                            Button{
                                 PKMManager.addToTeam(pokemonID: pkm.id!, index: teamIndex, didFail: $didFail)
                                 showSheet.toggle()
+                            } label: {
+                                PokemonView(pokemon: pkm, dimensions: 120, showName: true)
                             }
-                        } label: {
-                            PokemonView(pokemon: pkm, dimensions: 120)
                         }
                     }
                 }
             }.padding()
         }
-//        .onAppear {
-//            if let uid = AuthManager.shared.uid {
-//                let path = "users/\(uid)/team"
-//                print("creating query \(path)")
-//                let query = TVM.firestore.query(collection: path)
-//                TVM.firestore.subscribe(to: query)
-//            }
-//        }
-//        .onDisappear {
-//            TVM.firestore.unsubscribe()
-//        }
     }
-        
-//    }
 }
 
 struct TeamView_Previews: PreviewProvider {

@@ -39,7 +39,7 @@ struct PokedexView: View {
                             .colorInvert()
                         
                         // Pokemond details
-                        if pokemonIndex >= 0 {
+                        if pokemonIndex >= 0 && VM.filteredPokemon.count > pokemonIndex{
                             PokemonDetailView(pokemon: VM.filteredPokemon[pokemonIndex], dimensions: 150, fromPokedex: true)
                         } else {
                             Text("Select a Pokemon")

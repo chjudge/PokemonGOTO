@@ -143,6 +143,10 @@ class PokemonManager: ObservableObject {
         }
     }
     
+    func removeFromTeam(index: Int) {
+        db.collection("users/\(UserManager.shared.uid!)/team").document("\(index)").delete()
+    }
+    
     func newRandomPokemon(pokemon: FirestorePokemon){
         let collection = db.collection("map_pokemon")
         

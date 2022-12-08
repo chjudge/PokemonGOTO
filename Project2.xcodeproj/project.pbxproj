@@ -33,10 +33,8 @@
 		BC38B05129246704000174BF /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B05029246704000174BF /* MapViewModel.swift */; };
 		BC38B05329247D32000174BF /* pokemon.json in Resources */ = {isa = PBXBuildFile; fileRef = BC38B05229247D32000174BF /* pokemon.json */; };
 		BC38B06B2927121A000174BF /* Extenders.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC38B06A2927121A000174BF /* Extenders.swift */; };
-		BCEB832E292EC93300754B0E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB832D292EC93300754B0E /* TestView.swift */; };
 		BCEB8338293821AC00754B0E /* TeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB8337293821AC00754B0E /* TeamViewModel.swift */; };
 		BCEB833A293821D300754B0E /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB8339293821D300754B0E /* TeamView.swift */; };
-		BCEB833C2938F4F500754B0E /* TeamSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEB833B2938F4F500754B0E /* TeamSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,10 +63,8 @@
 		BC38B05029246704000174BF /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BC38B05229247D32000174BF /* pokemon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = pokemon.json; sourceTree = "<group>"; };
 		BC38B06A2927121A000174BF /* Extenders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extenders.swift; sourceTree = "<group>"; };
-		BCEB832D292EC93300754B0E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		BCEB8337293821AC00754B0E /* TeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamViewModel.swift; sourceTree = "<group>"; };
 		BCEB8339293821D300754B0E /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
-		BCEB833B2938F4F500754B0E /* TeamSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,9 +134,7 @@
 				BC38B04E292446D4000174BF /* PCView.swift */,
 				010D760D2924929D004BF362 /* PokemonView.swift */,
 				010D760929248DB2004BF362 /* PokedexView.swift */,
-				BCEB832D292EC93300754B0E /* TestView.swift */,
 				BCEB8339293821D300754B0E /* TeamView.swift */,
-				BCEB833B2938F4F500754B0E /* TeamSelectionView.swift */,
 				BC1B5B40293F25A100C47CA1 /* WorldView.swift */,
 				BC1B5B422940075900C47CA1 /* MapSheetView.swift */,
 			);
@@ -273,7 +267,6 @@
 				010D760A29248DB2004BF362 /* PokedexView.swift in Sources */,
 				013115AE292CBB4400F32C59 /* UserManager.swift in Sources */,
 				0153CE81294067D100FF02E5 /* HealthKitManager.swift in Sources */,
-				BCEB832E292EC93300754B0E /* TestView.swift in Sources */,
 				0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */,
 				013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */,
 				010D75D22921C821004BF362 /* ContentView.swift in Sources */,
@@ -281,7 +274,6 @@
 				010D75D02921C821004BF362 /* Project2App.swift in Sources */,
 				0153CE7D29373A7F00FF02E5 /* PokemonManager.swift in Sources */,
 				BCEB833A293821D300754B0E /* TeamView.swift in Sources */,
-				BCEB833C2938F4F500754B0E /* TeamSelectionView.swift in Sources */,
 				010D76102924C3B7004BF362 /* PokemonDetailView.swift in Sources */,
 				010D760E2924929D004BF362 /* PokemonView.swift in Sources */,
 				BC38B05129246704000174BF /* MapViewModel.swift in Sources */,

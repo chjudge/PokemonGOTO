@@ -28,7 +28,7 @@ struct PokemonView: View {
             
             if showID {
                 if seen {
-                    Text("No. \(pokemon.id!)")
+                    Text(String(format: "No. %03d", pokemon.id!))
                         .font(.system(size: 16, weight: .regular, design: .monospaced))
                         .foregroundColor(.primary)
                 } else {
