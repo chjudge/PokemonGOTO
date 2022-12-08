@@ -62,13 +62,14 @@ struct MapSheetView: View {
     var pokemonRewardView : some View {
         VStack {
             if let pokemon = pointOfInterest.mapPokemon, pointOfInterest.isPokemon() {
+                let pkm = allPokemon.first{ $0.pokemon.id! == pokemon.pokemonID }!
                 
-                PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == pokemon.pokemonID })!.pokemon, dimensions: 120, showName: true)
+                PokemonView(pokemon: pkm.pokemon, dimensions: 120, showName: true)
                 
                 Text("Type: ")
                 Text("Level: \(pokemon.level)").padding(.top, 20)
                 Text("Max Hp: \(pokemon.maxHP)")
-                
+                Text("Type: \(pkm.types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
 //                Text("Type: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
 //                    .onAppear{
 //                        Task(){
@@ -83,6 +84,7 @@ struct MapSheetView: View {
                 Text("Type: ")
                 Text("Level: ???") // \(pokemon.level)").padding(.top, 20)
                 Text("Max Hp: ???") // \(pokemon.maxHP)")
+                Text("Type: ???")
                 
             } else { Text("Error") }
         }
