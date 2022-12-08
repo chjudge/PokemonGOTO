@@ -221,7 +221,9 @@ class EventTimer: ObservableObject {
 
         let alertController = UIAlertController(title: "Congratulations!", message: "You completed \"Attend \(eventDetails.title)\"\n\n+\(eventDetails.experience) Experience\n\n\n             \(PokemonManager.shared.allPokemon.first{ $0.pokemon.id == eventDetails.pokemon_id }!.pokemon.name!.capitalized)\n             Lvl. \(eventDetails.pokemon_level)\n\n", preferredStyle: .alert)
         
-        let acceptAction = UIAlertAction(title: "Accept!", style: .default)
+        let acceptAction = UIAlertAction(title: "Accept!", style: .default) { thing in
+            PokemonManager.shared.addReward(pokemon: PokedexViewModel.shared.filteredPokemon.first{ $0.id == self.eventDetails.pokemon_id}!, level: self.eventDetails.pokemon_level)
+        }
         
         alertController.addAction(acceptAction)
         
