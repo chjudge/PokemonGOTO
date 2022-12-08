@@ -22,6 +22,7 @@
 		013115B2292EB05900F32C59 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 013115B1292EB05900F32C59 /* GoogleService-Info.plist */; };
 		013115B629354BDF00F32C59 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013115B529354BDF00F32C59 /* FirestoreManager.swift */; };
 		0153CE7D29373A7F00FF02E5 /* PokemonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */; };
+		0153CE81294067D100FF02E5 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0153CE80294067D100FF02E5 /* HealthKitManager.swift */; };
 		0189DC0729355F0D003C5054 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0629355F0D003C5054 /* FirebaseAuth */; };
 		0189DC0929355F0D003C5054 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0829355F0D003C5054 /* FirebaseFirestore */; };
 		0189DC0B29355F0D003C5054 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0189DC0A29355F0D003C5054 /* FirebaseFirestoreSwift */; };
@@ -53,6 +54,9 @@
 		013115B1292EB05900F32C59 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "Project2/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		013115B529354BDF00F32C59 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonManager.swift; sourceTree = "<group>"; };
+		0153CE7E29405D6400FF02E5 /* Project2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Project2.entitlements; sourceTree = "<group>"; };
+		0153CE7F294063FA00FF02E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0153CE80294067D100FF02E5 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		BC1B5B40293F25A100C47CA1 /* WorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldView.swift; sourceTree = "<group>"; };
 		BC38B04C2924468A000174BF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC38B04E292446D4000174BF /* PCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCView.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 		010D75CE2921C821004BF362 /* Project2 */ = {
 			isa = PBXGroup;
 			children = (
+				0153CE7F294063FA00FF02E5 /* Info.plist */,
+				0153CE7E29405D6400FF02E5 /* Project2.entitlements */,
 				BC38B05429247DE1000174BF /* Helpers */,
 				013115652928CDEA00F32C59 /* Models */,
 				BC38B04A292444FD000174BF /* ViewModels */,
@@ -170,6 +176,7 @@
 				BC38B06A2927121A000174BF /* Extenders.swift */,
 				013115B529354BDF00F32C59 /* FirestoreManager.swift */,
 				0153CE7C29373A7F00FF02E5 /* PokemonManager.swift */,
+				0153CE80294067D100FF02E5 /* HealthKitManager.swift */,
 				013115AD292CBB4400F32C59 /* AuthManager.swift */,
 			);
 			path = Helpers;
@@ -262,6 +269,7 @@
 				013115B0292EABC600F32C59 /* FirestoreModels.swift in Sources */,
 				010D760A29248DB2004BF362 /* PokedexView.swift in Sources */,
 				013115AE292CBB4400F32C59 /* AuthManager.swift in Sources */,
+				0153CE81294067D100FF02E5 /* HealthKitManager.swift in Sources */,
 				BCEB832E292EC93300754B0E /* TestView.swift in Sources */,
 				0131155429270B4200F32C59 /* PokedexViewModel.swift in Sources */,
 				013115A1292C812D00F32C59 /* PCViewModel.swift in Sources */,
@@ -403,14 +411,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = Project2/Project2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Project2/Preview Content\"";
 				DEVELOPMENT_TEAM = N48V78FY2Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Project2/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PokemonGOTO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allow this app to share your step count";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allow this app to update steps";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location Usage";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -438,14 +450,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = Project2/Project2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Project2/Preview Content\"";
 				DEVELOPMENT_TEAM = N48V78FY2Z;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Project2/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PokemonGOTO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allow this app to share your step count";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Allow this app to update steps";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location Usage";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

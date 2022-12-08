@@ -14,12 +14,14 @@ struct FirestoreUser: Identifiable, Codable {
     var pokemon: DocumentReference?
     var team: DocumentReference?
     var steps: Int
+    var start_day: Timestamp
     
     enum CodingKeys: CodingKey {
         case id
         case pokemon
         case team
         case steps
+        case start_day
     }
 }
 
