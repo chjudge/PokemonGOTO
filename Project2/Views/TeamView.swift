@@ -52,14 +52,14 @@ struct TeamView: View {
             }
         }
         .sheet(isPresented: $showSheet){
-            ScrollView {
+            ScrollView {Button{
+                PKMManager.removeFromTeam(index: teamIndex)
+                showSheet.toggle()
+            }label: {
+                Text("Remove")
+            }
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))], spacing: 10) {
-                    Button{
-                        PKMManager.removeFromTeam(index: teamIndex)
-                        showSheet.toggle()
-                    }label: {
-                        Text("Remove")
-                    }
+                    
                     ForEach(PCViewModel.shared.pokemon, id: \.id){ pkm in
                         if (!TVM.team.contains(pkm)) {
                             Button{

@@ -23,6 +23,8 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     @Published var userLat: Double? = nil
     @Published var userLon: Double? = nil
     @Published var eventTimer: EventTimer? = nil
+    @Published var recentlyDeletedPokemon = ""
+    
     var regionEvent: FirestoreActiveEvent? = nil
     var pointOfInterest = PointOfInterestModel()
     

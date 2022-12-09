@@ -66,10 +66,6 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateWildPokemon(_ uiView: MKMapView) {
-        
-//        for annotation in uiView.annotations {
-//            print(annotation.title!)
-//        }
         for pkm in VM.randomPokemonFirestore.firestoreModels {
             
             if uiView.annotations.contains(where: { $0.title == pkm.name }) { continue }
@@ -82,6 +78,10 @@ struct MapView: UIViewRepresentable {
             let region = CLCircularRegion(center: marker.coordinate, radius: CLLocationDistance(3), identifier: "pokemon\(pkm.id!)")
             uiView.addAnnotation(marker)
             VM.locationManager.startMonitoring(for: region)
+        }
+        
+        if let an = uiView.annotations.first(where: { $0.title == VM.recentlyDeletedPokemon }){
+            uiView.removeAnnotation(an)
         }
         
         if VM.randomPokemonFirestore.firestoreModels.count > 6 { return }

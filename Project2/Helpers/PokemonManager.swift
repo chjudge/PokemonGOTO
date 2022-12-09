@@ -193,6 +193,11 @@ class PokemonManager: ObservableObject {
         
     }
     
+    func removeWildPokemon(id: Int){
+        db.collection("map_pokemon").document("\(id)").delete()
+        print("removed \(id)")
+    }
+    
     func addXP(id: Int, xp: Int){
         let pokemon = db.collection("users/\(UserManager.shared.uid!)/pokemon").document("\(id)")
         

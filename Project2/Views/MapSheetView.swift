@@ -75,6 +75,8 @@ struct MapSheetView: View {
                     Button {
                         parentView.showEvent = false
                         PokemonManager.shared.addReward(pokemon: PokedexViewModel.shared.filteredPokemon.first{ $0.id == pokemon.pokemonID}!, level: pokemon.level)
+                        PokemonManager.shared.removeWildPokemon(id: pokemon.pokemonID)
+                        MapViewModel.shared.recentlyDeletedPokemon = pokemon.name
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
