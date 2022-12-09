@@ -12,7 +12,7 @@ struct PokedexView: View {
     @ObservedObject var VM = PokedexViewModel.shared
     @State var pokemonIndex: Int = -1
     
-    private let adaptiveColumns = [GridItem(.adaptive(minimum: 120))]
+    private let adaptiveColumns = [GridItem(.adaptive(minimum: 100))]
     
     var body: some View {
         mainContent
@@ -53,7 +53,7 @@ struct PokedexView: View {
                                     pokemonIndex = id - 1
                                 } else { /* Do nothing */ }
                             } label: {
-                                PokemonView(pokemon: pokemon, dimensions: 120, showName: true, seen: PCViewModel.shared.pokemon.contains(where: { $0.id == pokemon.id }))
+                                PokemonView(pokemon: pokemon, dimensions: 100, showName: true, seen: PCViewModel.shared.pokemon.contains(where: { $0.id == pokemon.id }))
                             }
                         }
                     }
