@@ -114,9 +114,6 @@ struct MapView: UIViewRepresentable {
         
         for event in events {
             
-            // Don't add if already there
-            if uiView.annotations.contains(where: { $0.title == event.title }) { continue }
-            
             // Check if you have been to event
             let query = collection.whereField("event_id", isEqualTo: event.id!)
             
@@ -143,13 +140,29 @@ struct MapView: UIViewRepresentable {
                             let regionEvent = try doc.data(as: FirestoreActiveEvent.self)
                             
                             if regionEvent.seconds > 0 {
-                                print("\(event.title) is good to go")
-                                uiView.addAnnotation(loc)
-                                uiView.addOverlay(circle)
-                                VM.locationManager.startMonitoring(for: region)
-                                print("They already have this event finished")
+                                
+                                // Don't add if already there
+                                if !uiView.annotations.contains(where: { $0.title == event.title }) {
+                                    print("\(event.title) is good to go")
+                                    uiView.addAnnotation(loc)
+                                    uiView.addOverlay(circle)
+                                    VM.locationManager.startMonitoring(for: region)
+                                }
+                                
                             } else {
-                                print("finished the event \(event.title)")
+                                
+                                // Remove annotation
+                                if let target = uiView.annotations.first(where: { $0.title == event.title }) {
+                                    print("Removed Annotation")
+                                    uiView.removeAnnotation(target)
+                                }
+                                
+//                              // Remove overlays
+                                if let overlay = uiView.overlays.first(where: { $0.coordinate.latitude == loc.coordinate.latitude && $0.coordinate.longitude == loc.coordinate.longitude }) {
+                                    print("Removed Overlay")
+                                    uiView.removeOverlay(overlay)
+                                }
+                                
                             }
                             
                         } catch {
@@ -157,9 +170,13 @@ struct MapView: UIViewRepresentable {
                         }
                         
                     } else {
-                        uiView.addAnnotation(loc)
-                        uiView.addOverlay(circle)
-                        VM.locationManager.startMonitoring(for: region)
+                        
+                        if !uiView.annotations.contains(where: { $0.title == event.title }) {
+                            print("Haven't seen \(event.title)")
+                            uiView.addAnnotation(loc)
+                            uiView.addOverlay(circle)
+                            VM.locationManager.startMonitoring(for: region)
+                        }
                     }
                 }
             }

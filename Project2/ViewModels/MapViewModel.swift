@@ -104,6 +104,14 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                         do {
                             
                             self.regionEvent = try doc.data(as: FirestoreActiveEvent.self)
+                            
+                            if let seconds = self.regionEvent?.seconds, seconds <= 0 {
+                                print("EVENT WAS FINISHED, SO DONT REACT TO THE REGION")
+                                return
+                            }
+                            
+                            print("You have entered the region: \(region.identifier)")
+                            
                             // Start timer
                             self.eventTimer = EventTimer(event: self.regionEvent!)
                             self.eventTimer?.start()
@@ -137,11 +145,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                 }
             }
         }
-        
-        let title = "You Entered the Region"
-        let message = "Wow theres cool stuff in here! YAY!"
-        print("\(title): \(message)")
-        print("Region: \(region.identifier)")
     }
         
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
@@ -167,7 +170,15 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                     } else {
                         
                         if let doc = querySnapshot?.documents.first, doc.exists {
-                            collection.document(doc.documentID).updateData(["seconds": timer.active_event.seconds])
+                            
+                            do {
+                                let e = try doc.data(as: FirestoreActiveEvent.self)
+                                if e.seconds > 0 {
+                                    print("Exiting region: \(region.identifier)")
+                                    collection.document(doc.documentID).updateData(["seconds": timer.active_event.seconds])
+                                }
+                            } catch { print("Error getting data from firestore to make an active event") }
+                            
                         }
                         
                     }
@@ -175,10 +186,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
             }
         }
         
-        let title = "You Left the Region"
-        let message = "Say bye bye to all that cool stuff. =["
-        print("\(title): \(message)")
-        print("Region: \(region.identifier)")
     }
     
 }
@@ -260,6 +267,9 @@ class EventTimer: ObservableObject {
                 
             }
         }
+        
+        // Remove annotation
+        
         
         timer.invalidate()
     }
