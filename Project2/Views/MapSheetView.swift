@@ -23,6 +23,10 @@ struct MapSheetView: View {
             VStack {
                 if let pokemon = pointOfInterest.mapPokemon, pointOfInterest.isPokemon() {
                     
+                    if MapViewModel.shared.currentEncounterablePokemon.contains(where: { $0 == pokemon.id }) {
+                        
+                    }
+                    
                     Text("You spotted a wild pokemon!").font(.largeTitle)
                     
                     ZStack {
@@ -38,8 +42,8 @@ struct MapSheetView: View {
                         backgroundBox
                         
                         VStack {
-                            Text("Title: \(event.title)")
-                            Text("@ \(event.start.formatted()) - \(event.end.formatted())")
+                            Text("**\(event.title)**\n").font(.title)
+                            Text("From: \(event.start.formatted())\nUntil: \(event.end.formatted())\n")
                             pokemonRewardView
                         }
                     }
@@ -57,12 +61,36 @@ struct MapSheetView: View {
             .padding(.horizontal, 10)
             .padding(.bottom, 10)
             .foregroundColor(.blue)
+            .opacity(0.6)
     }
     
     var pokemonRewardView : some View {
         VStack {
             if let pokemon = pointOfInterest.mapPokemon, pointOfInterest.isPokemon() {
                 let pkm = allPokemon.first{ $0.pokemon.id! == pokemon.pokemonID }!
+                
+                if MapViewModel.shared.currentEncounterablePokemon.contains(where: { $0 == pokemon.id }) {
+                    Spacer()
+                    Button {
+                        
+                        
+                        
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .shadow(radius: 10)
+                                .padding(.horizontal, 10)
+                                .padding(.bottom, 10)
+                                .foregroundColor(.red)
+                                .frame(width: 200, height: 80, alignment: .center)
+                            Text("Battle!")
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                            
+                        }
+                    }
+                }
+                Spacer()
                 
                 PokemonView(pokemon: pkm.pokemon, dimensions: 120, showName: true, showID: true)
                 

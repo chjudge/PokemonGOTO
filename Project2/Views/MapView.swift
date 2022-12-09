@@ -79,9 +79,9 @@ struct MapView: UIViewRepresentable {
             marker.title = pkm.name
             marker.coordinate = CLLocationCoordinate2D(latitude: pkm.location!.latitude, longitude: pkm.location!.longitude)
             // Add region
-            //let region = CLCircularRegion(center: marker.coordinate, radius: CLLocationDistance(3), identifier: "pokemon\(pkm.id!)")
+            let region = CLCircularRegion(center: marker.coordinate, radius: CLLocationDistance(3), identifier: "pokemon\(pkm.id!)")
             uiView.addAnnotation(marker)
-            //VM.locationManager.startMonitoring(for: region)
+            VM.locationManager.startMonitoring(for: region)
         }
         
         if VM.randomPokemonFirestore.firestoreModels.count > 6 { return }
@@ -110,11 +110,11 @@ struct MapView: UIViewRepresentable {
 
 //        uiView.removeAnnotations(uiView.annotations)
 //        uiView.removeOverlays(uiView.overlays)
+        let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
         
         for event in events {
-            // Skip ones youve already achieved
+            
             // Check if you have been to event
-            let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
             let query = collection.whereField("event_id", isEqualTo: event.id!)
             
             // Add annotations
@@ -140,13 +140,29 @@ struct MapView: UIViewRepresentable {
                             let regionEvent = try doc.data(as: FirestoreActiveEvent.self)
                             
                             if regionEvent.seconds > 0 {
-                                print("\(event.title) is good to go")
-                                uiView.addAnnotation(loc)
-                                uiView.addOverlay(circle)
-                                VM.locationManager.startMonitoring(for: region)
-                                print("They already have this event finished")
+                                
+                                // Don't add if already there
+                                if !uiView.annotations.contains(where: { $0.title == event.title }) {
+                                    print("\(event.title) is good to go")
+                                    uiView.addAnnotation(loc)
+                                    uiView.addOverlay(circle)
+                                    VM.locationManager.startMonitoring(for: region)
+                                }
+                                
                             } else {
-                                print("finished the event \(event.title)")
+                                
+                                // Remove annotation
+                                if let target = uiView.annotations.first(where: { $0.title == event.title }) {
+                                    print("Removed Annotation")
+                                    uiView.removeAnnotation(target)
+                                }
+                                
+//                              // Remove overlays
+                                if let overlay = uiView.overlays.first(where: { $0.coordinate.latitude == loc.coordinate.latitude && $0.coordinate.longitude == loc.coordinate.longitude }) {
+                                    print("Removed Overlay")
+                                    uiView.removeOverlay(overlay)
+                                }
+                                
                             }
                             
                         } catch {
@@ -154,9 +170,13 @@ struct MapView: UIViewRepresentable {
                         }
                         
                     } else {
-                        uiView.addAnnotation(loc)
-                        uiView.addOverlay(circle)
-                        VM.locationManager.startMonitoring(for: region)
+                        
+                        if !uiView.annotations.contains(where: { $0.title == event.title }) {
+                            print("Haven't seen \(event.title)")
+                            uiView.addAnnotation(loc)
+                            uiView.addOverlay(circle)
+                            VM.locationManager.startMonitoring(for: region)
+                        }
                     }
                 }
             }

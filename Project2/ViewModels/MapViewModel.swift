@@ -26,6 +26,8 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     var regionEvent: FirestoreActiveEvent? = nil
     var pointOfInterest = PointOfInterestModel()
     
+    var currentEncounterablePokemon: [String] = [String]()
+    
     static let shared: MapViewModel = {
         return MapViewModel()
     }()
@@ -78,8 +80,10 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
         if region.identifier.hasPrefix("pokemon") {
             // TODO: wild pokemon encounter
             print("Contacted with pokemon")
-            let pokemondID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
-            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemondID })
+            let pokemonID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
+            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemonID })
+            currentEncounterablePokemon.append(String(pokemonID))
+            print("Current encounterable pokemon (entering) \(currentEncounterablePokemon)")
             // TODO: continue
             
         } else { // Event encounter
@@ -100,6 +104,14 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                         do {
                             
                             self.regionEvent = try doc.data(as: FirestoreActiveEvent.self)
+                            
+                            if let seconds = self.regionEvent?.seconds, seconds <= 0 {
+                                print("EVENT WAS FINISHED, SO DONT REACT TO THE REGION")
+                                return
+                            }
+                            
+                            print("You have entered the region: \(region.identifier)")
+                            
                             // Start timer
                             self.eventTimer = EventTimer(event: self.regionEvent!)
                             self.eventTimer?.start()
@@ -133,20 +145,16 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                 }
             }
         }
-        
-        let title = "You Entered the Region"
-        let message = "Wow theres cool stuff in here! YAY!"
-        print("\(title): \(message)")
-        print("Region: \(region.identifier)")
     }
         
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
 
         if region.identifier.hasPrefix("pokemon") {
             // TODO: wild pokemon dis-encounter
-            print("Contacted with pokemon")
-            let pokemondID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
-            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemondID })
+            let pokemonID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
+            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemonID })
+            currentEncounterablePokemon.removeAll{ $0 == String(pokemonID)}
+            print("Current encounterable pokemon (leaving) \(currentEncounterablePokemon)")
             // TODO: continue
             
         } else { // Event dis-encounter
@@ -162,7 +170,15 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
                     } else {
                         
                         if let doc = querySnapshot?.documents.first, doc.exists {
-                            collection.document(doc.documentID).updateData(["seconds": timer.active_event.seconds])
+                            
+                            do {
+                                let e = try doc.data(as: FirestoreActiveEvent.self)
+                                if e.seconds > 0 {
+                                    print("Exiting region: \(region.identifier)")
+                                    collection.document(doc.documentID).updateData(["seconds": timer.active_event.seconds])
+                                }
+                            } catch { print("Error getting data from firestore to make an active event") }
+                            
                         }
                         
                     }
@@ -170,10 +186,6 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
             }
         }
         
-        let title = "You Left the Region"
-        let message = "Say bye bye to all that cool stuff. =["
-        print("\(title): \(message)")
-        print("Region: \(region.identifier)")
     }
     
 }
@@ -217,7 +229,6 @@ class EventTimer: ObservableObject {
     func finish() {
         print("timer reached .finished")
         status = .finished
-        active_event.seconds = 0
 
         let alertController = UIAlertController(title: "Congratulations!", message: "You completed \"Attend \(eventDetails.title)\"\n\n+\(eventDetails.experience) Experience\n\n\n             \(PokemonManager.shared.allPokemon.first{ $0.pokemon.id == eventDetails.pokemon_id }!.pokemon.name!.capitalized)\n             Lvl. \(eventDetails.pokemon_level)\n\n", preferredStyle: .alert)
         
@@ -237,6 +248,29 @@ class EventTimer: ObservableObject {
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true) {
             // optional code for what happens after the alert controller has finished presenting
         }
+        
+        active_event.seconds = 0
+        let db = Firestore.firestore()
+        // Update the firestore
+        let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
+        let query = collection.whereField("event_id", isEqualTo: eventDetails.id as Any)
+        query.getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print("ERROR")
+                print(error.localizedDescription)
+            } else {
+                
+                print("Trying to update")
+                if let doc = querySnapshot?.documents.first, doc.exists {
+                    collection.document(doc.documentID).updateData(["seconds": 0])
+                }
+                
+            }
+        }
+        
+        // Remove annotation
+        
+        
         timer.invalidate()
     }
     
