@@ -10,7 +10,7 @@ import PokemonAPI
 
 struct ContentView: View {
     
-    @State var tabIndex = 1
+    @State var tabIndex = 2
     
     var body: some View {
         
