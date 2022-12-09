@@ -110,11 +110,14 @@ struct MapView: UIViewRepresentable {
 
 //        uiView.removeAnnotations(uiView.annotations)
 //        uiView.removeOverlays(uiView.overlays)
+        let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
         
         for event in events {
-            // Skip ones youve already achieved
+            
+            // Don't add if already there
+            if uiView.annotations.contains(where: { $0.title == event.title }) { continue }
+            
             // Check if you have been to event
-            let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
             let query = collection.whereField("event_id", isEqualTo: event.id!)
             
             // Add annotations

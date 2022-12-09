@@ -217,7 +217,6 @@ class EventTimer: ObservableObject {
     func finish() {
         print("timer reached .finished")
         status = .finished
-        active_event.seconds = 0
 
         let alertController = UIAlertController(title: "Congratulations!", message: "You completed \"Attend \(eventDetails.title)\"\n\n+\(eventDetails.experience) Experience\n\n\n             \(PokemonManager.shared.allPokemon.first{ $0.pokemon.id == eventDetails.pokemon_id }!.pokemon.name!.capitalized)\n             Lvl. \(eventDetails.pokemon_level)\n\n", preferredStyle: .alert)
         
@@ -237,6 +236,26 @@ class EventTimer: ObservableObject {
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true) {
             // optional code for what happens after the alert controller has finished presenting
         }
+        
+        active_event.seconds = 0
+        let db = Firestore.firestore()
+        // Update the firestore
+        let collection = db.collection("users/\(UserManager.shared.uid!)/active_events")
+        let query = collection.whereField("event_id", isEqualTo: eventDetails.id as Any)
+        query.getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print("ERROR")
+                print(error.localizedDescription)
+            } else {
+                
+                print("Trying to update")
+                if let doc = querySnapshot?.documents.first, doc.exists {
+                    collection.document(doc.documentID).updateData(["seconds": 0])
+                }
+                
+            }
+        }
+        
         timer.invalidate()
     }
     
