@@ -83,7 +83,7 @@ struct MapSheetView: View {
                                 .padding(.bottom, 10)
                                 .foregroundColor(.red)
                                 .frame(width: 200, height: 80, alignment: .center)
-                            Text("Collect!")
+                            Text("Catch!")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
                             
