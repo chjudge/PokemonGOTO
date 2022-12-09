@@ -18,7 +18,7 @@ struct WorldView: View {
         ZStack {
             MapView(showEvent: $showEvent)
                 .sheet(isPresented: $showEvent) {
-                    MapSheetView(pointOfInterest: MVM.pointOfInterest)
+                    MapSheetView(pointOfInterest: MVM.pointOfInterest, parentView: self)
                 }
                 .edgesIgnoringSafeArea(.top)
             //            .alert(

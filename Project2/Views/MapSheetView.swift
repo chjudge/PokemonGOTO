@@ -14,6 +14,7 @@ struct MapSheetView: View {
     
     var pointOfInterest: PointOfInterestModel
     let allPokemon = PokemonManager.shared.allPokemon
+    var parentView: WorldView
     
     //@State var types: [PKMType] = []
     
@@ -72,9 +73,8 @@ struct MapSheetView: View {
                 if MapViewModel.shared.currentEncounterablePokemon.contains(where: { $0 == pokemon.id }) {
                     Spacer()
                     Button {
-                        
-                        
-                        
+                        parentView.showEvent = false
+                        PokemonManager.shared.addReward(pokemon: PokedexViewModel.shared.filteredPokemon.first{ $0.id == pokemon.pokemonID}!, level: pokemon.level)
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
@@ -83,7 +83,7 @@ struct MapSheetView: View {
                                 .padding(.bottom, 10)
                                 .foregroundColor(.red)
                                 .frame(width: 200, height: 80, alignment: .center)
-                            Text("Battle!")
+                            Text("Collect!")
                                 .font(.largeTitle)
                                 .foregroundColor(.black)
                             
