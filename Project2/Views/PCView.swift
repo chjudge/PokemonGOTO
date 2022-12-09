@@ -19,8 +19,10 @@ struct PCView: View {
             VStack {
                 Text("XP: \(PCVM.userStepCount)")
                 List(PCVM.firestore.firestoreModels, id: \.id) { pkm in
-                    NavigationLink(destination: PCDetailView(pokemonOBJ: PKMManager.allPokemon.first{ $0.pokemon.id == pkm.pokemonID}!, FSPokemon: pkm)) {
-                        PokemonView(pokemon: PKMManager.allPokemon.first{ $0.pokemon.id == pkm.pokemonID }!.pokemon, dimensions: 120, showName: true, showID: true)
+                    NavigationLink(destination: PCDetailView(id: pkm.pokemonID)) {
+                        if let pokemon = PKMManager.allPokemon.first(where: { $0.pokemon.id == pkm.pokemonID }){
+                            PokemonView(pokemon: pokemon.pokemon, dimensions: 120, showName: true, showID: true)
+                        }
                     }
                 }
             }

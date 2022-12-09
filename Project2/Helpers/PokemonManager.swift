@@ -192,4 +192,41 @@ class PokemonManager: ObservableObject {
         }
         
     }
+    
+    func addXP(id: Int, xp: Int){
+        let pokemon = db.collection("users/\(UserManager.shared.uid!)/pokemon").document("\(id)")
+        
+        pokemon.getDocument{ (document, error) in
+            if let document = document, document.exists {
+                do {
+                    var data = try document.data(as: FirestorePokemon.self)
+                    data.xp += xp
+                    try pokemon.setData(from: data)
+                    
+                } catch {
+                    print("error with the xp")
+                }
+                
+            } else {
+                print("Error adding xp to pokemon in PC")
+                if let err = error{
+                    print(err.localizedDescription)
+                }
+            }
+        }
+        
+        UserManager.shared.removeXP(steps: xp)
+        
+        let startDay = Calendar.current.startOfDay(for: UserManager.shared.user!.start_day.dateValue())
+        
+        PCViewModel.shared.healthKitManager.readStepCount(startDay: startDay) { step in
+            print("in the closure \(step)")
+            if step != 0.0 {
+                DispatchQueue.main.async {
+                    //calculate how much they have remaining
+                    PCViewModel.shared.userStepCount = Int(step) - UserManager.shared.user!.steps
+                }
+            }
+        }
+    }
 }
