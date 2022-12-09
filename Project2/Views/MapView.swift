@@ -147,9 +147,19 @@ struct MapView: UIViewRepresentable {
                                 uiView.addAnnotation(loc)
                                 uiView.addOverlay(circle)
                                 VM.locationManager.startMonitoring(for: region)
-                                print("They already have this event finished")
                             } else {
                                 print("finished the event \(event.title)")
+                                // Remove annotation
+                                if let target = uiView.annotations.first(where: { $0.title == event.title }) {
+                                    print("Removed Annotation")
+                                    uiView.removeAnnotation(target)
+                                }
+//                              // Remove overlays
+                                if let overlay = uiView.overlays.first(where: { $0.coordinate.latitude == loc.coordinate.latitude && $0.coordinate.longitude == loc.coordinate.longitude }) {
+                                    print("Removed Overlay")
+                                    uiView.removeOverlay(overlay)
+                                }
+                                
                             }
                             
                         } catch {
