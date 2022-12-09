@@ -68,13 +68,9 @@ struct MapSheetView: View {
                 
                 Text("Level: \(pokemon.level)").padding(.top, 20)
                 Text("Max Hp: \(pokemon.maxHP)")
-                Text("Type: \(pkm.types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
-//                Text("Type: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
-//                    .onAppear{
-//                        Task(){
-//                            types = await PKMManager.fetchType(types: pok.types!)
-//                        }
-//                    }
+                if let types = pkm.types{
+                Text("Type: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
+                }
                 
             } else if let event = pointOfInterest.event, pointOfInterest.isEvent() {
                 
