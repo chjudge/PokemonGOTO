@@ -12,7 +12,7 @@ import SwiftUI
 
 struct PokemonObject {
     var pokemon: PKMPokemon
-    var types: [PKMType]
+    var types: [PKMType]?
     var sprite: UIImage?
 }
 
@@ -27,6 +27,8 @@ class PokemonManager: ObservableObject {
     
     @Published var allPokemon: [PokemonObject] = [PokemonObject]()
     
+    var betterPKM = [PokemonObject]()
+    
     func loadPokemon(paginationState: PaginationState<PKMPokemon> = .initial(pageLimit: 151)) async {
         let start = allPokemon.count
         
@@ -37,21 +39,33 @@ class PokemonManager: ObservableObject {
                     for r in results.suffix(from: start){
                         group.addTask{ [self] in
                             let pkm = try await pokemonAPI.pokemonService.fetchPokemon(r.name!)
-                            let types = await fetchType(types: pkm.types!)
-                            
-                            var image: UIImage? = nil
-                            
-                            if let url = URL(string: pkm.sprites?.frontDefault ?? ""){
-                                let imageData = try Data(contentsOf: url)
-                                image = UIImage(data: imageData)
-                            }
-                            let pokemonOBJ = PokemonObject(pokemon: pkm, types: types, sprite: image)
-//                            let sprite = try await pokemonAPI.pokemonService
+                            let pokemonOBJ = PokemonObject(pokemon: pkm)
                             DispatchQueue.main.async{ self.allPokemon.append(pokemonOBJ) }
                         }
                     }
                 }
             }
+            await withThrowingTaskGroup(of: Void.self){ group in
+                for pokemon in self.allPokemon{
+                    group.addTask{ [self] in
+                        let pkm = pokemon.pokemon
+                        
+                        let types = await fetchType(types: pkm.types!)
+
+                        var image: UIImage? = nil
+
+                        if let url = URL(string: pkm.sprites?.frontDefault ?? ""){
+                            let imageData = try Data(contentsOf: url)
+                            image = UIImage(data: imageData)
+                        }
+                        
+                        let pokemonOBJ = PokemonObject(pokemon: pkm, types: types, sprite: image)
+                        DispatchQueue.main.async{ self.betterPKM.append(pokemonOBJ) }
+                    }
+                }
+            }
+            DispatchQueue.main.async{ self.allPokemon = self.betterPKM }
+            
         } catch {
             print("Error loading pokedex: \(error.localizedDescription)")
         }
@@ -177,5 +191,42 @@ class PokemonManager: ObservableObject {
             print("Error adding pokemon to PC \(error.localizedDescription)")
         }
         
+    }
+    
+    func addXP(id: Int, xp: Int){
+        let pokemon = db.collection("users/\(UserManager.shared.uid!)/pokemon").document("\(id)")
+        
+        pokemon.getDocument{ (document, error) in
+            if let document = document, document.exists {
+                do {
+                    var data = try document.data(as: FirestorePokemon.self)
+                    data.xp += xp
+                    try pokemon.setData(from: data)
+                    
+                } catch {
+                    print("error with the xp")
+                }
+                
+            } else {
+                print("Error adding xp to pokemon in PC")
+                if let err = error{
+                    print(err.localizedDescription)
+                }
+            }
+        }
+        
+        UserManager.shared.removeXP(steps: xp)
+        
+        let startDay = Calendar.current.startOfDay(for: UserManager.shared.user!.start_day.dateValue())
+        
+        PCViewModel.shared.healthKitManager.readStepCount(startDay: startDay) { step in
+            print("in the closure \(step)")
+            if step != 0.0 {
+                DispatchQueue.main.async {
+                    //calculate how much they have remaining
+                    PCViewModel.shared.userStepCount = Int(step) - UserManager.shared.user!.steps
+                }
+            }
+        }
     }
 }

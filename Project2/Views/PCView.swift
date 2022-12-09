@@ -18,35 +18,16 @@ struct PCView: View {
         NavigationView {
             VStack {
                 Text("XP: \(PCVM.userStepCount)")
-                List(PCVM.pokemon, id: \.id) { pkm in
-                    NavigationLink(destination: PokemonDetailView(pokemon:pkm, dimensions: 120, seen: true)) {
-                        PokemonView(pokemon: pkm, dimensions: 120, showName: true, showID: true)
-                    }
-                }.onReceive(PCVM.firestore.$firestoreModels){ pokemon in
-                    PCVM.pokemon.removeAll()
-                    for pkm in pokemon{
-                        Task{
-                            if let pk = await PKMManager.fetchPokemon(id: pkm.pokemonID){
-                                    PCVM.pokemon.append(pk)
-                                }
-                            }
+                List(PCVM.firestore.firestoreModels, id: \.id) { pkm in
+                    NavigationLink(destination: PCDetailView(id: pkm.pokemonID)) {
+                        if let pokemon = PKMManager.allPokemon.first(where: { $0.pokemon.id == pkm.pokemonID }){
+                            PokemonView(pokemon: pokemon.pokemon, dimensions: 120, showName: true, showID: true)
                         }
-                    
+                    }
                 }
             }
             .navigationBarTitle("My PC")
             .navigationBarTitleDisplayMode(.inline)
-//            .onAppear {
-//                if let uid = AuthManager.shared.uid {
-//                    let path = "users/\(uid)/pokemon"
-//                    print("creating query \(path)")
-//                    let query = PCVM.firestore.query(collection: path)
-//                    PCVM.firestore.subscribe(to: query)
-//                }
-//            }
-//            .onDisappear {
-//                PCVM.firestore.unsubscribe()
-//            }
         }
     }
 }

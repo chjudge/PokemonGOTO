@@ -30,7 +30,9 @@ struct PokemonDetailView: View {
                     if seen ?? true {
                         Text("**Weight**: \(String(format: "%.2f", Double(pokemon.weight ?? 0) / 10)) KG")
                         Text("**Height**: \(String(format: "%.2f", Double(pokemon.height ?? 0) / 10)) M")
-                        Text("**Type**: \((PKMManager.allPokemon.first{ $0.pokemon.id == pokemon.id }!.types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")})))")
+                        if let types = PKMManager.allPokemon.first{ $0.pokemon.id == pokemon.id }!.types {
+                            Text("**Type**: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
+                        }
                     } else {
                         Text("**Weight**: ??? KG")
                         Text("**Height**: ??? M")
