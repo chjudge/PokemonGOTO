@@ -26,6 +26,8 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
     var regionEvent: FirestoreActiveEvent? = nil
     var pointOfInterest = PointOfInterestModel()
     
+    var currentEncounterablePokemon: [String] = [String]()
+    
     static let shared: MapViewModel = {
         return MapViewModel()
     }()
@@ -78,8 +80,10 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
         if region.identifier.hasPrefix("pokemon") {
             // TODO: wild pokemon encounter
             print("Contacted with pokemon")
-            let pokemondID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
-            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemondID })
+            let pokemonID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
+            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemonID })
+            currentEncounterablePokemon.append(String(pokemonID))
+            print("Current encounterable pokemon (entering) \(currentEncounterablePokemon)")
             // TODO: continue
             
         } else { // Event encounter
@@ -144,9 +148,10 @@ class MapViewModel: NSObject, CLLocationManagerDelegate, ObservableObject {
 
         if region.identifier.hasPrefix("pokemon") {
             // TODO: wild pokemon dis-encounter
-            print("Contacted with pokemon")
-            let pokemondID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
-            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemondID })
+            let pokemonID = region.identifier.dropFirst(7) // drops the "pokemon" prefix (id remains)
+            let wildPokemon = randomPokemonFirestore.firestoreModels.first(where: { $0.id! == pokemonID })
+            currentEncounterablePokemon.removeAll{ $0 == String(pokemonID)}
+            print("Current encounterable pokemon (leaving) \(currentEncounterablePokemon)")
             // TODO: continue
             
         } else { // Event dis-encounter

@@ -79,9 +79,9 @@ struct MapView: UIViewRepresentable {
             marker.title = pkm.name
             marker.coordinate = CLLocationCoordinate2D(latitude: pkm.location!.latitude, longitude: pkm.location!.longitude)
             // Add region
-            //let region = CLCircularRegion(center: marker.coordinate, radius: CLLocationDistance(3), identifier: "pokemon\(pkm.id!)")
+            let region = CLCircularRegion(center: marker.coordinate, radius: CLLocationDistance(3), identifier: "pokemon\(pkm.id!)")
             uiView.addAnnotation(marker)
-            //VM.locationManager.startMonitoring(for: region)
+            VM.locationManager.startMonitoring(for: region)
         }
         
         if VM.randomPokemonFirestore.firestoreModels.count > 6 { return }
