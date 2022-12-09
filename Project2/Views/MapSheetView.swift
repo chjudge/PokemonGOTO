@@ -100,6 +100,8 @@ struct MapSheetView: View {
                 Text("Type: \(types.compactMap{$0.name!}.reduce("", {String("\($0) \($1)")}))")
                 }
                 
+                Spacer()
+                
             } else if let event = pointOfInterest.event, pointOfInterest.isEvent() {
                 
                 PokemonView(pokemon: allPokemon.first(where: { $0.pokemon.id! == event.pokemon_id })!.pokemon, dimensions: 120, showName: true, showID: true)
